@@ -1,4 +1,4 @@
-package org.bigraph.bigSim
+package org.bigraph.bigsim
 
 object Data {
   var dataCtrls: List[String] = null

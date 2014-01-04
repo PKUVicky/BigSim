@@ -1,4 +1,4 @@
-package org.bigraph.bigSim
+package org.bigraph.bigsim
 
 import java.io.File
 import java.io.FileWriter
@@ -7,8 +7,8 @@ import scala.collection.mutable.Map
 import scala.collection.mutable.Set
 import scala.collection.mutable.Stack
 import scala.xml.XML
-import org.bigraph.bigSim.strategy.ParseRules
-import org.bigraph.bigSim.datamodel.DataModel
+import org.bigraph.bigsim.strategy.ParseRules
+import org.bigraph.bigsim.datamodel.DataModel
 
 class Graph(init: Vertex) {
   val root: Vertex = init;

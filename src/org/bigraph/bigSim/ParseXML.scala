@@ -1,11 +1,11 @@
-package org.bigraph.bigSim
+package org.bigraph.bigsim
 
 import scala.Array.canBuildFrom
 import scala.collection.mutable.Map
 import scala.collection.mutable.Set
 import scala.xml.XML
 
-import org.bigraph.bigSim.strategy.ParseRules
+import org.bigraph.bigsim.strategy.ParseRules
 
 object ParseXML {
   // 路径中某个状态节点，要有给定的感兴趣模式中的至少某一个，所以，只要找每一条规则的生成物就ok

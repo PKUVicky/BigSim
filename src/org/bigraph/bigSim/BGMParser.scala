@@ -1,8 +1,8 @@
-package org.bigraph.bigSim
+package org.bigraph.bigsim
 
 import java.io.File
 import scala.util.parsing.combinator.RegexParsers
-import org.bigraph.bigSim.datamodel.DataModel
+import org.bigraph.bigsim.datamodel.DataModel
 
 abstract class BGMTerm {
 }

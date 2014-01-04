@@ -1,4 +1,4 @@
-package org.bigraph.bigSim
+package org.bigraph.bigsim
 
 import scala.collection.mutable.Set
 import java.util.Random

@@ -1,9 +1,9 @@
-package org.bigraph.bigSim.datamodel
+package org.bigraph.bigsim.datamodel
 
-import org.bigraph.bigSim._
+import org.bigraph.bigsim._
 import java.io.File
 import scala.io.Source
-import org.bigraph.bigSim.ReactionRule
+import org.bigraph.bigsim.ReactionRule
 
 class Data(n: String, dt: String, v: String, u: String) {
   val name = n

@@ -1,7 +1,7 @@
-package org.bigraph.bigSim
+package org.bigraph.bigsim
 
 import java.io.File
-import org.bigraph.bigSim.datamodel.DataModel
+import org.bigraph.bigsim.datamodel.DataModel
 
 object BigSim extends App {
   def usage = System.err.println("""    

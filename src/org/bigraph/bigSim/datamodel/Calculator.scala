@@ -1,4 +1,4 @@
-package org.bigraph.bigSim.datamodel
+package org.bigraph.bigsim.datamodel
 
 import scala.util.parsing.combinator.RegexParsers
 

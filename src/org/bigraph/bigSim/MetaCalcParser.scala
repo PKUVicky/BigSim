@@ -1,4 +1,4 @@
-package org.bigraph.bigSim
+package org.bigraph.bigsim
 
 /**
  * @author tanch
@@ -12,7 +12,7 @@ package org.bigraph.bigSim
 
 import scala.util.parsing.combinator.syntactical.StandardTokenParsers
 import scala.util.parsing.combinator.JavaTokenParsers
-import org.bigraph.bigSim.datamodel.DataModel
+import org.bigraph.bigsim.datamodel.DataModel
 
 class Ident(val count: Int, val instance: String, val name: String) {
   def this(instance: String, name: String) = {

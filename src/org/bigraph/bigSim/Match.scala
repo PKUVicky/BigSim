@@ -1,4 +1,4 @@
-package org.bigraph.bigSim
+package org.bigraph.bigsim
 
 import scala.collection.immutable.TreeSet
 import scala.collection.mutable.Map

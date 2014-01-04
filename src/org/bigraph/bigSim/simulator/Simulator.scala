@@ -1,9 +1,16 @@
-package org.bigraph.bigsim
+package org.bigraph.bigsim.simulator
 
 import scala.collection.immutable.TreeMap
 import scala.collection.mutable.Map
 import scala.collection.mutable.Set
 import scala.collection.mutable.Stack
+import org.bigraph.bigsim.Bigraph
+import org.bigraph.bigsim.GlobalCfg
+import org.bigraph.bigsim.Graph
+import org.bigraph.bigsim.Match
+import org.bigraph.bigsim.Nil
+import org.bigraph.bigsim.ReactionRule
+import org.bigraph.bigsim.Vertex
 
 object Simulator {
   var matchDiscard: Set[Match] = Set();

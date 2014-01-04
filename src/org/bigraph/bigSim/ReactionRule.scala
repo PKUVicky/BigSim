@@ -1,7 +1,7 @@
-package org.bigraph.bigSim
+package org.bigraph.bigsim
 
-import org.bigraph.bigSim.datamodel.DataModel
-import org.bigraph.bigSim.datamodel.DataSpliter
+import org.bigraph.bigsim.datamodel.DataModel
+import org.bigraph.bigsim.datamodel.DataSpliter
 
 /**
  * @author zhaoxin

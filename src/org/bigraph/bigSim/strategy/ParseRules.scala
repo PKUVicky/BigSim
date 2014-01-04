@@ -1,17 +1,9 @@
-package org.bigraph.bigSim.strategy
+package org.bigraph.bigsim.strategy
 
 import scala.collection.mutable.Map
 import scala.collection.mutable.Set
 
-import org.bigraph.bigSim.Hole
-import org.bigraph.bigSim.Paraller
-import org.bigraph.bigSim.Prefix
-import org.bigraph.bigSim.ReactionRule
-import org.bigraph.bigSim.Regions
-import org.bigraph.bigSim.Term
-import org.bigraph.bigSim.TermParser
-import org.bigraph.bigSim.TermType
-
+import org.bigraph.bigsim._
 
 /**
  * 对rule进行分析，找出其def、cuse、puse的子结构。
