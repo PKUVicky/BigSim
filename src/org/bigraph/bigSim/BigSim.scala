@@ -2,6 +2,7 @@ package org.bigraph.bigsim
 
 import java.io.File
 import org.bigraph.bigsim.datamodel.DataModel
+import org.bigraph.bigsim.simulator.Simulator
 
 object BigSim extends App {
   def usage = System.err.println("""    
