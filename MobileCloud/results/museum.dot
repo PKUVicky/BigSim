@@ -1,0 +1,47 @@
+digraph reaction_graph {
+   rankdir=LR;
+   Node [shape = circle];
+ N__1644665403
+ N__363535304 -> N__328103919[ label = "r_3
+System Clock: 5
+Cond:bandwidth>=2,networkType==2"];
+ N_1691164737 -> N__28583435[ label = "r_6
+System Clock: 9
+Cond:"];
+ N__2089927177 -> N__1362452163[ label = "r_14
+System Clock: 19
+Cond:"];
+ N__1362452163 -> N_1357933211[ label = "r_14
+System Clock: 22
+Cond:"];
+ N__1948967416 -> N__363535304[ label = "r_1
+System Clock: 4
+Cond:"];
+ N_1487791681 -> N_1691164737[ label = "r_5
+System Clock: 7
+Cond:"];
+ N_1932327375 -> N__2089927177[ label = "r_12
+System Clock: 16
+Cond:"];
+ N__1644665403 -> N__1948967416[ label = "r_0
+System Clock: 3
+Cond:"];
+ N__1539827269 -> N__1055636788[ label = "r_9
+System Clock: 12
+Cond:"];
+ N_1228271679 -> N_1932327375[ label = "r_11
+System Clock: 15
+Cond:"];
+ N_1182362875 -> N__1539827269[ label = "r_8
+System Clock: 11
+Cond:"];
+ N__1055636788 -> N_1228271679[ label = "r_9
+System Clock: 13
+Cond:"];
+ N__328103919 -> N_1487791681[ label = "r_4
+System Clock: 6
+Cond:"];
+ N__28583435 -> N_1182362875[ label = "r_7
+System Clock: 10
+Cond:"];
+}

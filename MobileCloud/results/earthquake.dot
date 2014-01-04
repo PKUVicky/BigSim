@@ -1,0 +1,22 @@
+digraph reaction_graph {
+   rankdir=LR;
+   Node [shape = circle];
+   BigSim_Report [shape = doublecircle color = aliceblue style=filled];
+BigSim_Report -> N__1475456885[color = aliceblue label = "wExpr=0.3*speed+0.7*m1.power=48.0
+speed=20,networkType=3,m1.power=60,"];
+ N__943484382 -> N_1813055485[ label = "r_14
+System Clock: 2
+Cond:"];
+ N__1475456885 -> N__943484382[ label = "r_13
+System Clock: 1
+Cond:m1.power<=60"];
+ N_393856995 -> N__1116578589[ label = "r_17
+System Clock: 11
+Cond:"];
+ N_1813055485 -> N_585968382[ label = "r_15
+System Clock: 6
+Cond:"];
+ N_585968382 -> N_393856995[ label = "r_16
+System Clock: 7
+Cond:"];
+}
