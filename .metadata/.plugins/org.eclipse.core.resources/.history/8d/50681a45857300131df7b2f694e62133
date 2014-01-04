@@ -1,0 +1,56 @@
+# Controls
+%active Greater : 2;
+%active Less : 2;
+%active GreaterOrEqual : 2;
+%active LessOrEqual : 2;
+%active Equal : 2;
+%active NotEqual : 2;
+%active zone : 2;
+%active server : 2;
+%active network : 4;
+%active mobile : 6;
+%active resourceHandle : 2;
+%active costManager : 2;
+%active contextAware : 6;
+%active jobHandle : 2;
+%active application : 4;
+%active service : 4;
+%active securityManager : 2;
+%active speed : 1;
+%active power : 1;
+%active location : 1;
+%active complexity : 1;
+%active input : 1;
+%active bandwidth : 1;
+%active latency : 1;
+%active networkType : 1;
+%active time : 0;
+%active fee : 0;
+%active photo : 0;
+%active transition : 0;
+%active job : 1;
+%active part : 1;
+%active result : 0;
+%active clone : 2;
+%active weblet : 0;
+%active strategy : 0;
+%active finished : 0;
+%active pointXY : 1;
+%active luminous : 1;
+
+# Names
+%innername Bandwidth;
+%innername CAH;
+%innername JH;
+%innername networkType;
+
+# Rules
+%rule r_5 zone[idle,idle].network[idle,idle,idle,idle].(mobile[idle,idle,idle,idle,hasCAH1:edge,idle].(contextAware[hasCAH1:edge,idle,idle,powerIs1:edge,idle,idle,idle].power[powerIs1:edge] | application[idle,idle,idle,idle].(job[idle].$1 | job[idle].$2 | job[idle].$3)) | mobile[idle,idle,idle,idle,hasCAH2:edge,idle].(contextAware[hasCAH2:edge,idle,idle,powerIs2:edge,idle,idle,idle].power[powerIs2:edge] | application[idle,idle,idle,idle]) | mobile[idle,idle,idle,idle,hasCAH3:edge,idle].(contextAware[hasCAH3:edge,idle,idle,powerIs3:edge,idle,idle,idle].power[powerIs3:edge] | application[idle,idle,idle,idle])) | server[idle,idle].service[idle,idle,idle,idle] | $0 -> zone[idle,idle].network[idle,idle,idle,idle].(mobile[idle,idle,idle,idle,hasCAH1:edge,idle].(contextAware[hasCAH1:edge,idle,idle,powerIs1:edge,idle,idle,idle].power[powerIs1:edge] | application[idle,idle,idle,a:edge].(job[idle].$1 | job[idle].$2 | job[idle].$3)) | mobile[idle,idle,idle,idle,hasCAH2:edge,idle].(contextAware[hasCAH2:edge,idle,idle,powerIs2:edge,idle,idle,idle].power[powerIs2:edge] | application[idle,idle,idle,idle]) | mobile[idle,idle,idle,idle,hasCAH3:edge,idle].(contextAware[hasCAH3:edge,idle,idle,powerIs3:edge,idle,idle,idle].power[powerIs3:edge] | application[idle,idle,idle,idle])) | server[idle,idle].service[idle,idle,a:edge,idle] | $0{SysClk:3};
+
+
+
+# Model
+%agent apple:mobile[idle,idle,idle,idle,idle,idle].app:application[idle,idle,idle,idle]|destroyedArea:zone[idle,idle].network[idle,idle,idle,idle].(m1:mobile[idle,idle,idle,idle,hasCAH2:edge,idle].(app2:application[idle,idle,idle,idle]|cah2:contextAware[hasCAH2:edge,idle,idle,powerIs2:edge,idle,idle,idle].power1:power[powerIs2:edge])|m2:mobile[idle,idle,idle,idle,hasCAH3:edge,idle].(app3:application[idle,idle,idle,idle]|cah3:contextAware[hasCAH3:edge,idle,idle,powerIs3:edge,idle,idle,idle].power2:power[powerIs3:edge])|m3:mobile[idle,idle,idle,idle,hasCAH1:edge,idle].(app1:application[idle,idle,idle,idle].(job[idle].(luminous[idle]|pointXY[idle]|pressure[idle])|job[idle].(luminous[idle]|pointXY[idle]|pressure[idle])|job[idle].(luminous[idle]|pointXY[idle]|pressure[idle])|result|result|result)|cah1:contextAware[hasCAH1:edge,idle,idle,powerIs1:edge,idle,idle,idle].power3:power[powerIs1:edge]))|server:server[idle,idle].service:service[idle,idle,idle,idle]{};
+
+# Go!
+%check;

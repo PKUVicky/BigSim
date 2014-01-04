@@ -1,0 +1,57 @@
+!SESSION 2013-11-06 23:42:02.437 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product dk.itu.bigm.product
+Command-line arguments:  -product dk.itu.bigm.product -data /Users/liangwei/Documents/eclipseForScala/Eclipse.app/Contents/MacOS/workspace/../runtime-dk.itu.bigm.product -dev file:/Users/liangwei/Documents/eclipseForScala/Eclipse.app/Contents/MacOS/workspace/.metadata/.plugins/org.eclipse.pde.core/dk.itu.bigm.product/dev.properties -os macosx -ws cocoa -arch x86_64 -consoleLog
+
+!ENTRY org.eclipse.equinox.app 0 0 2013-11-06 23:42:04.267
+!MESSAGE Product dk.itu.bigm.product could not be found.
+
+!ENTRY org.eclipse.osgi 2 0 2013-11-06 23:42:04.294
+!MESSAGE One or more bundles are not resolved because the following root constraints are not resolved:
+!SUBENTRY 1 org.eclipse.osgi 2 0 2013-11-06 23:42:04.294
+!MESSAGE Bundle initial@reference:file:Eclipse.app/Contents/MacOS/workspace/BigM/ was not resolved.
+!SUBENTRY 2 dk.itu.bigm 2 0 2013-11-06 23:42:04.294
+!MESSAGE Missing required bundle org.eclipse.gef_0.0.0.
+
+!ENTRY org.eclipse.osgi 2 0 2013-11-06 23:42:04.296
+!MESSAGE The following is a complete list of bundles which are not resolved, see the prior log entry for the root cause if it exists:
+!SUBENTRY 1 org.eclipse.osgi 2 0 2013-11-06 23:42:04.296
+!MESSAGE Bundle dk.itu.bigm_2.1.0.1-DEVELOPMENT-qualifier [63] was not resolved.
+!SUBENTRY 2 dk.itu.bigm 2 0 2013-11-06 23:42:04.296
+!MESSAGE Missing required bundle org.eclipse.gef_0.0.0.
+
+!ENTRY org.eclipse.osgi 2 0 2013-11-06 23:42:04.320
+!MESSAGE One or more bundles are not resolved because the following root constraints are not resolved:
+!SUBENTRY 1 org.eclipse.osgi 2 0 2013-11-06 23:42:04.320
+!MESSAGE Bundle initial@reference:file:Eclipse.app/Contents/MacOS/workspace/BigM/ was not resolved.
+!SUBENTRY 2 dk.itu.bigm 2 0 2013-11-06 23:42:04.320
+!MESSAGE Missing required bundle org.eclipse.gef_0.0.0.
+
+!ENTRY org.eclipse.osgi 2 0 2013-11-06 23:42:04.322
+!MESSAGE The following is a complete list of bundles which are not resolved, see the prior log entry for the root cause if it exists:
+!SUBENTRY 1 org.eclipse.osgi 2 0 2013-11-06 23:42:04.322
+!MESSAGE Bundle dk.itu.bigm_2.1.0.1-DEVELOPMENT-qualifier [63] was not resolved.
+!SUBENTRY 2 dk.itu.bigm 2 0 2013-11-06 23:42:04.322
+!MESSAGE Missing required bundle org.eclipse.gef_0.0.0.
+
+!ENTRY org.eclipse.osgi 4 0 2013-11-06 23:42:04.325
+!MESSAGE Application error
+!STACK 1
+java.lang.RuntimeException: No application id has been found.
+	at org.eclipse.equinox.internal.app.EclipseAppContainer.startDefaultApp(EclipseAppContainer.java:242)
+	at org.eclipse.equinox.internal.app.MainApplicationLauncher.run(MainApplicationLauncher.java:29)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:344)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:622)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:577)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1410)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1386)

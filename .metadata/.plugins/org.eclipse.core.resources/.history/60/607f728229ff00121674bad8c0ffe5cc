@@ -1,0 +1,144 @@
+package org.bigraph.bigmc
+
+import java.io.File
+
+object BigMCOpts {
+  	var DEBUG : Boolean = false;
+  	var sortFileName : String = "";
+  	
+    var graphOutput : String = ""
+    var maxSteps : Int = 1000
+    var printMode : Boolean = true;
+    var localCheck : Boolean = false
+    var reportInterval : Int = 0
+    var verbose : Boolean = false
+    var filename : String = ""
+    var stochastic : Boolean = false
+}
+
+object BigMC extends App {
+    def usage = System.err.println("""    
+Usage: bigmc2 [options] <filename>
+
+  Options:
+    -G file     Output the reaction graph to a dot file.
+    -h --help   Display this help and exit.
+    -l          Local check mode - do not build the reaction graph.
+    -m x        Specify x maximum steps of graph unfolding (default: 1000)
+    -p          Print new states as they are discovered.
+    -r x        Output statistics and graphs every x steps (default: 500)
+    -S          Enable stochastic simulation
+    -v          Print version information and exit.
+    -V          Print verbose output while running.
+    -sf file    Specify the sorting file.""")
+
+    def version = println("BigMC v2.0.0\nCopyright (c) 2012 Gian Perrone <gdpe at itu dot dk>")
+
+    def parseOpts(args : List[String]) : Unit = args match {
+    	case ("-sf"::f::t) => {
+			BigMCOpts.sortFileName = f
+            parseOpts(t)
+        }
+		case ("-G"::f::t) => {
+			BigMCOpts.graphOutput = f
+            parseOpts(t)
+        }
+        case (("-h" | "--help")::t) => {
+            usage
+            System.exit(0)
+        }
+        case ("-m"::x::t) => {
+            BigMCOpts.maxSteps = x.toInt
+            parseOpts(t)
+        }
+        case ("-p"::t) => {
+            BigMCOpts.printMode = true
+            parseOpts(t)
+        }
+        case ("-l"::t) => {
+            BigMCOpts.localCheck = true
+            parseOpts(t)
+        }
+        case ("-r"::x::t) => {
+            BigMCOpts.reportInterval = x.toInt
+            parseOpts(t)
+        }
+        case ("-S"::t) => {
+            BigMCOpts.stochastic = true
+            parseOpts(t)
+        }
+        case ("-v"::t) => {
+            version
+            System.exit(0)
+        }
+        case ("-V"::t) => {
+            BigMCOpts.verbose = true
+            parseOpts(t)
+        }
+        case n::Nil => {
+            BigMCOpts.filename = n
+        }
+        case _ => {
+            usage
+            System.exit(1)
+        }
+    }
+
+    def registerPredicates : Unit = {
+    	Predicate.registerPredicate("empty", new PredEmpty());
+    	Predicate.registerPredicate("size", new PredSize());
+    	Predicate.registerPredicate("matches", new PredMatches());
+    	Predicate.registerPredicate("terminal", new PredTerminal());
+    	Predicate.registerPredicate("equal", new PredEqual());
+    }
+    
+    override def main(args : Array[String]) = {
+    	var start = System.currentTimeMillis();
+      
+        if(args.length == 0) {
+            usage
+            System.exit(1);
+        } else {
+            parseOpts(args.toList)
+            
+            if ("" == BigMCOpts.filename) {
+              println("You must input the filename of bgm!")
+              System.exit(1);
+            }
+            
+            //BigMCOpts.filename = "examples/decoction_new.bgm"
+            
+            var filename = "";
+            if (BigMCOpts.filename.contains("/"))
+            	filename = BigMCOpts.filename.split("/").toList.last.split("\\.").first;
+            else 
+            	filename = BigMCOpts.filename.split("\\\\").toList.last.split("\\.").first;
+            if ("" == BigMCOpts.graphOutput)
+              BigMCOpts.graphOutput = filename + ".dot";
+            if ("" == BigMCOpts.sortFileName)
+              BigMCOpts.sortFileName = "sortingFile/" + filename + ".xml"
+            
+            println("filename:" + BigMCOpts.filename);
+            println("sortFileName:" + BigMCOpts.sortFileName);
+            println("graphOutput:" + BigMCOpts.graphOutput);
+            
+            registerPredicates;  
+            
+            // bgm解析
+            val p = BGMParser.parse(new File(BigMCOpts.filename));
+            println("BGMParser result:" + p)
+            val b : Bigraph = BGMTerm.toBigraph(p);
+            println("Bigraph:" + b);
+            
+            // sorting 解析
+            Bigraph.sorting.init(BigMCOpts.sortFileName);
+            
+            val m = new MC(b)
+            m.check;
+            
+            var end = System.currentTimeMillis();
+            
+            println("start:" + start + ", end:" + end + ", used:" + (end-start));
+        }
+    }
+}

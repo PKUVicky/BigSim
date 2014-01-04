@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="Core bigraph.org model" modificationStamp="281551" version="1.2">
+    <package visibility="1">
+        <fragment handle="=Core bigraph.org model/src&lt;org.bigraph.model.process"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.process{IParticipant.java[IParticipant" modificationStamp="281693" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.process{IParticipantFactory.java[IParticipantFactory" modificationStamp="281694" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.process{IParticipantHost.java[IParticipantHost" modificationStamp="281695" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.process{ParticipantManager.java[ParticipantManager" modificationStamp="281696" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.process{AbstractParticipantHost.java[AbstractParticipantHost" modificationStamp="281692" restrictions="0" visibility="0"/>
+    </package>
+    <package visibility="1">
+        <fragment handle="=Core bigraph.org model/src&lt;org.bigraph.model.savers"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.savers{BigraphEditSaver.java[BigraphEditSaver" modificationStamp="281710" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.savers{IXMLSaver.java[IXMLSaver" modificationStamp="281715" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.savers{BigraphXMLSaver.java[BigraphXMLSaver" modificationStamp="281711" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.savers{ReactionRuleXMLSaver.java[ReactionRuleXMLSaver" modificationStamp="281716" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.savers{SortingXMLSaver.java[SortingXMLSaver" modificationStamp="281721" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.savers{EditXMLSaver.java[EditXMLSaver" modificationStamp="281712" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.savers{SimulationSpecXMLSaver.java[SimulationSpecXMLSaver" modificationStamp="281720" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.savers{FormRulesXMLSaver.java[FormRulesXMLSaver" modificationStamp="281713" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.savers{XMLSaver.java[XMLSaver" modificationStamp="281723" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.savers{SortSetXMLSaver.java[SortSetXMLSaver" modificationStamp="281722" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.savers{Saver.java[Saver" modificationStamp="281718" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.savers{SignatureXMLSaver.java[SignatureXMLSaver" modificationStamp="281719" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.savers{ISaver.java[ISaver" modificationStamp="281714" restrictions="0" visibility="0"/>
+    </package>
+    <package visibility="1">
+        <fragment handle="=Core bigraph.org model/src&lt;org.bigraph.model.resources"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.resources{ResourceService.java[ResourceService" modificationStamp="281707" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.resources{JavaResourceWrapper.java[JavaResourceWrapper" modificationStamp="281705" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.resources{JavaFileWrapper.java[JavaFileWrapper" modificationStamp="281704" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.resources{IFileWrapper.java[IFileWrapper" modificationStamp="281700" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.resources{ResourceOpenable.java[ResourceOpenable" modificationStamp="281706" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.resources{JavaContainerWrapper.java[JavaContainerWrapper" modificationStamp="281703" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.resources{IContainerWrapper.java[IContainerWrapper" modificationStamp="281699" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.resources{IOpenable.java[IOpenable" modificationStamp="281701" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.resources{IResourceWrapper.java[IResourceWrapper" modificationStamp="281702" restrictions="0" visibility="0"/>
+    </package>
+    <package visibility="1">
+        <fragment handle="=Core bigraph.org model/src&lt;org.bigraph.model.loaders"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.loaders{ILoader.java[ILoader" modificationStamp="281649" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.loaders{Loader.java[Loader" modificationStamp="281654" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.loaders{FormRulesXMLLoader.java[FormRulesXMLLoader" modificationStamp="281647" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.loaders{ReactionRuleXMLLoader.java[ReactionRuleXMLLoader" modificationStamp="281657" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.loaders{SortSetXMLLoader.java[SortSetXMLLoader" modificationStamp="281662" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.loaders{SortingXMLLoader.java[SortingXMLLoader" modificationStamp="281661" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.loaders{BigraphEditLoader.java[BigraphEditLoader" modificationStamp="281643" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.loaders{IXMLLoader.java[IXMLLoader" modificationStamp="281653" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.loaders{IChangeLoader.java[IChangeLoader" modificationStamp="281648" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.loaders{SimulationSpecXMLLoader.java[SimulationSpecXMLLoader" modificationStamp="281660" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.loaders{EditXMLLoader.java[EditXMLLoader" modificationStamp="281646" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.loaders{BigraphXMLLoader.java[BigraphXMLLoader" modificationStamp="281644" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.loaders{XMLLoader.java[XMLLoader" modificationStamp="281663" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.loaders{ChangeLoader.java[ChangeLoader" modificationStamp="281645" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.loaders{SignatureXMLLoader.java[SignatureXMLLoader" modificationStamp="281659" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.loaders{LoaderNotice.java[LoaderNotice" modificationStamp="281655" restrictions="0" visibility="0"/>
+    </package>
+    <package visibility="1">
+        <fragment handle="=Core bigraph.org model/src&lt;org.bigraph.model.changes.descriptors"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.changes.descriptors{ChangeDescriptorGroup.java[ChangeDescriptorGroup" modificationStamp="281584" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.changes.descriptors{BoundDescriptor.java[BoundDescriptor" modificationStamp="281582" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.changes.descriptors{ChangeCreationException.java[ChangeCreationException" modificationStamp="281583" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.changes.descriptors{IChangeDescriptor.java[IChangeDescriptor" modificationStamp="281590" restrictions="0" visibility="0"/>
+    </package>
+    <package visibility="1">
+        <fragment handle="=Core bigraph.org model/src&lt;org.bigraph.model.assistants"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.assistants{ValidatorManager.java[ValidatorManager" modificationStamp="281575" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.assistants{ExecutorManager.java[ExecutorManager" modificationStamp="281571" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.assistants{FileData.java[FileData" modificationStamp="281573" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.assistants{PropertyScratchpad.java[PropertyScratchpad" modificationStamp="281574" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.assistants{ExtendedDataUtilities.java[ExtendedDataUtilities" modificationStamp="281572" restrictions="0" visibility="0"/>
+    </package>
+    <package visibility="1">
+        <fragment handle="=Core bigraph.org model/src&lt;org.bigraph.model.names"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.names{HashMapNamespace.java[HashMapNamespace" modificationStamp="281670" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.names{Namespace.java[Namespace" modificationStamp="281672" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.names{INamespace.java[INamespace" modificationStamp="281671" restrictions="0" visibility="0"/>
+    </package>
+    <package visibility="1">
+        <fragment handle="=Core bigraph.org model/src&lt;org.bigraph.model.names.policies"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.names.policies{BooleanNamePolicy.java[BooleanNamePolicy" modificationStamp="281674" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.names.policies{StringNamePolicy.java[StringNamePolicy" modificationStamp="281680" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.names.policies{INamePolicy.java[INamePolicy" modificationStamp="281676" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.names.policies{BoundedIntegerNamePolicy.java[BoundedIntegerNamePolicy" modificationStamp="281675" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.names.policies{OperatorNamePolicy.java[OperatorNamePolicy" modificationStamp="281678" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.names.policies{LongNamePolicy.java[LongNamePolicy" modificationStamp="281677" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.names.policies{PositiveIntegerNamePolicy.java[PositiveIntegerNamePolicy" modificationStamp="281679" restrictions="0" visibility="0"/>
+    </package>
+    <package visibility="1">
+        <fragment handle="=Core bigraph.org model/src&lt;org.bigraph.model.utilities"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.utilities{FilteringIterable.java[FilteringIterable" modificationStamp="281735" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.utilities{ArrayIterable.java[ArrayIterable" modificationStamp="281734" restrictions="0" visibility="0"/>
+    </package>
+    <package visibility="1">
+        <fragment handle="=Core bigraph.org model/src&lt;org.bigraph.model.interfaces"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.interfaces{IPoint.java[IPoint" modificationStamp="281625" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.interfaces{IRoot.java[IRoot" modificationStamp="281627" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.interfaces{ISignature.java[ISignature" modificationStamp="281628" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.interfaces{IChild.java[IChild" modificationStamp="281613" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.interfaces{IControl.java[IControl" modificationStamp="281614" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.interfaces{IInnerName.java[IInnerName" modificationStamp="281619" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.interfaces{IEdge.java[IEdge" modificationStamp="281615" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.interfaces{IOuterName.java[IOuterName" modificationStamp="281622" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.interfaces{ILink.java[ILink" modificationStamp="281620" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.interfaces{SignatureBuilder.java[SignatureBuilder" modificationStamp="281633" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.interfaces{INode.java[INode" modificationStamp="281621" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.interfaces{IPlace.java[IPlace" modificationStamp="281624" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.interfaces{IBigraph.java[IBigraph" modificationStamp="281612" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.interfaces{IEntity.java[IEntity" modificationStamp="281616" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.interfaces{ISite.java[ISite" modificationStamp="281629" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.interfaces{IParent.java[IParent" modificationStamp="281623" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.interfaces{BigraphBuilder.java[BigraphBuilder" modificationStamp="281611" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.interfaces{IPort.java[IPort" modificationStamp="281626" restrictions="0" visibility="0"/>
+    </package>
+    <package visibility="1">
+        <fragment handle="=Core bigraph.org model/src&lt;org.bigraph.model.changes"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.changes{Change.java[Change" modificationStamp="281578" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.changes{IChangeExecutor.java[IChangeExecutor" modificationStamp="281592" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.changes{IStepExecutor.java[IStepExecutor" modificationStamp="281593" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.changes{ChangeGroup.java[ChangeGroup" modificationStamp="281579" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.changes{IChange.java[IChange" modificationStamp="281591" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.changes{IStepValidator.java[IStepValidator" modificationStamp="281594" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model.changes{ChangeRejectedException.java[ChangeRejectedException" modificationStamp="281580" restrictions="0" visibility="0"/>
+    </package>
+    <package visibility="1">
+        <fragment handle="=Core bigraph.org model/src&lt;org.bigraph.model"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{Bigraph.java[Bigraph" modificationStamp="281576" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{Control.java[Control" modificationStamp="281598" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{LinkSort.java[LinkSort" modificationStamp="281640" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{Link.java[Link" modificationStamp="281637" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{SimulationSpec.java[SimulationSpec" modificationStamp="281727" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{Edit.java[Edit" modificationStamp="281601" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{FormRules.java[FormRules" modificationStamp="281605" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{Signature.java[Signature" modificationStamp="281724" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{Port.java[Port" modificationStamp="281688" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{FormationRule.java[FormationRule" modificationStamp="281603" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{ReactionRule.java[ReactionRule" modificationStamp="281697" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{Site.java[Site" modificationStamp="281729" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{NamedModelObject.java[NamedModelObject" modificationStamp="281666" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{Layoutable.java[Layoutable" modificationStamp="281634" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{OuterName.java[OuterName" modificationStamp="281682" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{Edge.java[Edge" modificationStamp="281600" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{SortSet.java[SortSet" modificationStamp="281730" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{Point.java[Point" modificationStamp="281685" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{InnerName.java[InnerName" modificationStamp="281608" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{Node.java[Node" modificationStamp="281681" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{PortSpec.java[PortSpec" modificationStamp="281689" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{ModelObject.java[ModelObject" modificationStamp="281664" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{PlaceSort.java[PlaceSort" modificationStamp="281684" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{Container.java[Container" modificationStamp="281595" restrictions="0" visibility="0"/>
+        <type handle="=Core bigraph.org model/src&lt;org.bigraph.model{Root.java[Root" modificationStamp="281708" restrictions="0" visibility="0"/>
+    </package>
+</component>

@@ -1,0 +1,47 @@
+# Controls
+%active Greater : 2;
+%active Less : 2;
+%active GreaterOrEqual : 2;
+%active LessOrEqual : 2;
+%active Equal : 2;
+%active NotEqual : 2;
+%active zone : 2;
+%active server : 2;
+%active network : 4;
+%active mobile : 6;
+%active resourceHandle : 2;
+%active costManager : 2;
+%active contextAware : 4;
+%active jobHandle : 2;
+%active application : 4;
+%active service : 4;
+%active securityManager : 2;
+%active speed : 1;
+%active power : 1;
+%active location : 1;
+%active complexity : 1;
+%active input : 1;
+%active bandwidth : 1;
+%active latency : 1;
+%active networkType : 1;
+%active time : 0;
+%active fee : 0;
+%active photo : 0;
+%active transition : 0;
+%active job : 1;
+%active part : 1;
+%active result : 0;
+
+# Rules
+%rule r_0 zone[idle,idle].mobile[idle,hasCH:edge,hasRH:edge,hasJH:edge,e:edge,hasSM:edge].(costManager[hasCH:edge,idle] | resourceHandle[hasRH:edge,idle] | jobHandle[hasJH:edge,idle] | contextAware[e:edge,idle,idle,idle].power[poweris:edge] | application[idle,idle,idle,idle].(photo | time | fee) | securityManager[hasSM:edge,idle]) -> zone[idle,idle].mobile[idle,hasCH:edge,hasRH:edge,hasJH:edge,e:edge,hasSM:edge].(costManager[hasCH:edge,idle] | resourceHandle[hasRH:edge,idle] | jobHandle[hasJH:edge,idle] | contextAware[e:edge,idle,idle,idle].power[poweris:edge] | application[idle,idle,idle,idle].(photo | time | fee) | securityManager[hasSM:edge,idle]) @Time:10min Cond:Power+=20% Fee+=0;
+%rule r_1 zone[idle,idle].mobile[idle,hasCH:edge,hasRH:edge,hasJH:edge,e:edge,hasSM:edge].(costManager[hasCH:edge,idle] | resourceHandle[hasRH:edge,idle] | jobHandle[hasJH:edge,idle] | contextAware[e:edge,idle,idle,idle].power[idle] | application[idle,idle,idle,idle].(photo | time | fee) | securityManager[hasSM:edge,idle]) -> zone[idle,idle].mobile[idle,hasCH:edge,hasRH:edge,hasJH:edge,e:edge,hasSM:edge].(costManager[hasCH:edge,idle] | resourceHandle[hasRH:edge,idle] | jobHandle[hasJH:edge,idle] | contextAware[e:edge,idle,idle,idle].power[idle] | application[idle,idle,idle,idle].(photo | time | fee) | securityManager[hasSM:edge,idle]) @Time:60min Power:30% Fee:0;
+%rule r_2 network[idle,idle,bandwidthIs:edge,networkTypeIs:edge].(networkType[networkTypeIs:edge] | bandwidth[bandwidthIs:edge] | zone[idle,idle].mobile[idle,idle,idle,idle,a:edge,idle].(application[idle,idle,idle,callAtomicService:edge].(photo | time | fee) | contextAware[a:edge,idle,idle,idle]) | server[idle,idle].service[idle,idle,callAtomicService:edge,idle]) -> network[idle,idle,bandwidthIs:edge,networkTypeIs:edge].(networkType[networkTypeIs:edge] | bandwidth[bandwidthIs:edge] | zone[idle,idle].mobile[idle,idle,idle,idle,a:edge,idle].(application[idle,idle,idle,callAtomicService:edge].(photo | time | fee) | contextAware[a:edge,idle,idle,idle]) | server[idle,idle].service[idle,idle,callAtomicService:edge,idle]) @Time:6min Cond:Power+=21%,Fee+=12;
+%rule r_3 network[idle,idle,bandwidthIs:edge,networkTypeIs:edge].(networkType[networkTypeIs:edge] | bandwidth[bandwidthIs:edge] | zone[idle,idle].mobile[idle,idle,idle,idle,idle,idle].application[idle,idle,idle,callAtomicService:edge].(photo | time | fee) | server[idle,idle].service[idle,idle,callAtomicService:edge,idle].transition) -> network[idle,idle,bandwidthIs:edge,networkTypeIs:edge].(networkType[networkTypeIs:edge] | bandwidth[bandwidthIs:edge] | zone[idle,idle].mobile[idle,idle,idle,idle,idle,idle].application[idle,idle,idle,callAtomicService:edge].(photo | time | fee | transition) | server[idle,idle].service[idle,idle,callAtomicService:edge,idle]) @Time:6min Power:21% Fee:12;
+%rule r_4 zone[idle,idle].network[idle,idle,idle,idle].(mobile[idle,idle,idle,idle,a:edge,idle].(application[idle,idle,idle,dispatch:edge].(time | fee | job[idle]) | contextAware[a:edge,idle,idle,poweris:edge].power[poweris:edge]) | mobile[idle,idle,idle,idle,idle,idle].application[idle,idle,idle,dispatch:edge].$2 | mobile[idle,idle,idle,idle,idle,idle].application[idle,idle,idle,dispatch:edge].$1) -> zone[idle,idle].network[idle,idle,idle,idle].(mobile[idle,idle,idle,idle,a:edge,idle].(application[idle,idle,idle,dispatch:edge].(time | fee | job[idle]) | contextAware[a:edge,idle,idle,poweris:edge].power[poweris:edge]) | mobile[idle,idle,idle,idle,idle,idle].application[idle,idle,idle,dispatch:edge].$2 | mobile[idle,idle,idle,idle,idle,idle].application[idle,idle,idle,dispatch:edge].$1) @Time:1min Power:0.5% Fee:0;
+%rule r_5 zone[idle,idle].network[idle,idle,idle,idle].(mobile[idle,idle,idle,idle,a:edge,idle].(application[idle,idle,idle,dispatch:edge].(time | fee | job[idle]) | contextAware[a:edge,idle,idle,idle].power[idle]) | mobile[idle,idle,idle,idle,idle,idle].application[idle,idle,idle,dispatch:edge] | mobile[dispatch:edge,idle,idle,idle,idle,idle].application[idle,idle,idle,idle]) -> zone[idle,idle].network[idle,idle,idle,idle].(mobile[idle,idle,idle,idle,a:edge,idle].(application[idle,idle,idle,dispatch:edge].(time | fee | part[idle] | part[idle] | part[idle]) | contextAware[a:edge,idle,idle,idle].power[idle]) | mobile[idle,idle,idle,idle,idle,idle].application[idle,idle,idle,dispatch:edge] | mobile[dispatch:edge,idle,idle,idle,idle,idle].application[idle,idle,idle,idle]) @Time:10min Power:5% Fee:0;
+
+# Model
+%agent musuem:zone[idle,idle].(ad_hoc:network[idle,idle,idle,idle].(apple:mobile[idle,hasCM:edge,hasRH:edge,hasJH:edge,hasCAH:edge,hasSM:edge].(b:application[idle,idle,idle,dispatch:edge] | rh:resourceHandle[hasRH:edge,idle] | cah:contextAware[hasCAH:edge,idle,idle,idle] | jh:jobHandle[hasJH:edge,idle] | sm:securityManager[hasSM:edge,idle] | cm:costManager[hasCM:edge,idle]) | m1:mobile[idle,idle,idle,idle,idle,idle].a:application[idle,idle,idle,dispatch:edge]) | m3:mobile[idle,idle,idle,idle,idle,idle].l:application[idle,idle,idle,idle] | m2:mobile[idle,idle,idle,idle,idle,idle].k:application[idle,idle,idle,idle]);
+
+# Go!
+%check;

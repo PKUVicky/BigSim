@@ -1,0 +1,7 @@
+ColorsAndFontsPreferencePage.expandedCategories=Torg.eclipse.ui.workbenchMisc
+ColorsAndFontsPreferencePage.selectedElement=Forg.eclipse.jface.textfont
+PLUGINS_NOT_ACTIVATED_ON_STARTUP=org.eclipse.m2e.discovery;
+RUN_IN_BACKGROUND=true
+eclipse.preferences.version=1
+org.eclipse.jface.textfont=1|Times New Roman|24.0|0|COCOA|1|TimesNewRomanPSMT;
+org.eclipse.ui.workbench.texteditor.blockSelectionModeFont=1|Times New Roman|24.0|0|COCOA|1|TimesNewRomanPSMT;

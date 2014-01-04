@@ -1,0 +1,25 @@
+output.. = bin/
+bin.includes = expoints/plugin.xml,\
+               META-INF/,\
+               .,\
+               plugin_customization.ini,\
+               resources/,\
+               lib/poi-ooxml-3.9-20121203.jar,\
+               lib/poi-3.9-20121203.jar,\
+               lib/xmlbeans-2.3.0.jar,\
+               lib/poi-ooxml-schemas-3.9-20121203.jar,\
+               lib/dom4j-1.6.1.jar,\
+               lib/jaxen-1.1.1.jar,\
+               lib/bigmc.jar,\
+               lib/scala-library-2.9.1.jar,\
+               lib/poi-2.5.1-final-20040804.jar,\
+               lib/poi-contrib-2.5.1-final-20040804.jar,\
+               lib/poi-scratchpad-2.5.1-final-20040804.jar,\
+               lib/modelinterleaving.jar,\
+               lib/poi-3.8-beta5.jar,\
+               lib/bigmc-dataflow-pattern.jar
+jars.compile.order = .
+source.. = src/
+
+qualifier = context
+bin.excludes = resources/src/

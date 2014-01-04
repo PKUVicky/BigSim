@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;square.txt&apos; to &apos;data&apos;&#x0A;- Original project: &apos;BigSim-v0.1&apos;&#x0A;- Destination element: &apos;data&apos;&#x0A;- Original element: &apos;square.txt&apos;" description="Copy file" element1="MobileCloud/data/square.txt" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1388592510493" target="/BigSim-v0.1/MobileCloud/data" units="0" version="1.0"/>
+</session>

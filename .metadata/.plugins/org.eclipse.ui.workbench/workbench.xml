@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbench progressCount="19" version="2.0">
+<workbenchAdvisor/>
+<window height="804" maximized="true" width="1441" x="-13" y="22">
+<fastViewData fastViewLocation="1024"/>
+<perspectiveBar>
+<itemSize x="160"/>
+</perspectiveBar>
+<coolbarLayout>
+<coolItem id="group.file" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="106" y="22"/>
+<coolItem id="additions" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="122" y="22"/>
+<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="62" y="22"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="54" y="22"/>
+<coolItem id="org.scala-ide.sdt.core.toolbar" itemType="typeToolBarContribution" x="54" y="22"/>
+<coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="scala.texteditor.actionset" itemType="typeToolBarContribution" x="32" y="22"/>
+<coolItem id="group.nav" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="152" y="22"/>
+<coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.pde.ui.manifestEditor" itemType="typePlaceholder" x="32" y="22"/>
+<coolItem id="scala.tools.eclipse.ScalaClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="scala.tools.eclipse.ScalaSourceFileEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="group.help" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
+</coolbarLayout>
+<page aggregateWorkingSetId="Aggregate for window 1374372247366" focus="true" label="Workspace - Scala">
+<editors>
+<editorArea activeWorkbook="DefaultEditorWorkbook">
+<info part="DefaultEditorWorkbook">
+<folder appearance="1" expanded="2">
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+<part id="5"/>
+<part id="6"/>
+<part id="7"/>
+<part id="8"/>
+<part id="9"/>
+<part id="10"/>
+<part id="11"/>
+<part id="12"/>
+<part id="13"/>
+<part id="14"/>
+<part id="15"/>
+<part id="16"/>
+<part id="17"/>
+<part id="18"/>
+<part id="19"/>
+<part id="20"/>
+<part id="21"/>
+<part id="22"/>
+<part id="23"/>
+<part id="24"/>
+<part id="25"/>
+<part id="26"/>
+<part id="27"/>
+</presentation>
+</folder>
+</info>
+</editorArea>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="BigMC.scala" partName="BigMC.scala" path="/Users/liangwei/Desktop/graduate/tanchaohua/bigmc-newFormat/src/org/bigraph/bigmc/BigMC.scala" title="BigMC.scala" tooltip="bigmc-newFormat/src/org/bigraph/bigmc/BigMC.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/bigmc-newFormat/src/org/bigraph/bigmc/BigMC.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="4887" selectionTopPixel="5332"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="Bigraph.scala" partName="Bigraph.scala" path="/Users/liangwei/Desktop/graduate/tanchaohua/bigmc-newFormat/src/org/bigraph/bigmc/Bigraph.scala" title="Bigraph.scala" tooltip="bigmc-newFormat/src/org/bigraph/bigmc/Bigraph.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/bigmc-newFormat/src/org/bigraph/bigmc/Bigraph.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="10" selectionOffset="5642" selectionTopPixel="8626"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="Match.scala" partName="Match.scala" path="/Users/liangwei/Desktop/graduate/tanchaohua/bigmc-newFormat/src/org/bigraph/bigmc/Match.scala" title="Match.scala" tooltip="bigmc-newFormat/src/org/bigraph/bigmc/Match.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/bigmc-newFormat/src/org/bigraph/bigmc/Match.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="703" selectionTopPixel="702"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="Calculator.scala" partName="Calculator.scala" path="/Users/liangwei/Desktop/graduate/tanchaohua/bigmc-newFormat/src/org/bigraph/bigmc/datamodel/Calculator.scala" title="Calculator.scala" tooltip="bigmc-newFormat/src/org/bigraph/bigmc/datamodel/Calculator.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/bigmc-newFormat/src/org/bigraph/bigmc/datamodel/Calculator.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1021" selectionTopPixel="517"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="FullSimulator.scala" partName="FullSimulator.scala" path="/Users/liangwei/Desktop/graduate/tanchaohua/bigmc-newFormat/src/org/bigraph/bigmc/FullSimulator.scala" title="FullSimulator.scala" tooltip="bigmc-newFormat/src/org/bigraph/bigmc/FullSimulator.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/bigmc-newFormat/src/org/bigraph/bigmc/FullSimulator.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="6" selectionOffset="636" selectionTopPixel="924"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="Vertex.scala" partName="Vertex.scala" path="/Users/liangwei/Desktop/graduate/tanchaohua/bigmc-newFormat/src/org/bigraph/bigmc/Vertex.scala" title="Vertex.scala" tooltip="bigmc-newFormat/src/org/bigraph/bigmc/Vertex.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/bigmc-newFormat/src/org/bigraph/bigmc/Vertex.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="6" selectionOffset="1075" selectionTopPixel="1327"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="Simulator.scala" partName="Simulator.scala" path="/Users/liangwei/Desktop/graduate/tanchaohua/bigmc-newFormat/src/org/bigraph/bigmc/Simulator.scala" title="Simulator.scala" tooltip="bigmc-newFormat/src/org/bigraph/bigmc/Simulator.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/bigmc-newFormat/src/org/bigraph/bigmc/Simulator.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="4396" selectionTopPixel="5158"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="MC.scala" partName="MC.scala" path="/Users/liangwei/Desktop/graduate/tanchaohua/bigmc-newFormat/src/org/bigraph/bigmc/MC.scala" title="MC.scala" tooltip="bigmc-newFormat/src/org/bigraph/bigmc/MC.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/bigmc-newFormat/src/org/bigraph/bigmc/MC.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="202" selectionOffset="2819" selectionTopPixel="3725"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="Graph.scala" partName="Graph.scala" path="/Users/liangwei/Desktop/graduate/tanchaohua/bigmc-newFormat/src/org/bigraph/bigmc/Graph.scala" title="Graph.scala" tooltip="bigmc-newFormat/src/org/bigraph/bigmc/Graph.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/bigmc-newFormat/src/org/bigraph/bigmc/Graph.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="612" selectionTopPixel="661"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="DataModel.scala" partName="DataModel.scala" path="/Users/liangwei/Desktop/graduate/tanchaohua/bigmc-newFormat/src/org/bigraph/bigmc/datamodel/DataModel.scala" title="DataModel.scala" tooltip="bigmc-newFormat/src/org/bigraph/bigmc/datamodel/DataModel.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/bigmc-newFormat/src/org/bigraph/bigmc/datamodel/DataModel.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="215" selectionTopPixel="1174"/>
+</editor>
+<editor id="org.eclipse.ui.DefaultTextEditor" name="dataModel.txt" partName="dataModel.txt" path="/Users/liangwei/Desktop/graduate/tanchaohua/bigmc-newFormat/resources/dataModel.txt" title="dataModel.txt" tooltip="bigmc-newFormat/resources/dataModel.txt" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/bigmc-newFormat/resources/dataModel.txt"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="80" selectionTopPixel="0"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="ReactionRule.scala" partName="ReactionRule.scala" path="/Users/liangwei/Desktop/graduate/tanchaohua/bigmc-newFormat/src/org/bigraph/bigmc/ReactionRule.scala" title="ReactionRule.scala" tooltip="bigmc-newFormat/src/org/bigraph/bigmc/ReactionRule.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/bigmc-newFormat/src/org/bigraph/bigmc/ReactionRule.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1982" selectionTopPixel="1728"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="Globals.scala" partName="Globals.scala" path="/Users/liangwei/Desktop/graduate/tanchaohua/bigmc-newFormat/src/org/bigraph/bigmc/Globals.scala" title="Globals.scala" tooltip="bigmc-newFormat/src/org/bigraph/bigmc/Globals.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/bigmc-newFormat/src/org/bigraph/bigmc/Globals.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="229" selectionTopPixel="937"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="ReactionRule.scala" partName="ReactionRule.scala" path="/Users/liangwei/Documents/eclipseForScala/Eclipse.app/Contents/MacOS/workspace/BigSim-v0.1/src/org/bigraph/bigSim/ReactionRule.scala" title="ReactionRule.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/ReactionRule.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/BigSim-v0.1/src/org/bigraph/bigSim/ReactionRule.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="6" selectionOffset="1927" selectionTopPixel="2145"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="Match.scala" partName="Match.scala" path="/Users/liangwei/Documents/eclipseForScala/Eclipse.app/Contents/MacOS/workspace/BigSim-v0.1/src/org/bigraph/bigSim/Match.scala" title="Match.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/Match.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/BigSim-v0.1/src/org/bigraph/bigSim/Match.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="3" selectionOffset="2356" selectionTopPixel="3762"/>
+</editor>
+<editor activePart="true" focus="true" id="scala.tools.eclipse.ScalaSourceFileEditor" name="Simulator.scala" partName="Simulator.scala" path="/Users/liangwei/Documents/eclipseForScala/Eclipse.app/Contents/MacOS/workspace/BigSim-v0.1/src/org/bigraph/bigSim/Simulator.scala" title="Simulator.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/Simulator.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/BigSim-v0.1/src/org/bigraph/bigSim/Simulator.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="4688" selectionTopPixel="5038"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="BigSim.scala" partName="BigSim.scala" path="/Users/liangwei/Documents/eclipseForScala/Eclipse.app/Contents/MacOS/workspace/BigSim-v0.1/src/org/bigraph/bigSim/BigSim.scala" title="BigSim.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/BigSim.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/BigSim-v0.1/src/org/bigraph/bigSim/BigSim.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3546" selectionTopPixel="4154"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="Matcher.scala" partName="Matcher.scala" path="/Users/liangwei/Documents/eclipseForScala/Eclipse.app/Contents/MacOS/workspace/BigSim-v0.1/src/org/bigraph/bigSim/Matcher.scala" title="Matcher.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/Matcher.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/BigSim-v0.1/src/org/bigraph/bigSim/Matcher.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3473" selectionTopPixel="2987"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="DataModel.scala" partName="DataModel.scala" path="/Users/liangwei/Documents/eclipseForScala/Eclipse.app/Contents/MacOS/workspace/BigSim-v0.1/src/org/bigraph/bigSim/datamodel/DataModel.scala" title="DataModel.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/datamodel/DataModel.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/BigSim-v0.1/src/org/bigraph/bigSim/datamodel/DataModel.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="4" selectionOffset="608" selectionTopPixel="594"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="Calculator.scala" partName="Calculator.scala" path="/Users/liangwei/Documents/eclipseForScala/Eclipse.app/Contents/MacOS/workspace/BigSim-v0.1/src/org/bigraph/bigSim/datamodel/Calculator.scala" title="Calculator.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/datamodel/Calculator.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/BigSim-v0.1/src/org/bigraph/bigSim/datamodel/Calculator.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="979" selectionTopPixel="540"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="Graph.scala" partName="Graph.scala" path="/Users/liangwei/Documents/eclipseForScala/Eclipse.app/Contents/MacOS/workspace/BigSim-v0.1/src/org/bigraph/bigSim/Graph.scala" title="Graph.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/Graph.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/BigSim-v0.1/src/org/bigraph/bigSim/Graph.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="14" selectionOffset="8121" selectionTopPixel="9908"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="Query.scala" partName="Query.scala" path="/Users/liangwei/Documents/eclipseForScala/Eclipse.app/Contents/MacOS/workspace/BigSim-v0.1/src/org/bigraph/bigSim/Query.scala" title="Query.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/Query.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/BigSim-v0.1/src/org/bigraph/bigSim/Query.scala"/>
+<editorState selectionHorizontalPixel="13" selectionLength="0" selectionOffset="99" selectionTopPixel="1936"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="MetaCalcParser.scala" partName="MetaCalcParser.scala" path="/Users/liangwei/Documents/eclipseForScala/Eclipse.app/Contents/MacOS/workspace/BigSim-v0.1/src/org/bigraph/bigSim/MetaCalcParser.scala" title="MetaCalcParser.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/MetaCalcParser.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/BigSim-v0.1/src/org/bigraph/bigSim/MetaCalcParser.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="8657" selectionTopPixel="1949"/>
+</editor>
+<editor id="org.eclipse.ui.DefaultTextEditor" name="checker.bgm" partName="checker.bgm" path="/Users/liangwei/Documents/eclipseForScala/Eclipse.app/Contents/MacOS/workspace/BigSim-v0.1/MobileCloud/models/checker.bgm" title="checker.bgm" tooltip="BigSim-v0.1/MobileCloud/models/checker.bgm" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/BigSim-v0.1/MobileCloud/models/checker.bgm"/>
+<editorState selectionHorizontalPixel="8787" selectionLength="0" selectionOffset="3232" selectionTopPixel="1378"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="BGMParser.scala" partName="BGMParser.scala" path="/Users/liangwei/Documents/eclipseForScala/Eclipse.app/Contents/MacOS/workspace/BigSim-v0.1/src/org/bigraph/bigSim/BGMParser.scala" title="BGMParser.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/BGMParser.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/BigSim-v0.1/src/org/bigraph/bigSim/BGMParser.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3594" selectionTopPixel="3396"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="Bigraph.scala" partName="Bigraph.scala" path="/Users/liangwei/Documents/eclipseForScala/Eclipse.app/Contents/MacOS/workspace/BigSim-v0.1/src/org/bigraph/bigSim/Bigraph.scala" title="Bigraph.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/Bigraph.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/BigSim-v0.1/src/org/bigraph/bigSim/Bigraph.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="5371" selectionTopPixel="7022"/>
+</editor>
+<editor id="org.eclipse.ui.DefaultTextEditor" name="earthquake.bgm" partName="earthquake.bgm" path="/Users/liangwei/Documents/eclipseForScala/Eclipse.app/Contents/MacOS/workspace/BigSim-v0.1/MobileCloud/models/earthquake.bgm" title="earthquake.bgm" tooltip="BigSim-v0.1/MobileCloud/models/earthquake.bgm" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/BigSim-v0.1/MobileCloud/models/earthquake.bgm"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1843" selectionTopPixel="1046"/>
+</editor>
+<editor id="scala.tools.eclipse.ScalaSourceFileEditor" name="Term.scala" partName="Term.scala" path="/Users/liangwei/Documents/eclipseForScala/Eclipse.app/Contents/MacOS/workspace/BigSim-v0.1/src/org/bigraph/bigSim/Term.scala" title="Term.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/Term.scala" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/BigSim-v0.1/src/org/bigraph/bigSim/Term.scala"/>
+<editorState selectionHorizontalPixel="0" selectionLength="5" selectionOffset="2060" selectionTopPixel="2037"/>
+</editor>
+</editors>
+<views>
+<view id="org.eclipse.search.ui.views.SearchView" partName="Search">
+<viewState isPinned="false">
+<view IMemento.internal.id="" org.eclipse.search.lastActivation="0"/>
+<view IMemento.internal.id="org.eclipse.jdt.ui.JavaSearchResultPage" org.eclipse.jdt.search.resultpage.grouping="3" org.eclipse.jdt.search.resultpage.limit="1000" org.eclipse.jdt.search.resultpage.limit_enabled="TRUE" org.eclipse.jdt.search.resultpage.sorting="1" org.eclipse.search.lastActivation="1" org.eclipse.search.resultpage.layout="2"/>
+</viewState>
+</view>
+<view id="org.eclipse.debug.ui.DebugView" partName="Debug">
+<viewState/>
+</view>
+<view id="org.eclipse.ui.views.ProblemView" partName="Problems">
+<viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
+<expanded>
+<category IMemento.internal.id="Errors (7 items)"/>
+</expanded>
+<columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="309" org.eclipse.ui.ide.resourceField="281" org.eclipse.ui.ide.severityAndDescriptionField="842"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.locationField"/>
+<visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
+</viewState>
+</view>
+<view id="org.eclipse.jdt.ui.PackageExplorer" partName="Package Explorer">
+<viewState group_libraries="1" layout="2" linkWithEditor="0" rootMode="1" workingSetName="Aggregate for window 1374372247366">
+<customFilters userDefinedPatternsEnabled="false">
+<xmlDefinedFilters>
+<child filterId="scala.tools.eclipse.javaelements.ScalaElementFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.LibraryFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.LocalTypesFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.StaticsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.pde.ui.ExternalPluginLibrariesFilter1" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ClosedProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonSharedProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonJavaElementFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ContainedLibraryFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.CuAndClassFileFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonJavaProjectsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.EmptyInnerPackageFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.PackageDeclarationFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.EmptyPackageFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.ImportDeclarationFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.FieldsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.internal.ui.PackageExplorer.HideInnerClassFilesFilter" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.NonPublicFilter" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer_patternFilterId_.*" isEnabled="true"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.EmptyLibraryContainerFilter" isEnabled="true"/>
+<child filterId="org.eclipse.pde.ui.BinaryProjectFilter1" isEnabled="false"/>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.SyntheticMembersFilter" isEnabled="true"/>
+<child filterId="org.eclipse.m2e.MavenModuleFilter" isEnabled="false"/>
+</xmlDefinedFilters>
+</customFilters>
+</viewState>
+</view>
+<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
+<viewState/>
+</view>
+<view id="org.eclipse.pde.runtime.LogView" partName="Error Log">
+<viewState activate="true" allSessions="true" column2="300" column3="150" column4="150" error="true" groupBy="0" info="true" limit="50" ok="true" orderType="2" orderValue="-1" show_filter_text="true" useLimit="true" warning="true"/>
+</view>
+<view id="org.eclipse.debug.ui.BreakpointView" partName="Breakpoints">
+<viewState/>
+</view>
+<view id="org.eclipse.debug.ui.VariableView" partName="Variables">
+<viewState/>
+</view>
+<view id="org.eclipse.ui.views.TaskList" partName="Tasks"/>
+<view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
+<viewState/>
+</view>
+</views>
+<perspectives activePart="scala.tools.eclipse.ScalaSourceFileEditor" activePerspective="org.scala-ide.sdt.core.perspective">
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="scala.tools.eclipse.PerspectiveFactory" id="org.scala-ide.sdt.core.perspective" label="Scala"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<alwaysOnActionSet id="scala.texteditor.actionset"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.ui.JavaActionSet"/>
+<alwaysOnActionSet id="org.scala-ide.sdt.ui.scalaMenu.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
+<show_view_action id="org.eclipse.ui.views.ResourceNavigator"/>
+<show_view_action id="org.eclipse.ui.navigator.ProjectExplorer"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.pde.runtime.LogView"/>
+<show_view_action id="org.scala-ide.sdt.core.consoleView"/>
+<new_wizard_action id="org.scala-ide.sdt.core.wizards.newProject"/>
+<new_wizard_action id="org.scala-ide.sdt.core.wizards.newNetProject"/>
+<new_wizard_action id="org.eclipse.jdt.ui.wizards.NewPackageCreationWizard"/>
+<new_wizard_action id="org.scala-ide.sdt.core.wizards.newClass"/>
+<new_wizard_action id="org.scala-ide.sdt.core.wizards.newTrait"/>
+<new_wizard_action id="org.scala-ide.sdt.core.wizards.newObject"/>
+<new_wizard_action id="org.scala-ide.sdt.core.wizards.newPackageObject"/>
+<new_wizard_action id="org.scala-ide.sdt.core.wizards.newApplication"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.folder"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.file"/>
+<new_wizard_action id="org.scalaide.worksheet.wizards.newWorksheet"/>
+<perspective_action id="org.eclipse.debug.ui.DebugPerspective"/>
+<hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="org.eclipse.ui.views.ProblemView"/>
+<view id="org.eclipse.ui.views.TaskList"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
+<view id="org.eclipse.search.ui.views.SearchView"/>
+<view id="org.eclipse.pde.runtime.LogView"/>
+<view id="org.eclipse.jdt.ui.PackageExplorer"/>
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<fastViewBars/>
+<layout>
+<mainWindow>
+<info folder="true" part="explorer">
+<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" appearance="2" expanded="2">
+<page content="org.eclipse.jdt.ui.PackageExplorer" label="Package Explorer"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="762" ratioRight="254" relationship="2" relative="explorer">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.1693492" ratioLeft="242" ratioRight="1187" relationship="2" relative="explorer"/>
+<info folder="true" part="problems" ratio="0.6368715" ratioLeft="456" ratioRight="260" relationship="4" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
+<page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<page content="org.eclipse.search.ui.views.SearchView" label="Search"/>
+<page content="org.eclipse.pde.runtime.LogView" label="Error Log"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="right" ratio="0.8125" ratioLeft="962" ratioRight="222" relationship="2" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+</mainWindow>
+</layout>
+</perspective>
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="org.eclipse.debug.internal.ui.DebugPerspectiveFactory" id="org.eclipse.debug.ui.DebugPerspective" label="Debug"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<alwaysOnActionSet id="scala.texteditor.actionset"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.debug.ui.JDTDebugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.ui.JavaActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.debugActionSet"/>
+<show_view_action id="org.eclipse.debug.ui.DebugView"/>
+<show_view_action id="org.eclipse.debug.ui.VariableView"/>
+<show_view_action id="org.eclipse.debug.ui.BreakpointView"/>
+<show_view_action id="org.eclipse.debug.ui.ExpressionView"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.ui.console.ConsoleView"/>
+<show_view_action id="org.eclipse.ui.views.TaskList"/>
+<show_view_action id="org.eclipse.ant.ui.views.AntView"/>
+<show_view_action id="org.eclipse.pde.runtime.LogView"/>
+<show_view_action id="org.eclipse.jdt.debug.ui.DisplayView"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaPerspective"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaBrowsingPerspective"/>
+<perspective_action id="org.eclipse.wst.xml.ui.perspective"/>
+<perspective_action id="org.scala-ide.sdt.core.perspective"/>
+<hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="org.eclipse.debug.ui.VariableView"/>
+<view id="org.eclipse.debug.ui.BreakpointView"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
+<view id="org.eclipse.ui.views.TaskList"/>
+<view id="org.eclipse.debug.ui.DebugView"/>
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<fastViewBars/>
+<layout>
+<mainWindow>
+<info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">
+<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
+<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.ui.PackageExplorer" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="1074" ratioRight="358" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.6075419" ratioLeft="435" ratioRight="281" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
+<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.PropertySheet" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.debug.ui.DisplayView" label="LabelNotFound"/>
+<page content="org.eclipse.search.SearchResultView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.14972274" ratioLeft="81" ratioRight="460" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.75" ratioLeft="1074" ratioRight="358" relationship="2" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.3813856" ratioLeft="545" ratioRight="884" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">
+<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
+<page content="org.eclipse.debug.ui.BreakpointView" label="Breakpoints"/>
+<page content="org.eclipse.debug.ui.ExpressionView" label="LabelNotFound"/>
+<page content="org.eclipse.debug.ui.RegisterView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+</mainWindow>
+</layout>
+</perspective>
+</perspectives>
+<workingSets/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="scala.tools.eclipse.ScalaSourceFileEditor" path="/BigSim-v0.1/src/org/bigraph/bigSim/BigSim.scala"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="scala.tools.eclipse.ScalaSourceFileEditor" path="/BigSim-v0.1/src/org/bigraph/bigSim/Simulator.scala"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="scala.tools.eclipse.ScalaSourceFileEditor" path="/BigSim-v0.1/src/org/bigraph/bigSim/Matcher.scala"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="scala.tools.eclipse.ScalaSourceFileEditor" path="/BigSim-v0.1/src/org/bigraph/bigSim/Bigraph.scala"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/BigSim-v0.1/MobileCloud/models/earthquake.bgm"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="scala.tools.eclipse.ScalaSourceFileEditor" path="/BigSim-v0.1/src/org/bigraph/bigSim/Match.scala"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="scala.tools.eclipse.ScalaSourceFileEditor" path="/BigSim-v0.1/src/org/bigraph/bigSim/ReactionRule.scala"/>
+</editors>
+<item historyLabel="Bigraph.scala" index="3">
+<position info="not_deleted" x="5368" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="8476" y="24"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="8714" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="2325" y="22"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="10646" y="22"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="10889" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position/>
+</item>
+<item historyLabel="BigSim.scala" index="0">
+<position info="not_deleted" x="3740" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="20963" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="20965" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="10646" y="22"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="20821" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="10646" y="22"/>
+</item>
+<item historyLabel="BigSim.scala" index="0">
+<position info="not_deleted" x="3740" y="0"/>
+</item>
+<item historyLabel="Bigraph.scala" index="3">
+<position info="not_deleted" x="5371" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="8476" y="24"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="20894" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="20964" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="2325" y="22"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="10646" y="22"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="10889" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="20766" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="10646" y="22"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="20675" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="10646" y="22"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="20682" y="0"/>
+</item>
+<item historyLabel="Simulator.scala" index="1">
+<position info="not_deleted" x="1900" y="0"/>
+</item>
+<item historyLabel="Match.scala" index="5">
+<position info="not_deleted" x="2356" y="3"/>
+</item>
+<item historyLabel="Simulator.scala" index="1">
+<position info="not_deleted" x="424" y="0"/>
+</item>
+<item historyLabel="Match.scala" index="5">
+<position info="not_deleted" x="2356" y="3"/>
+</item>
+<item historyLabel="Simulator.scala" index="1">
+<position info="not_deleted" x="83" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="20682" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="20964" y="0"/>
+</item>
+<item historyLabel="BigSim.scala" index="0">
+<position info="not_deleted" x="3836" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="19073" y="0"/>
+</item>
+<item historyLabel="earthquake.bgm" index="4">
+<position info="not_deleted" x="1843" y="0"/>
+</item>
+<item historyLabel="Simulator.scala" index="1">
+<position info="not_deleted" x="83" y="0"/>
+</item>
+<item historyLabel="BigSim.scala" index="0">
+<position info="not_deleted" x="3546" y="0"/>
+</item>
+<item historyLabel="Simulator.scala" index="1">
+<position info="not_deleted" x="424" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="19073" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="10889" y="0"/>
+</item>
+<item historyLabel="Simulator.scala" index="1">
+<position info="not_deleted" x="3612" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="10889" y="0"/>
+</item>
+<item historyLabel="Matcher.scala" index="2">
+<position info="not_deleted" x="3473" y="0"/>
+</item>
+<item active="true" historyLabel="Simulator.scala" index="1">
+<position info="not_deleted" x="4358" y="0"/>
+</item>
+<item historyLabel="ReactionRule.scala" index="6">
+<position info="not_deleted" x="1927" y="6"/>
+</item>
+</navigationHistory>
+<input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
+</page>
+<workbenchWindowAdvisor/>
+<actionBarAdvisor/>
+<trimLayout>
+<trimArea IMemento.internal.id="16384">
+<trimItem IMemento.internal.id="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
+<trimItem IMemento.internal.id="explorer"/>
+</trimArea>
+<trimArea IMemento.internal.id="131072">
+<trimItem IMemento.internal.id="org.eclipse.debug.internal.ui.ToolsFolderView"/>
+<trimItem IMemento.internal.id="org.eclipse.debug.internal.ui.ConsoleFolderView"/>
+<trimItem IMemento.internal.id="org.eclipse.debug.internal.ui.OutlineFolderView"/>
+<trimItem IMemento.internal.id="problems"/>
+<trimItem IMemento.internal.id="right"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.editorss"/>
+</trimArea>
+<trimArea IMemento.internal.id="128">
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
+</trimArea>
+<trimArea IMemento.internal.id="1024">
+<trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
+<trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
+</trimArea>
+</trimLayout>
+</window>
+<mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="scala.tools.eclipse.ScalaSourceFileEditor" name="Term.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/Term.scala">
+<persistable path="/BigSim-v0.1/src/org/bigraph/bigSim/Term.scala"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="earthquake.bgm" tooltip="BigSim-v0.1/MobileCloud/models/earthquake.bgm">
+<persistable path="/BigSim-v0.1/MobileCloud/models/earthquake.bgm"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="scala.tools.eclipse.ScalaSourceFileEditor" name="Bigraph.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/Bigraph.scala">
+<persistable path="/BigSim-v0.1/src/org/bigraph/bigSim/Bigraph.scala"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="scala.tools.eclipse.ScalaSourceFileEditor" name="BGMParser.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/BGMParser.scala">
+<persistable path="/BigSim-v0.1/src/org/bigraph/bigSim/BGMParser.scala"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="earthquake.txt" tooltip="BigSim-v0.1/MobileCloud/data/earthquake.txt">
+<persistable path="/BigSim-v0.1/MobileCloud/data/earthquake.txt"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="checker.bgm" tooltip="BigSim-v0.1/MobileCloud/models/checker.bgm">
+<persistable path="/BigSim-v0.1/MobileCloud/models/checker.bgm"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="scala.tools.eclipse.ScalaSourceFileEditor" name="MetaCalcParser.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/MetaCalcParser.scala">
+<persistable path="/BigSim-v0.1/src/org/bigraph/bigSim/MetaCalcParser.scala"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="scala.tools.eclipse.ScalaSourceFileEditor" name="Query.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/Query.scala">
+<persistable path="/BigSim-v0.1/src/org/bigraph/bigSim/Query.scala"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="scala.tools.eclipse.ScalaSourceFileEditor" name="Graph.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/Graph.scala">
+<persistable path="/BigSim-v0.1/src/org/bigraph/bigSim/Graph.scala"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="scala.tools.eclipse.ScalaSourceFileEditor" name="Calculator.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/datamodel/Calculator.scala">
+<persistable path="/BigSim-v0.1/src/org/bigraph/bigSim/datamodel/Calculator.scala"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="scala.tools.eclipse.ScalaSourceFileEditor" name="DataModel.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/datamodel/DataModel.scala">
+<persistable path="/BigSim-v0.1/src/org/bigraph/bigSim/datamodel/DataModel.scala"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="scala.tools.eclipse.ScalaSourceFileEditor" name="Matcher.scala" tooltip="BigSim-v0.1/src/org/bigraph/bigSim/Matcher.scala">
+<persistable path="/BigSim-v0.1/src/org/bigraph/bigSim/Matcher.scala"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="hotel.bgm" tooltip="BigSim-v0.1/MobileCloud/models/hotel.bgm">
+<persistable path="/BigSim-v0.1/MobileCloud/models/hotel.bgm"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="museum.txt" tooltip="BigSim-v0.1/MobileCloud/data/museum.txt">
+<persistable path="/BigSim-v0.1/MobileCloud/data/museum.txt"/>
+</file>
+</mruList>
+</workbench>

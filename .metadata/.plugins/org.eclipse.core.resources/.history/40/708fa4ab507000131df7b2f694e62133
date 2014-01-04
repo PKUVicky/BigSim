@@ -1,0 +1,94 @@
+package org.bigraph.bigSim.term
+
+import org.bigraph.bigSim.Subtree
+import org.bigraph.bigSim._
+
+import scala.collection.immutable.List
+import scala.collection.mutable.Map
+import scala.collection.mutable.Queue
+import scala.collection.mutable.Set;
+
+object Term {
+  private var uTerm: Int = 1;
+
+  def uTermIncrement: Long = {
+    uTerm += 1;
+    uTerm;
+  }
+}
+
+class Term {
+  var termType: Int = 0;
+  /**
+   * use Queue in Scala to replace the deque in C++
+   * Queue.enqueue() to replace deque->push_back()
+   * Queue.dequeue() to replace deque->pop_front
+   */
+  val remaining: Queue[Term] = Queue();
+  remaining.enqueue(this);
+  var parent: Term = null;
+  var id: Long = Term.uTermIncrement;
+
+  override def toString = org.bigraph.bigSim.Subtree.preOrderString(this);
+
+  def size: Int = 0;
+
+  def next: Term = {
+    if (remaining.size == 0) return null;
+    val t: Term = remaining.dequeue();
+
+    t.termType match {
+      case TermType.TPREF => {
+        // 递归定义的，过滤掉纯nil
+        var tp: Term = t.asInstanceOf[Prefix].suffix;
+        if (tp.termType != TermType.TNIL) {
+          remaining.enqueue(tp);
+        }
+      }
+      case TermType.TPAR => {
+        val tp: Paraller = t.asInstanceOf[Paraller];
+        tp.getChildren.map(remaining.enqueue(_));
+      }
+      case TermType.TREGION => {
+        val tr: Regions = t.asInstanceOf[Regions];
+        tr.getChildren.map(remaining.enqueue(_));
+      }
+      case TermType.THOLE => {};
+      case TermType.TNIL => {};
+      case _ => {
+        println("Matching encountered invalid term type " + t.termType);
+        exit(1);
+      }
+    }
+    t;
+  }
+
+  def reset: Unit = {
+    remaining.clear();
+    remaining.enqueue(this);
+  }
+
+  def activeContext: Boolean = {
+    if (parent == null) true;
+    else parent.activeContext;
+  }
+
+  def overlap(other: Term): Boolean = {
+    if (other == null) false;
+    else if (other == this) true;
+    else overlap(other.parent);
+  }
+
+  def applyMatch(m: Match): Term = {
+    this;
+  }
+
+  def instantiate(m: Match): Term = {
+    null;
+  }
+
+  def getAllNames: List[Name] = List();
+
+  //for test
+  val remainingTest: Queue[Int] = Queue();
+}
