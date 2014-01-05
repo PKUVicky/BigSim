@@ -52,6 +52,7 @@ class QueryNum(d: Double) extends Query {
   }
 }
 
+
 class QueryTerm(t: Term) extends Query {
   var data: Term = t;
 
@@ -103,8 +104,6 @@ class QueryBin(l: Query, opr: String, r: Query) extends Query {
       case ">=" => lhs.eval(v) >= rhs.eval(v);
       case ">" => lhs.eval(v) > rhs.eval(v);
       case "<" => lhs.eval(v) < rhs.eval(v);
-      //case "&&" => lhs.check(n) && rhs.check(n);
-      //case "||" => lhs.check(n) || rhs.check(n);
       case _ => {
         println("QueyrBin.check unhandled operator" + toString);
         false;

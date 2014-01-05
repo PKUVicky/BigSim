@@ -140,7 +140,7 @@ class Match(var reactionRule: ReactionRule) {
     m.hasSucceeded = hasSucceeded
     m.hasFailed = hasFailed
     m.root = root
-    m.reactNodes = reactNodes
+    //m.reactNodes = reactNodes
 
     reactNodes.foreach(rn => {
       m.reactNodes += rn
@@ -161,6 +161,9 @@ class Match(var reactionRule: ReactionRule) {
     ctrlMap.foreach(cm => {
       m.ctrlMap(cm._1) = cm._2
     })
+    
+    println("clone match ctrlMap")
+    m.ctrlMap.foreach(f=>{println(f._1 + "->"+f._2)})
 
     /*
     for ((key, value) <- names) {
@@ -255,6 +258,9 @@ class Match(var reactionRule: ReactionRule) {
 
       s += "\t" + Bigraph.nameToString(key) + " -> " + Bigraph.nameToString(value) + "(" + key + " -> " + value + ")\n"
     }
+
+    s += "React Nodes:\n"
+    reactNodes.foreach(rn => { s += "\t" + rn + " " })
     s
   }
 }

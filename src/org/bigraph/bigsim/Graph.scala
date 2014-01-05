@@ -285,21 +285,20 @@ class Graph(init: Vertex) {
     out += "digraph reaction_graph {\n";
     out += "   rankdir=LR;\n";
     out += "   Node [shape = circle];\n";
-    out += "   BigSim_Report [shape = doublecircle color = aliceblue style=filled];\n"
+    out += "   BigSim_Report [shape = parallelogram color = aliceblue style=filled label=\"BigSim\nReport\"];\n"
     out += "BigSim_Report -> N_" + formatHash(root.hash) + "[color = aliceblue label = \"" +
       DataModel.getWeightExpr + "=" +
       DataModel.getReport + "\n" +
       DataModel.getValues + "\"];\n";
-    //out += " N_" + formatHash(root.hash) + "\n"; // + " [shape=doublecircle, color=lightblue2, style=filled, label=\"" +
-    //root.bigraph.root.toString + "\"];\n";
+    out += " N_" + formatHash(root.hash) + "\n" + " [shape=circle, color=lightblue2, style=filled];\n";
     lut.values.map(x => {
       var rr: String = "root";
       var dc: String = "";
 
       if (x.terminal) {
-        dc = "shape = doublecircle, color=darkolivegreen3, style=filled, ";
+        dc = "shape = doublecircle, color=lightblue2, style=filled, ";
       }
-      //out += "N_" + formatHash(x.hash) + "\n";//+ "[ " + dc + "label=\"" + x.bigraph.root.toString + "\"];\n";
+      out += "N_" + formatHash(x.hash) + "\n"+ "[ " + dc +"];\n";
 
       x.target.map(y => {
         rr = "?";

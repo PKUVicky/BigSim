@@ -128,7 +128,7 @@ Usage: bigsim [options] <filename>
         Bigraph.sorting.init(BigSimOpts.sortFileName)
 
       var filename = "earthquake";
-      //filename="checker";
+      filename="checker";
 
       // GlobalCfg.patterns = true
       //GlobalCfg.patternFile = "resources/Patterns.xml"

@@ -40,7 +40,7 @@ object DataModel {
 
   def getWeightExpr: String = {
     if (wExpr == null)
-      ""
+      "wExpr="
     else
       return "wExpr=" + wExpr.expression
   }
@@ -48,7 +48,7 @@ object DataModel {
   def getValues: String = {
     var res: String = ""
     data.map(d => {
-      res += d._1 + "=" + d._2.value+","
+      res += d._1 + "=" + d._2.value + ","
     })
     res
   }
@@ -74,12 +74,20 @@ object DataModel {
   }
 
   def getValue(name: String): Double = {
-    if (!data.contains(name) || data(name).dataType.equals("String")) 0
-    else data(name).value.toDouble
+    if (!data.contains(name))
+      0
+    else if (data(name).dataType.equals("String"))
+      data(name).value.hashCode.toDouble
+    else
+      data(name).value.toDouble
   }
 
   def update(name: String, exp: String) {
-    if (data.contains(name))
+    if (data.contains(name) && data.getOrElse(name, null).dataType.equals("String")) {
+      var strs = exp.split("'", -1)
+      if (strs.length == 3)
+        data(name).value = strs(1)
+    } else if (data.contains(name))
       data(name).value = Calculator.apply(exp).toString
     else
       println("data update error!")

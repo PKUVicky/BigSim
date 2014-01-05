@@ -97,8 +97,8 @@ object Matcher {
         m.reactNodes += t.ctrl.instanceName
         //println(m.reactionRule.name)
         //println(t.ctrl.instanceName)
-        //m.reactNodes.foreach(print)
-        //println
+        m.reactNodes.foreach(print)
+        println
 
       }
       if (GlobalCfg.DEBUG) {

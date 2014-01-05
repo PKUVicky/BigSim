@@ -1,3 +1,3 @@
-energy	Double	100	%
 speed	Double	20	m/min
-networkType	Double	3	2G
+networkType	String	WiFi	3G
+m1.power	Double	65	%

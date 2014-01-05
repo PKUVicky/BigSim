@@ -110,7 +110,8 @@ object QueryParser extends JavaTokenParsers {
 
   // For calculate data models and expressions @liangwei
   lazy val number: Parser[Double] = """\d+(\.\d*)?""".r ^^ { _.toDouble }
-  lazy val variable: Parser[Double] =  """[a-zA-Z]+(\d*)?+(\.[a-zA-Z]*)?""".r ^^ {DataModel.getValue(_) }
+  lazy val string: Parser[Double] = """\w*""".r ^^ { _.hashCode.toDouble }
+  lazy val variable: Parser[Double] =  """(\d*)?+[a-zA-Z]+(\d*)?+(\.[a-zA-Z]*)?""".r ^^ {DataModel.getValue(_) }
   lazy val factor: Parser[Double] = number | variable | "(" ~> expr <~ ")"
   lazy val term: Parser[Double] = factor ~ rep("*" ~ factor | "/" ~ factor) ^^ {
     case number ~ list => (number /: list) {
@@ -125,6 +126,7 @@ object QueryParser extends JavaTokenParsers {
     }
   }
   lazy val queryExpr: Parser[QueryNum] = expr ^^ { case x => new QueryNum(x) }
+  lazy val queryStr: Parser[QueryNum] = "'"~>string<~"'" ^^ {case x=> new QueryNum(x)}
 
   lazy val queryPred: Parser[Query] = predWord ~ predArgs ^^ { case n ~ q => new QueryPredicate(n.toString, q) }
 
@@ -132,7 +134,7 @@ object QueryParser extends JavaTokenParsers {
   lazy val queryScope: Parser[Query] = ("$" ~> queryScopeWord <~ "->") ~ queryPred ^^ { case n ~ q => new QueryScope(n.toString, q) }
   // queryNum is in queryExpr, so just use queryExpr @liangwei
   // lazy val queryNum: Parser[QueryNum] = decimalNumber ^^ { x => new QueryNum(x.toDouble); }
-  lazy val queryBinArithWord = queryScope | queryPred | queryExpr //| queryNum
+  lazy val queryBinArithWord = queryScope | queryPred | queryExpr | queryStr //| queryNum
   lazy val queryNot: Parser[Query] = "!" ~> queryBinArithWord ^^ { x => new QueryNot(x) };
 
   lazy val queryBinArith: Parser[Query] = queryBinArithWord ~ arithOp ~ queryBinArithWord ^^ { case l ~ op ~ r => new QueryBin(l, op, r) }
@@ -183,12 +185,13 @@ object testTermParser {
 
     println(QueryParser.parse("!terminal()"))
     println(QueryParser.parse("!4")) */
-    DataModel.parseData("MobileCloud/data/earthquake.txt")
+    DataModel.parseData("MobileCloud/data/checker.txt")
 
     var q: Query = QueryParser.parse("m1.power>2");
     println(q + ", q.check: " + q.check(null));
-    q = QueryParser.parse("0.0 == 0");
+    q = QueryParser.parse(" networkType == '3G' ");
     println(q + ", q.check: " + q.check(null));
+    
     q = QueryParser.parse("5 >= 3");
     println(q + ", q.check: " + q.check(null));
     q = QueryParser.parse("5 <= 3");
@@ -249,6 +252,7 @@ object testTermParser {
     println(q + ", q.check: " + q.check(null));
     q = QueryParser.parse("5 > 3 && 3 > 1 || 1 < 2 && 6 < 7 ");
     println(q + ", q.check: " + q.check(null));
+    
 
     // from doc/example/*.bgm的例子测试
     /*println(QueryParser.parse("$pred->empty() || size() > $pred->size()"))
@@ -258,7 +262,7 @@ object testTermParser {
     	println(QueryParser.parse("!equal(send)"))*/
 
     var term = TermParser.apply("a:Hospital");
-    println("Ident:" + term + ",size=" + term.size + ", TermType:" + typeToString(term.termType))
+   // println("Ident:" + term + ",size=" + term.size + ", TermType:" + typeToString(term.termType))
 
     /*term = TermParser.apply("$3");
     	println("Ident:" + term + ",size=" + term.size + ", TermType:" + typeToString(term.termType));

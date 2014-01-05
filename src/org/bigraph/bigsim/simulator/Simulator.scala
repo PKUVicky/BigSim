@@ -14,7 +14,7 @@ import org.bigraph.bigsim.Vertex
 
 object Simulator {
   var matchDiscard: Set[Match] = Set();
-  
+
   def matchMarkDelete(m: Match): Unit = {
     assert(m != null);
     matchDiscard.add(m);
@@ -42,6 +42,9 @@ class Simulator(b: Bigraph) {
       println("mc::check(): null");
       return ;
     } else {
+      if (GlobalCfg.printMode) {
+        printf("%s:%s\n", "N_" + Math.abs(v.hash), v.bigraph.root.toString);
+      }
       // 一直检查直到遇到反例
       while (step()) {
         //println("workStack size : " + workStack.size +" : agent : "+workStack.top.bigraph.root.toString)
@@ -88,8 +91,8 @@ class Simulator(b: Bigraph) {
     var matches: Set[Match] = b.findMatches;
     println("matches size: " + matches.size)
     println("here---")
-    matches.foreach(f => { f.reactNodes.foreach(println)})
-     println("---here")
+    matches.foreach(f => { f.reactNodes.foreach(println) })
+    println("---here")
     checked(v.hash) = true;
     if (matches.size == 0) { //没有可以匹配的规则，该节点为终结节点
       v.terminal = true;
@@ -99,7 +102,9 @@ class Simulator(b: Bigraph) {
     var simRRMap: TreeMap[String, Match] = TreeMap();
     var isFirst = true
 
-    while (matches.size > 0) {
+    //while (matches.size > 0) {
+    if (matches.size > 0) {
+
       // delete conflict react node
       matches.map(it => {
         var conflict = false
@@ -164,7 +169,7 @@ class Simulator(b: Bigraph) {
         //nv.CLK = tm._1.split("_")(0).toDouble
         GlobalCfg.SysClk = tm._1.split("_")(0).toInt
         //println("System Clock:" + GlobalCfg.SysClk)
-       // println("middle result match RR " + tm._2.reactionRule.name + " : " + nb.root.toString)
+        // println("middle result match RR " + tm._2.reactionRule.name + " : " + nb.root.toString)
         curBigraph = nb
         curRR = tm._2.reactionRule
       }
@@ -177,8 +182,6 @@ class Simulator(b: Bigraph) {
         nv = g.lut(nv.hash);
         nv.addParents(v)
       } else {
-        // 若新模型尚未检测过，加入待检测队列。
-        //workQueue.enqueue(v2);
         g.add(nv);
       }
       v.addTarget(nv, curRR);
