@@ -33,6 +33,21 @@ class WeightExpr(expr: String) {
 object DataModel {
   var data: Map[String, Data] = Map()
   var wExpr: WeightExpr = null
+  var dataCalcsWithClk: Map[String, String] = Map()
+
+  def parseAgentExpr(expr: String) {
+    expr.split("\t").foreach(f => {
+      if (f.startsWith(GlobalCfg.wExprPrefStr)) {
+        addWeightExpr(f.substring(GlobalCfg.wExprPrefStr.length).trim)
+      } else if (f.startsWith(GlobalCfg.exprPrefStr)) {
+        f.substring(GlobalCfg.exprPrefStr.length).split(",").foreach(e => {
+          val kv = e.split("=")
+          if (kv.length == 2)
+            dataCalcsWithClk += kv(0) -> kv(1)
+        })
+      }
+    })
+  }
 
   def addWeightExpr(expr: String) {
     wExpr = new WeightExpr(expr)
@@ -45,6 +60,17 @@ object DataModel {
       return "wExpr=" + wExpr.expression
   }
 
+  def updateDataCalcsWithClk(clkIncr: String) {
+    /**
+     * Add ClkIncr data for dataCalcsWithClk
+     */
+    data += "ClkIncr" -> new Data("ClkIncr", "Double", clkIncr, "tick")
+    dataCalcsWithClk.foreach(dc => {
+      update(dc._1, dc._2)
+    })
+    data -= "ClkIncr"
+  }
+
   def getValues: String = {
     var res: String = ""
     data.map(d => {
@@ -53,7 +79,7 @@ object DataModel {
     res
   }
 
-  def getReport(): Double = {
+  def getReport: Double = {
     if (wExpr == null)
       0
     else
@@ -111,10 +137,10 @@ object DataSpliter {
 
   def preOrderData(t: Prefix, position: String, rr: ReactionRule) {
     updatePorts(t)
-    if (Data.relations.contains(t.ctrl.name)) {
+    if (Data.relations.contains(t.node.ctrl.name)) {
       rr.data += t
       updateParent(t, position)
-    } else if (Data.dataCtrls.contains(t.ctrl.name))
+    } else if (Data.dataCtrls.contains(t.node.ctrl.name))
       updateParent(t, position)
     else
       preOrderData(t.suffix, "suffix", rr)

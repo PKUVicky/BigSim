@@ -13,6 +13,9 @@ object GlobalCfg {
   val exprPrefStr: String = "Expr:"
   val sysClkPrefStr: String = "SysClk:"
   val randomPrefStr: String = "Rand:"
+  val wExprPrefStr: String = "wExpr:"
+  val hmmPrefStr: String = "HMM:"
+  val minProbability: Double = 0.2
 
   var DEBUG: Boolean = false;
   var checkLocal: Boolean = false;
@@ -31,6 +34,8 @@ object GlobalCfg {
   var simLoop: Int = 1;
   // whether sim data
   var checkData: Boolean = true;
+  // whether check HMM
+  var checkHMM: Boolean = true
 
   var allDefs: Boolean = false
   var allUses: Boolean = true
@@ -40,7 +45,7 @@ object GlobalCfg {
   var pathOutput: String = ""
   var defPathMapFile: String = ""
 
-  var instance: Boolean = true
+  var node: Boolean = true
 }
 
 object BigSimOpts {

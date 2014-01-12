@@ -22,13 +22,13 @@ object Subtree {
   }
 
   def preOrderString(t: Prefix): String = {
-    if ("" == t.ctrl.instanceName) {
-      t.ctrl.name + fports(t.port) + "." + preOrderString(t.suffix);
+    if ("" == t.node.name) {
+      t.node.ctrl.name + fports(t.node.ports) + "." + preOrderString(t.suffix);
     } else {
-      if (GlobalCfg.instance)
-        t.ctrl.instanceName + ":" + t.ctrl.name + fports(t.port) + "." + preOrderString(t.suffix);
+      if (GlobalCfg.node)
+        t.node.name + ":" + t.node.ctrl.name + fports(t.node.ports) + "." + preOrderString(t.suffix);
       else
-        t.ctrl.name + fports(t.port) + "." + preOrderString(t.suffix);
+        t.node.ctrl.name + fports(t.node.ports) + "." + preOrderString(t.suffix);
     }
   }
 
@@ -72,7 +72,7 @@ object Subtree {
         if ("idle" == x.name)
           nameList = nameList.:+(x.name);
         else {
-          if (GlobalCfg.instance)
+          if (GlobalCfg.node)
             nameList = nameList.:+(x.name + ":" + x.nameType);
           // for xuxu
           else

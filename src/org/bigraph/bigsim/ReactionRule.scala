@@ -2,6 +2,7 @@ package org.bigraph.bigsim
 
 import org.bigraph.bigsim.datamodel.DataModel
 import org.bigraph.bigsim.datamodel.DataSpliter
+import org.bigraph.bigsim.strategy.HMM
 
 /**
  * @author zhaoxin
@@ -24,8 +25,11 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
   var conds: Set[String] = Set()
   var sysClkIncr: Int = 0
   var random: Boolean = false
-  initExprs
+  // redexCtrl -- reactumCtrl
+  var nodeMap: Map[Node, Node] = calcNodeMap
+  var hmms: Set[String] = Set()
 
+  initExprs
   /**
    * init data calculate exprs and conds in a RR
    */
@@ -44,22 +48,34 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
       } else if (f.startsWith(GlobalCfg.randomPrefStr)) {
         if (f.substring(GlobalCfg.randomPrefStr.length).equals("true"))
           random = true
+      } else if (f.startsWith(GlobalCfg.hmmPrefStr)) {
+        f.substring(GlobalCfg.hmmPrefStr.length).split(",").foreach(e => {
+          hmms += e
+        })
       }
     })
-   // if (!dataCalcs.contains("time"))
-     // dataCalcs += "time" -> "time+0"
+    // if (!dataCalcs.contains("time"))
+    // dataCalcs += "time" -> "time+0"
   }
 
   /**
    * Check if there is any condition not meet
+   * Also Check HMM
    * @return true/false
    */
   def check: Boolean = {
-    conds.foreach(f => {
-      val q = QueryParser.parse(f)
-      if (!q.check(null))
-        return false
-    })
+    if (GlobalCfg.checkData)
+      conds.foreach(m => {
+        val q = QueryParser.parse(m)
+        if (!q.check(null))
+          return false
+      })
+
+    if (GlobalCfg.checkHMM)
+      hmms.foreach(h => {
+        if (HMM.hmms(h).getObsProbability < GlobalCfg.minProbability)
+          return false
+      })
     true
   }
 
@@ -75,7 +91,7 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
   /**
    * get reaction time
    */
- /* def getReactionTime: Double = {
+  /* def getReactionTime: Double = {
     dataCalcs("time").substring(4).trim().toDouble
   }*/
 
@@ -108,6 +124,13 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
   }
 
   /**
+   * Get HMM
+   */
+  def getHMM: String = {
+    hmms.map(h => { h + "=" + (HMM.hmms(h).getObsProbability*100).formatted("%.2f") +"%"}).toList.mkString(",")
+  }
+
+  /**
    * for data flow
    */
   //暂时先考虑，规则只有一个def的情况。cuse以及puse虽然用set，但是暂时考虑单个情况
@@ -117,9 +140,6 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
   var cuseRules: scala.collection.mutable.Set[String] = scala.collection.mutable.Set()
   var puseRules: scala.collection.mutable.Set[String] = scala.collection.mutable.Set()
   var defRules: scala.collection.mutable.Set[String] = scala.collection.mutable.Set() //其它有相同def的规则
-
-  // redexCtrl -- reactumCtrl
-  var ctrlMap: Map[Control, Control] = calcCtrlMap;
 
   def this(red: Term, react: Term) = this(null, red, react, "")
   def this(n: String, red: Term, react: Term) = this(n, red, react, "")
@@ -137,48 +157,108 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
     }
   }
 
-  def calcCtrlMap: Map[Control, Control] = {
-    var res: Map[Control, Control] = Map();
-    var redexCtrls = getTermCtrls(redex);
-    var reactumCtrls = getTermCtrls(reactum);
+  def calcNodeMap: Map[Node, Node] = {
+    var res: Map[Node, Node] = Map();
+    var redexNodes = getTermNodes(redex);
+    var reactumNodes = getTermNodes(reactum);
 
-    // redex、reactum中Control数量不一致修正
-    var redexCtrlsName = redexCtrls.map(_.name);
-    var reactumCtrlsName = reactumCtrls.map(_.name);
-    redexCtrls = redexCtrls.filter(x => reactumCtrlsName.contains(x.name));
-    reactumCtrls = reactumCtrls.filter(x => {
-      var isIn = redexCtrlsName.contains(x.name);
+    // redex、reactum中Node/Control数量不一致修正
+    /**
+     * Match both the node or control both in redex and reactum
+     */
+    var redexNodesName = redexNodes.map((_.name));
+    var reactumNodesName = reactumNodes.map(_.name);
+
+    /**
+     * If the reactum creates a new node, than it maps to itself.
+     * Note that the link for a node may change during the reaction.
+     * If not change link, than it is a full match, we take it as first place.
+     * If change link, than just do as the node name and ctrl name.
+     */
+    reactumNodes.map(rn => {
+      var fullMatch: Boolean = false
+      var mNode: Node = null
+      var hasMatch: Boolean = false
+      var maxMatch: Int = 0
+      for (i <- 0 to redexNodes.length - 1 if !fullMatch) {
+
+        if (redexNodes(i).getNodeStr.equals(rn.getNodeStr)) {
+          /**
+           * If it is the first time match, record it and the maxMatch name list.
+           * If it is not the first time match, compare the maxMatch to find more
+           * suitable match.
+           */
+          if (!hasMatch) {
+            hasMatch = true
+            mNode = redexNodes(i)
+            maxMatch = rn.getMatchPortsCount(redexNodes(i).ports)
+          } else if (rn.getMatchPortsCount(redexNodes(i).ports) > maxMatch) {
+            mNode = redexNodes(i)
+            maxMatch = rn.getMatchPortsCount(redexNodes(i).ports)
+          }
+
+        }
+        if (redexNodes(i).getNodeStr.equals(rn.getNodeStr)
+          && redexNodes(i).getNodePortsStr.equals(rn.getNodePortsStr)) {
+          fullMatch = true
+          mNode = redexNodes(i)
+        }
+      }
+      if (hasMatch) {
+        res += (rn -> mNode)
+        redexNodes -= mNode
+      } else {
+        res += (rn -> rn)
+      }
+    })
+
+    /**
+     * If reactum contails the redex node, keep it in the redexNodes.
+     * So now, redexNodes is small than reactumNodes.
+     *
+     * If reactum node not in the redex, add itself
+     * If in redex, keep it. So now, redexNodes and reactumNodes are the same.
+     */
+
+    /*
+    redexNodes = redexNodes.filter(x => reactumNodesName.contains(x.name));
+    reactumNodes = reactumNodes.filter(x => {
+      var isIn = redexNodesName.contains(x.name);
       if (!isIn) res += (x -> x);
       isIn;
     });
+
     var index = 0;
-    if (redexCtrls.size == reactumCtrls.size) {
-      reactumCtrls.map(x => {
-        res += (x -> redexCtrls(index));
+    /**
+     * The get node function return a sorted list.
+     */
+    if (redexNodes.size == reactumNodes.size) {
+      reactumNodes.map(x => {
+        res += (x -> redexNodes(index));
         index += 1;
       });
-    }
+    } */
     res;
   }
 
-  // 计算Term中所有的Control
-  def getTermCtrls(t: Term): List[Control] = {
-    var ctrls: List[Control] = List();
+  // 计算Term中所有的Node
+  def getTermNodes(t: Term): List[Node] = {
+    var nodes: List[Node] = List();
     if (t.isInstanceOf[Prefix]) {
       var pre: Prefix = t.asInstanceOf[Prefix];
-      ctrls = ctrls.:+(pre.ctrl);
-      ctrls = getTermCtrls(pre.suffix) ::: ctrls;
+      nodes = nodes.:+(pre.node);
+      nodes = getTermNodes(pre.suffix) ::: nodes;
     } else if (t.isInstanceOf[Paraller]) {
       var par: Paraller = t.asInstanceOf[Paraller];
-      ctrls = getTermCtrls(par.leftTerm) ::: ctrls;
-      ctrls = getTermCtrls(par.rightTerm) ::: ctrls;
+      nodes = getTermNodes(par.leftTerm) ::: nodes;
+      nodes = getTermNodes(par.rightTerm) ::: nodes;
     } else if (t.isInstanceOf[Regions]) {
       var reg: Regions = t.asInstanceOf[Regions];
-      ctrls = getTermCtrls(reg.leftTerm) ::: ctrls;
-      ctrls = getTermCtrls(reg.rightTerm) ::: ctrls;
+      nodes = getTermNodes(reg.leftTerm) ::: nodes;
+      nodes = getTermNodes(reg.rightTerm) ::: nodes;
     }
-    ctrls = ctrls.sort((c1: Control, c2: Control) => { c1.name < c2.name });
-    ctrls;
+    nodes = nodes.sort((n1: Node, n2: Node) => { n1.name < n2.name });
+    nodes;
   }
 
   def causes(rule: ReactionRule) {
@@ -199,14 +279,15 @@ object testRR {
     var reactum = TermParser.apply(reactumS);
     println(redex.termType)
     println(reactum.termType)
+    //var r = new ReactionRule("r_28", redex, reactum, "time:5 cond:power +=5%;fee+=3");
+
+    redexS = "zone[idle,idle].network[idle,idle,idle,idle].(mobile[idle,idle,idle,idle,hasCAH1:edge,idle].(contextAware[hasCAH1:edge,idle,idle,powerIs1:edge,idle,idle,idle].power[powerIs1:edge] | application[idle,idle,idle,idle]) | mobile[idle,idle,idle,idle,hasCAH2:edge,idle].(contextAware[hasCAH2:edge,idle,idle,powerIs2:edge,idle,idle,idle].power[powerIs2:edge] | application[idle,idle,idle,idle]) | mobile[idle,idle,idle,idle,hasCAH3:edge,idle].(contextAware[hasCAH3:edge,idle,idle,powerIs3:edge,idle,idle,idle].power[powerIs3:edge] | application[idle,idle,idle,idle])) | $0";
+    reactumS = "zone[idle,idle].network[idle,idle,idle,idle].(mobile[idle,idle,idle,idle,hasCAH1:edge,idle].(contextAware[hasCAH1:edge,idle,idle,powerIs1:edge,pointIs1:edge,lumIs1:edge,pressureIs1:edge].(power[powerIs1:edge] | pointXY[pointIs1:edge] | luminous[lumIs1:edge] | pressure[pressureIs1:edge]) | application[idle,idle,idle,idle].job1:job[idle]) | mobile[idle,idle,idle,idle,hasCAH2:edge,idle].(contextAware[hasCAH2:edge,idle,idle,powerIs2:edge,pointIs2:edge,lumIs2:edge,pressureIs2:edge].(power[powerIs2:edge] | pointXY[pointIs2:edge] | luminous[lumIs2:edge] | pressure[pressureIs2:edge]) | application[idle,idle,idle,idle].job2:job[idle]) | mobile[idle,idle,idle,idle,hasCAH3:edge,idle].(contextAware[hasCAH3:edge,idle,idle,powerIs3:edge,pointIs3:edge,lumIs3:edge,pressureIs3:edge].(power[powerIs3:edge] | pointXY[pointIs3:edge] | luminous[lumIs3:edge] | pressure[pressureIs3:edge]) | application[idle,idle,idle,idle].job3:job[idle])) | $0";
+    redex = TermParser.apply(redexS)
+    reactum = TermParser.apply(reactumS)
     var r = new ReactionRule("r_28", redex, reactum, "time:5 cond:power +=5%;fee+=3");
-
-    //println("r.ctrlMap:" + r.ctrlMap);
-
-    // ChargingRoom.Computer[connected:edge] | ConsultingRoom.(Patient[patient_prescription:edge,idle] | Computer[connected:edge].Prescription[patient_prescription:edge]) | $0 -> 
-    // ChargingRoom.Computer[connected:edge].Bill[idle] | ConsultingRoom.(Patient[patient_prescription:edge,idle] | Computer[connected:edge].Prescription[patient_prescription:edge]) | $0;    
-    var redexS2 = "ChargingRoom.Computer[connected:edge] | ConsultingRoom.(Patient[patient_prescription:edge,idle] | Computer[connected:edge].Prescription[patient_prescription:edge]) | $0";
-    var reactums = "ChargingRoom.Computer[connected:edge].Bill[idle] | ConsultingRoom.(Patient[patient_prescription:edge,idle] | Computer[connected:edge].Prescription[patient_prescription:edge]) | $0";
+    var a = r.nodeMap
+    println(a.toString)
 
   }
 }

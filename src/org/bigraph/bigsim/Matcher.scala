@@ -87,10 +87,11 @@ object Matcher {
      *  if the RR has node, it will try match the given node's name.
      */
     //if (t.ctrl.name == r.ctrl.name) {
-    if (t.ctrl.name == r.ctrl.name &&
-      (r.ctrl.instanceName.equals("") || r.ctrl.instanceName.equals(t.ctrl.instanceName))) {
+    if (t.node.ctrl.name == r.node.ctrl.name &&
+      (r.node.name.equals("") || r.node.name.equals(t.node.name))) {
+      
       //  if  the ctrl of redex is changed, add change info
-      var actives = true
+      /*var actives = true
       if (r.ctrl.name.equals("mobile"))
         actives = false
       if (!actives) {
@@ -100,9 +101,10 @@ object Matcher {
         m.reactNodes.foreach(print)
         println
 
-      }
+      }*/
+      
       if (GlobalCfg.DEBUG) {
-        println("matcher::tryMatch " + "Prefix match: " + t.port + " with " + r.port.toString() + " Active: " + t.activeContext)
+        println("matcher::tryMatch " + "Prefix match: " + t.node.ports + " with " + r.node.ports.toString() + " Active: " + t.activeContext)
       }
       if (m.root == null && !(t.parent == null || (t.parent != null && t.parent.activeContext))) {
         return m.failure
@@ -112,10 +114,10 @@ object Matcher {
 
       m.addMatch(r, t)
 
-      m.ctrlMap += (r.ctrl -> t.ctrl);
+      m.nodeMap += (r.node -> t.node);
 
-      var tnm: List[Name] = t.port
-      var rnm: List[Name] = r.port
+      var tnm: List[Name] = t.node.ports
+      var rnm: List[Name] = r.node.ports
       //外层的t.ctrl == r.ctrl 首先比较control是否相同，然后，tnm取得里面的name的值
       //首先判断，如果里面包含的name个数相同再继续比较，否则的话就不同了。
       if (tnm.size != rnm.size) {
@@ -650,11 +652,11 @@ object Matcher {
 object testMatcher {
   def main(args: Array[String]) {
     println("--------------------Test crossprod function:--------------- ")
-    var redexTest: Term = TermParser.apply("Pharmacy.(Patient[patient_prescription:edge,patient_bill_payed:edge,isDecoction:edge].IsDecoction[isDecoction:edge,value_is:edge,leftValue:edge].Value[value_is:edge] | Pill[idle] | $0) | Equal[leftValue:edge,rightValue:edge] | False[rightValue:edge] | $1");
-    var reactumTest: Term = TermParser.apply("ChargingRoom.($0 | Patient[Patient_pill:edge,idle,isDecoction:edge].$2 | Pill[Patient_pill:edge]) | $1");
-    var ruleA: ReactionRule = new ReactionRule(redexTest, reactumTest)
-    var node = TermParser.apply("a:Hospital.(Pill[patient_pill:edge].nil|b:Patient[patient_pill:edge,idle,isDecoction:edge].nil|c:ConsultingRoom.f:Computer[connected:edge].Prescription[patient_prescription:edge].nil|d:ChargingRoom.g:Computer[connected:edge].Bill[patient_bill_payed:edge].nil|e:Pharmacy.h:Computer[connected:edge].nil)")
-    var matchA = new Match(ruleA)
+    var redexTest: Term = null//TermParser.apply("Pharmacy.(Patient[patient_prescription:edge,patient_bill_payed:edge,isDecoction:edge].IsDecoction[isDecoction:edge,value_is:edge,leftValue:edge].Value[value_is:edge] | Pill[idle] | $0) | Equal[leftValue:edge,rightValue:edge] | False[rightValue:edge] | $1");
+    var reactumTest: Term = null//TermParser.apply("ChargingRoom.($0 | Patient[Patient_pill:edge,idle,isDecoction:edge].$2 | Pill[Patient_pill:edge]) | $1");
+    var ruleA: ReactionRule = null//new ReactionRule(redexTest, reactumTest)
+    var node : Term = null//TermParser.apply("a:Hospital.(Pill[patient_pill:edge].nil|b:Patient[patient_pill:edge,idle,isDecoction:edge].nil|c:ConsultingRoom.f:Computer[connected:edge].Prescription[patient_prescription:edge].nil|d:ChargingRoom.g:Computer[connected:edge].Bill[patient_bill_payed:edge].nil|e:Pharmacy.h:Computer[connected:edge].nil)")
+    var matchA : Match= null//new Match(ruleA)
 
     //Matcher.tryMatchPrefixParaller(node.asInstanceOf[Prefix], redexTest.asInstanceOf[Paraller], matchA);
     //println(result)
@@ -665,13 +667,20 @@ object testMatcher {
     println("paraller " + TermType.TPAR)
     println("region " + TermType.TREGION)
 
-    redexTest = TermParser.apply("a.b | $1")
-    reactumTest = TermParser.apply("a.c | $0")
-    node = TermParser.apply("a.b | c")
+    redexTest = TermParser.apply("a.b")
+    reactumTest = TermParser.apply("a.c | b")
+    node = TermParser.apply("a.b")
+    val b: Bigraph = new Bigraph;
+    b.root = node
     ruleA = new ReactionRule(redexTest, reactumTest)
     matchA = new Match(ruleA)
-    var result = Matcher.tryMatchTermReactionRule(node.asInstanceOf[Paraller], ruleA);
+    var result = Matcher.tryMatchTermReactionRule(node, ruleA);
     println(result.size)
+    result.foreach(f=>{
+      var nb = b.applyMatch(f)
+      print (nb.root.toString())
+      })
+    
 
     /*
     var matchB = new Match(ruleA)

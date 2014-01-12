@@ -3,6 +3,7 @@ package org.bigraph.bigsim
 import java.io.File
 import org.bigraph.bigsim.datamodel.DataModel
 import org.bigraph.bigsim.simulator.Simulator
+import org.bigraph.bigsim.strategy.HMM
 
 object BigSim extends App {
   def usage = System.err.println("""    
@@ -128,7 +129,7 @@ Usage: bigsim [options] <filename>
         Bigraph.sorting.init(BigSimOpts.sortFileName)
 
       var filename = "earthquake";
-      filename="checker";
+      filename = "checker";
 
       // GlobalCfg.patterns = true
       //GlobalCfg.patternFile = "resources/Patterns.xml"
@@ -149,23 +150,25 @@ Usage: bigsim [options] <filename>
        * init Data if needed
        */
       if (GlobalCfg.checkData)
-        DataModel.parseData("MobileCloud/data/"+filename+".txt")
+        DataModel.parseData("MobileCloud/data/" + filename + ".txt")
+      if (GlobalCfg.checkHMM)
+        HMM.parseHMM("MobileCloud/hmm/" + filename + ".hmm")
 
       val m = new MC(b)
       //m.check;
 
       //val sim = new FullSimulator(b)
       //sim.simulate
-       for (i <- 1 to GlobalCfg.simLoop) {
+      for (i <- 1 to GlobalCfg.simLoop) {
         GlobalCfg.SysClk = 0
         println("<--------------------------- Sim " + i + " ------------------------------------>")
-        var sim  = new Simulator(b)
+        var sim = new Simulator(b)
         sim.simulate;
         println("<---------------------------- End ------------------------------------->")
 
       }
       val rc = new ReachChecker(io.Source.fromFile(new File(BigSimOpts.filename)).mkString)
-     //println(rc.check)
+      //println(rc.check)
 
       var end = System.currentTimeMillis();
       println("start:" + start + ", end:" + end + ", used:" + (end - start));

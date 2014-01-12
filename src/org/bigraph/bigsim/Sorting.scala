@@ -3,6 +3,12 @@ package org.bigraph.bigsim
 import scala.xml._
 import scala.collection.mutable.Map
 
+abstract class Sort {  
+}
+
+class PlaceSort extends Sort
+class LinkSort extends Sort
+
 class Sorting {
   var placeSort: List[String] = List();
   var linkSort: List[String] = List();
@@ -98,13 +104,13 @@ class Sorting {
       var prefix = t.asInstanceOf[Prefix];
       var suffix = prefix.suffix;
       if (suffix.isInstanceOf[Prefix]) { // K.T
-        var pair = Pair(prefix.ctrl.name, suffix.asInstanceOf[Prefix].ctrl.name);
+        var pair = Pair(prefix.node.ctrl.name, suffix.asInstanceOf[Prefix].node.ctrl.name);
         pcPairs = pcPairs.:+(pair);
       } else if (suffix.isInstanceOf[Paraller]) { // K.(T1|T2)
         var children = suffix.asInstanceOf[Paraller].getChildren;
         children.map(child => {
           if (child.isInstanceOf[Prefix]) { // 非nil 非hole
-            var pair = Pair(prefix.ctrl.name, child.asInstanceOf[Prefix].ctrl.name);
+            var pair = Pair(prefix.node.ctrl.name, child.asInstanceOf[Prefix].node.ctrl.name);
             pcPairs = pcPairs.:+(pair);
           }
         });
@@ -275,8 +281,8 @@ class Sorting {
     var ctrlInstances: List[Pair[String, List[String]]] = List();
     if (t.isInstanceOf[Prefix]) {
       var prefix = t.asInstanceOf[Prefix];
-      if (prefix.port.size > 0) { // K[n1,n2,...]
-        var pair = Pair(prefix.ctrl.name, prefix.port.map(_.name));
+      if (prefix.node.ports.size > 0) { // K[n1,n2,...]
+        var pair = Pair(prefix.node.ctrl.name, prefix.node.ports.map(_.name));
         ctrlInstances = ctrlInstances.:+(pair);
       }
       ctrlInstances = ctrlInstances ::: getCtrlInstances(prefix.suffix);

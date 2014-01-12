@@ -267,78 +267,67 @@ class Regions(sid: Long, lt: Term, rt: Term) extends Term {
 }
 
 // control[ports].term
-class Prefix(count: Int, sid: Long, c: Control, ports: List[Name], suff: Term) extends Term {
-  val ctrl: Control = c;
+class Prefix(sid: Long, n: Node, suff: Term) extends Term {
+//class Prefix(count: Int, sid: Long, c: Control, ports: List[Name], suff: Term) extends Term {
+  val node: Node = n
   /**
    * use List in Scala to replace the vector in C++
    * because Name may be place holder for Prefix
    */
-  var port: List[Name] = ports;
   var suffix: Term = suff;
   if (suffix != null) {
     suffix.parent = this;
   }
   termType = TermType.TPREF;
-  if (c.arity == 0) //对只给名称的默认Control修正参数个数 
-    ctrl.arity = port.size;
-
-  if (port.size > c.arity) {
-    println("Error: control " + Bigraph.controlToString(c) + " has arity" + c.arity
-      + " but " + port.size + " ports have been linked!");
-    exit(1);
-  }
 
   id = sid;
 
   // multiple constructors
-  def this(sid: Long, c: Control, ports: List[Name], suff: Term) =
-    this(1, sid, c, ports, suff);
-
-  def this(c: Control, ports: List[Name], suff: Term) =
-    this(Term.uTermIncrement, c, ports, suff);
-
-  def this(count: Int, c: Control, ports: List[Name], suff: Term) =
-    this(count, Term.uTermIncrement, c, ports, suff);
+  def this(n: Node, suff: Term) =
+    this(Term.uTermIncrement, n, suff);
 
   override def size = {
     1 + suffix.size;
   }
 
   override def activeContext = {
-    if (parent == null) ctrl.active;
-    else ctrl.active && parent.activeContext;
+    if (parent == null) node.active;
+    else node.active && parent.activeContext;
   }
 
   override def applyMatch(m: Match) = {
     if (id == m.root.id) {
       m.rule.reactum.instantiate(m);
     } else {
-      new Prefix(id, ctrl, port, suffix.applyMatch(m));
+      new Prefix(id, node, suffix.applyMatch(m));
     }
   }
 
   override def instantiate(m: Match) = {
     if (m == null) {
-      new Prefix(ctrl, port, suffix.instantiate(m));
+      new Prefix(node, suffix.instantiate(m));
     } else {
       var nport: List[Name] = List();
-      for (name <- port) {
+      for (name <- node.ports) {
         nport = nport.:+(m.getName(name));
       }
 
-      var modelCtrl = ctrl;
-      if (m.rule.ctrlMap.contains(ctrl)) {
-        var redexCtrl = m.rule.ctrlMap(ctrl);
-        if (m.ctrlMap.contains(redexCtrl))
-          modelCtrl = m.ctrlMap(redexCtrl);
+      var modelNode = node;
+      if(node.id == 272)
+        println
+      if (m.rule.nodeMap.contains(node)) {
+        var redexNode = m.rule.nodeMap(node);
+        if (m.nodeMap.contains(redexNode))
+          modelNode = m.nodeMap(redexNode);
       }
-      new Prefix(modelCtrl, nport, suffix.instantiate(m));
+      modelNode.ports = nport
+      new Prefix(modelNode, suffix.instantiate(m));
     }
   }
 
   override def getAllNames = {
     var names: List[Name] = List();
-    ports.map(x => names = names.:+(x));
+    node.ports.map(x => names = names.:+(x));
     if (suffix != null)
       names = names ++ suffix.getAllNames;
     names;

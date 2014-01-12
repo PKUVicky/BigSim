@@ -54,10 +54,10 @@ class FullSimulator(b: Bigraph) {
   }
 
   def report(step: Int): String = {
-    GlobalCfg.instance = false
+    GlobalCfg.node = false
     if (GlobalCfg.pathOutput != "")
       g.dumpPathes
-    GlobalCfg.instance = true
+    GlobalCfg.node = true
     g.dumpDotForward;
   }
 
@@ -79,8 +79,8 @@ class FullSimulator(b: Bigraph) {
 
       if (reactList != null) {
         reactList.map(tm => {
-          if (!GlobalCfg.checkData || tm.reactionRule.check) {
-            var matches: Set[Match] = curBigraph.findMatchesOfRR(tm.reactionRule)
+          if (!GlobalCfg.checkData || tm.rule.check) {
+            var matches: Set[Match] = curBigraph.findMatchesOfRR(tm.rule)
             if (matches != null) {
               matches.map(m => {
                 //if (m.getReactNodes.equals(tm.getReactNodes)) {
@@ -89,9 +89,9 @@ class FullSimulator(b: Bigraph) {
                   if (nb.root == null)
                     nb.root = new Nil();
                   println("System Clock:" + GlobalCfg.SysClk)
-                  println("middle result match RR " + tm.reactionRule.name + " : " + nb.root.toString)
+                  println("middle result match RR " + tm.rule.name + " : " + nb.root.toString)
                   curBigraph = nb
-                  curRRs += tm.reactionRule
+                  curRRs += tm.rule
                   // break
                 }
               })
@@ -174,8 +174,8 @@ class FullSimulator(b: Bigraph) {
      * it must happen when it is matched.
      */
     matches.map(m => {
-      if (!m.reactionRule.random) {
-        var key = GlobalCfg.SysClk + m.reactionRule.sysClkIncr
+      if (!m.rule.random) {
+        var key = GlobalCfg.SysClk + m.rule.sysClkIncr
         var queue: Queue[Match] = null
         if (simQueue.contains(key)) {
           queue = simQueue(key)
@@ -185,7 +185,7 @@ class FullSimulator(b: Bigraph) {
         }
         simQueue += key -> queue
         reactNodes ++ m.reactNodes
-        println("random match: " + m.reactionRule.name)
+        println("random match: " + m.rule.name)
       }
       matches -= m
     })
@@ -224,7 +224,7 @@ class FullSimulator(b: Bigraph) {
             }
             simQueue += key -> queue
             reactNodes ++ curMatch.reactNodes
-            println("random match: " + curMatch.reactionRule.name)
+            println("random match: " + curMatch.rule.name)
           } else if (scala.util.Random.nextInt(2) == 1) {
             var queue: Queue[Match] = null
             if (simQueue.contains(key)) {
@@ -235,7 +235,7 @@ class FullSimulator(b: Bigraph) {
             }
             simQueue += key -> queue
             reactNodes ++ curMatch.reactNodes
-            println("random match: " + curMatch.reactionRule.name)
+            println("random match: " + curMatch.rule.name)
           }
           matches -= curMatch
         }

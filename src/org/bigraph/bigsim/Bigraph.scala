@@ -13,13 +13,47 @@ object Node {
   }
 }
 
-class Node(n: String, act: Boolean, ar: Int, c: Control) {
+class Node(n: String, act: Boolean, p: List[Name], c: Control) {
+  val id: Int = Node.idIncrement
   val name = n
-  val id = Node.idIncrement
+  var ports: List[Name] = p
   var active = act
-  val arity = ar
-  var ctrl = c
-  override def toString = "Node:(" + name + "," + id + "," + active + "," + arity + ")";
+  val ctrl = c
+
+  if (!ctrl.active)
+    active = ctrl.active
+
+  if (ctrl.arity == 0) //对只给名称的默认Control修正参数个数 
+    ctrl.arity = ports.size;
+
+  if (ports.size > c.arity) {
+    println("Error: control " + Bigraph.controlToString(c) + " has arity" + c.arity
+      + " but " + ports.size + " ports have been linked!");
+    exit(1);
+  }
+
+  def getNodeStr: String = {
+    name + ":" + ctrl.name
+  }
+
+  def getNodePortsStr: String = {
+    "[" + ports.map(_.name).mkString(",") + "]"
+  }
+
+  def getMatchPortsCount(otherPorts: List[Name]): Int = {
+    var m: Int = 0
+    if (ports.size == otherPorts.size) {
+      var index: Int = 0
+      ports.foreach(p => {
+        if (p.name.equals(otherPorts(index)))
+          m += 1
+        index += 1
+      })
+    }
+    m
+  }
+
+  override def toString = "Node_" + id + ":(" + getNodeStr + getNodePortsStr + ")";
 }
 
 object Control {
@@ -30,23 +64,18 @@ object Control {
   }
 }
 
-class Control(n: String, act: Boolean, ar: Int, s: String, p: String) {
-  val name: String = n;
+class Control(n: String, ar: Int, act: Boolean, s: PlaceSort) {
   val id: Int = Control.idIncrement;
-  var active: Boolean = act;
+  val name: String = n;
   var arity: Int = ar;
-  var sort: String = s;
-  var pattern: String = p;
-  var instanceName: String = "";
+  var active: Boolean = act;
+  var placeSort: PlaceSort = s;
 
-  def this(n: String, act: Boolean, ar: Int) = this(n, act, ar, "DEFAULT", "DEFALUT");
-  def this(n: String) = this(n, true, 0, "DEFAULT", "DEFALUT");
-  def this(insName: String, n: String) = {
-    this(n);
-    instanceName = insName;
-  }
+  def this(n: String, ar: Int, act: Boolean) = this(n, ar, act, null);
+  def this(n: String, ar: Int) = this(n, ar, true, null);
+  def this(n: String) = this(n, 0, true, null);
 
-  override def toString = "Control:(" + name + "," + id + "," + active + "," + arity + "," + sort + "," + pattern + "," + instanceName + ")";
+  override def toString = "Control:(" + name + "," + id + "," + arity + "," + placeSort + ")";
 }
 
 object Name {
@@ -67,15 +96,16 @@ class Name(n: String, nt: String) {
 // Bigraph is (V,E,ctrl,prnt,link) : <n,K> -> <m,L>
 object Bigraph {
   var nameMap: Map[Pair[String, String], Name] = Map();
+  var nodeMap: Map[String, Node] = Map();
   var controlMap: Map[String, Control] = Map();
   var modelNames: List[Name] = List();
   var sorting: Sorting = new Sorting();
 
-  def controlFromString(insName: String, ctrlName: String): Control = {
+  def controlFromString(ctrlName: String): Control = {
     if (ctrlName == "")
       null;
     if (!controlMap.contains(ctrlName)) {
-      val fresh: Control = new Control(ctrlName, insName);
+      val fresh: Control = new Control(ctrlName, 0);
       controlMap(ctrlName) = fresh;
     }
     controlMap(ctrlName);
@@ -106,8 +136,8 @@ object Bigraph {
     ""
   }
 
-  def addControl(n: String, act: Boolean, ar: Int): Control = {
-    val f: Control = new Control(n, act, ar);
+  def addControl(n: String, ar: Int, act: Boolean): Control = {
+    val f: Control = new Control(n, ar, act);
     controlMap(n) = f;
     f;
   }
@@ -168,7 +198,7 @@ class Bigraph(roots: Int = 1) {
         relations = Data.relationDecision(relation)
       })
     }
-    
+
     /**
      * @author liangwei
      * add RR conditions and realtions
@@ -195,7 +225,7 @@ class Bigraph(roots: Int = 1) {
     var res: Set[Match] = Set();
 
     rules.map(x => {
-      
+
       if (GlobalCfg.DEBUG)
         println("bigraph::find_matches(): redex: " + x.redex.toString);
       /**
@@ -208,6 +238,11 @@ class Bigraph(roots: Int = 1) {
           relations = Data.relationDecision(relation)
         })
       }
+      
+      /**
+       * @author liangwei
+       * add HMM
+       */    
       /**
        * @author liangwei
        * add RR conditions and realtions
@@ -312,11 +347,6 @@ class Bigraph(roots: Int = 1) {
 object testBigraph {
   def main(args: Array[String]) {
     // testControlFromString
-    println(Bigraph.controlFromString("tanch", "Person"));
-    println(Bigraph.controlFromString("zhaoxin", "Person"));
-    println(Bigraph.controlFromString("chenjing", "Person"));
-    println(Bigraph.controlFromString("lijingchen", "Person"));
-
     println("controlMap:" + Bigraph.controlMap.toList);
 
     // testNameFromString

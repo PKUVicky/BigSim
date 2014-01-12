@@ -298,7 +298,7 @@ class Graph(init: Vertex) {
       if (x.terminal) {
         dc = "shape = doublecircle, color=lightblue2, style=filled, ";
       }
-      out += "N_" + formatHash(x.hash) + "\n"+ "[ " + dc +"];\n";
+      out += "N_" + formatHash(x.hash) + "\n" + "[ " + dc + "];\n";
 
       x.target.map(y => {
         rr = "?";
@@ -308,8 +308,10 @@ class Graph(init: Vertex) {
         if (y._1 != null) {
           if (GlobalCfg.checkTime)
             rr = rr + "\nSystem Clock: " + y._1.CLK
-          if (GlobalCfg.checkData)
+          if (GlobalCfg.checkData && y._2.conds.size != 0)
             rr = rr + "\nCond:" + y._2.getConds
+          if (GlobalCfg.checkHMM && y._2.hmms.size != 0)
+            rr = rr + "\nHMM:" + y._2.getHMM
           out += " N_" + formatHash(x.hash) + " -> N_" + formatHash(y._1.hash) + "[ label = \"" + rr + "\"];\n"
         }
       });

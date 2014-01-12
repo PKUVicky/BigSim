@@ -23,7 +23,7 @@ object BGMTerm {
       case BGMControl(_, _, _) => true
       case _ => false
     }).map(_.asInstanceOf[BGMControl])
-    controlList.map(x => Bigraph.addControl(x.n, x.active, x.arity));
+    controlList.map(x => Bigraph.addControl(x.n, x.arity, x.active));
 
     // BGMName
     t.filter(_ match {
@@ -107,7 +107,7 @@ object BGMParser extends RegexParsers {
         BGMRule(i, rr(0), rr(1), "") }} |
     "%agent" ~> ((ws ~> exp) ~ ("{" ~> exp <~ "}")) ^^ {
       case i ~ e => {
-        DataModel.addWeightExpr(e)
+        DataModel.parseAgentExpr(e)
         BGMAgent(i) }} |
     "%agent" ~> (ws ~> exp) ^^ { x => BGMAgent(x) } |
     "%property" ~> (ws ~> ident ~ (ws ~> exp)) ^^ { case i ~ p => BGMProp(i, p) } |

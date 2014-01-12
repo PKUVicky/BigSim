@@ -13,7 +13,7 @@ import org.bigraph.bigsim._
 object ParseRules {
 
   def comparePrefix(preA: Prefix, preB: Prefix): Boolean = {
-    if (preA.size != preB.size || preA.ctrl.name != preB.ctrl.name) {
+    if (preA.size != preB.size || preA.node.ctrl.name != preB.node.ctrl.name) {
       false
     } else if (preA.suffix.termType == TermType.TNIL && preB.suffix.termType == TermType.TNIL) {
       true
@@ -164,13 +164,13 @@ object ParseRules {
     } else if (prefix.suffix.termType == TermType.TPREF) {
       var sufixEleSet: Set[Term] = getElementsOfPrefix(prefix.suffix.asInstanceOf[Prefix])
       sufixEleSet.map(ite => {
-        paraElements += new Prefix(prefix.ctrl, prefix.port, ite).asInstanceOf[Term]
+        paraElements += new Prefix(prefix.node, ite).asInstanceOf[Term]
       })
     } else if (prefix.suffix.termType == TermType.TPAR) { //这种情况还需要多加考虑，比较困难,暂时未考虑三层嵌套
       var suffixParaElementsSet: Set[Term] = prefix.suffix.asInstanceOf[Paraller].getChildren
 //      println("the suffixParaSet is: " + suffixParaElementsSet)
       suffixParaElementsSet.map(ite => {
-        var tempPrefix: Prefix = new Prefix(prefix.ctrl, prefix.port, ite)
+        var tempPrefix: Prefix = new Prefix(prefix.node, ite)
         paraElements.add(tempPrefix.asInstanceOf[Term])
       })
     }

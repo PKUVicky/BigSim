@@ -51,11 +51,14 @@ object TermParser extends StandardTokenParsers {
   lazy val nameList: Parser[List[Ident]] = newFormatName ~ ("," ~> nameList) ^^ { case i ~ n => (i :: n) } | newFormatName ^^ (i => List(i));
 
   lazy val prefix: Parser[Term] = ctrl ~ ("." ~> ("(" ~> expr <~ ")")) ^^ {
-    case (c, n) ~ s => new Prefix(c.count, new Control(c.instance, c.name), n.map(x => Bigraph.nameFromString(x.instance, x.name)), s)
+    case (c, n) ~ s => new Prefix(new Node(c.instance, true, n.map(x => Bigraph.nameFromString(x.instance, x.name)),
+      Bigraph.controlFromString(c.name)), s)
   } | ctrl ~ ("." ~> prefix) ^^ {
-    case (c, n) ~ s => new Prefix(c.count, new Control(c.instance, c.name), n.map(x => Bigraph.nameFromString(x.instance, x.name)), s)
+    case (c, n) ~ s => new Prefix(new Node(c.instance, true, n.map(x => Bigraph.nameFromString(x.instance, x.name)),
+      Bigraph.controlFromString(c.name)), s)
   } | ctrl ^^ {
-    case (c, n) => new Prefix(c.count, new Control(c.instance, c.name), n.map(x => Bigraph.nameFromString(x.instance, x.name)), new Nil())
+    case (c, n) => new Prefix(new Node(c.instance, true, n.map(x => Bigraph.nameFromString(x.instance, x.name)),
+      Bigraph.controlFromString(c.name)), new Nil())
   } | nil | hole;
 
   lazy val terminal = hole | nil | prefix;
@@ -111,7 +114,7 @@ object QueryParser extends JavaTokenParsers {
   // For calculate data models and expressions @liangwei
   lazy val number: Parser[Double] = """\d+(\.\d*)?""".r ^^ { _.toDouble }
   lazy val string: Parser[Double] = """\w*""".r ^^ { _.hashCode.toDouble }
-  lazy val variable: Parser[Double] =  """(\d*)?+[a-zA-Z]+(\d*)?+(\.[a-zA-Z]*)?""".r ^^ {DataModel.getValue(_) }
+  lazy val variable: Parser[Double] = """(\d*)?+[a-zA-Z]+(\d*)?+(\.[a-zA-Z]*)?""".r ^^ { DataModel.getValue(_) }
   lazy val factor: Parser[Double] = number | variable | "(" ~> expr <~ ")"
   lazy val term: Parser[Double] = factor ~ rep("*" ~ factor | "/" ~ factor) ^^ {
     case number ~ list => (number /: list) {
@@ -126,7 +129,7 @@ object QueryParser extends JavaTokenParsers {
     }
   }
   lazy val queryExpr: Parser[QueryNum] = expr ^^ { case x => new QueryNum(x) }
-  lazy val queryStr: Parser[QueryNum] = "'"~>string<~"'" ^^ {case x=> new QueryNum(x)}
+  lazy val queryStr: Parser[QueryNum] = "'" ~> string <~ "'" ^^ { case x => new QueryNum(x) }
 
   lazy val queryPred: Parser[Query] = predWord ~ predArgs ^^ { case n ~ q => new QueryPredicate(n.toString, q) }
 
@@ -191,7 +194,7 @@ object testTermParser {
     println(q + ", q.check: " + q.check(null));
     q = QueryParser.parse(" networkType == '3G' ");
     println(q + ", q.check: " + q.check(null));
-    
+
     q = QueryParser.parse("5 >= 3");
     println(q + ", q.check: " + q.check(null));
     q = QueryParser.parse("5 <= 3");
@@ -252,7 +255,6 @@ object testTermParser {
     println(q + ", q.check: " + q.check(null));
     q = QueryParser.parse("5 > 3 && 3 > 1 || 1 < 2 && 6 < 7 ");
     println(q + ", q.check: " + q.check(null));
-    
 
     // from doc/example/*.bgm的例子测试
     /*println(QueryParser.parse("$pred->empty() || size() > $pred->size()"))
@@ -262,7 +264,7 @@ object testTermParser {
     	println(QueryParser.parse("!equal(send)"))*/
 
     var term = TermParser.apply("a:Hospital");
-   // println("Ident:" + term + ",size=" + term.size + ", TermType:" + typeToString(term.termType))
+    // println("Ident:" + term + ",size=" + term.size + ", TermType:" + typeToString(term.termType))
 
     /*term = TermParser.apply("$3");
     	println("Ident:" + term + ",size=" + term.size + ", TermType:" + typeToString(term.termType));

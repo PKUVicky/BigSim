@@ -79,7 +79,7 @@
 
 
 # Model
-%agent destroyedArea:zone[idle,idle].(m1:mobile[idle,idle,idle,idle,hasCAH1:edge,idle].(app1:application[idle,idle,idle,idle] | cah1:contextAware[hasCAH1:edge,idle,idle,powerIs1:edge,idle,idle,idle].power1:power[powerIs1:edge]) | m2:mobile[idle,idle,idle,idle,hasCAH2:edge,idle].(app2:application[idle,idle,idle,idle] | cah2:contextAware[hasCAH2:edge,idle,idle,powerIs2:edge,idle,idle,idle].power2:power[powerIs2:edge]) | m3:mobile[idle,idle,idle,idle,hasCAH3:edge,idle].(app3:application[idle,idle,idle,idle] | cah3:contextAware[hasCAH3:edge,idle,idle,powerIs3:edge,idle,idle,idle].power3:power[powerIs3:edge])) | server:server[idle,idle].service:service[idle,idle,idle,idle] | apple:mobile[idle,idle,idle,idle,idle,idle].app:application[idle,idle,idle,idle]{0.3*speed+0.7*m1.power};
+%agent destroyedArea:zone[idle,idle].(m1:mobile[idle,idle,idle,idle,hasCAH1:edge,idle].(app1:application[idle,idle,idle,idle] | cah1:contextAware[hasCAH1:edge,idle,idle,powerIs1:edge,idle,idle,idle].power1:power[powerIs1:edge]) | m2:mobile[idle,idle,idle,idle,hasCAH2:edge,idle].(app2:application[idle,idle,idle,idle] | cah2:contextAware[hasCAH2:edge,idle,idle,powerIs2:edge,idle,idle,idle].power2:power[powerIs2:edge]) | m3:mobile[idle,idle,idle,idle,hasCAH3:edge,idle].(app3:application[idle,idle,idle,idle] | cah3:contextAware[hasCAH3:edge,idle,idle,powerIs3:edge,idle,idle,idle].power3:power[powerIs3:edge])) | server:server[idle,idle].service:service[idle,idle,idle,idle] | apple:mobile[idle,idle,idle,idle,idle,idle].app:application[idle,idle,idle,idle]{wExpr:0.3*speed+0.7*m1.power};
 
 # Go!
 %check;

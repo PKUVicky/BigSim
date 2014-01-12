@@ -11,6 +11,7 @@ import org.bigraph.bigsim.Match
 import org.bigraph.bigsim.Nil
 import org.bigraph.bigsim.ReactionRule
 import org.bigraph.bigsim.Vertex
+import org.bigraph.bigsim.datamodel.DataModel
 
 object Simulator {
   var matchDiscard: Set[Match] = Set();
@@ -55,10 +56,10 @@ class Simulator(b: Bigraph) {
   }
 
   def report(step: Int): String = {
-    GlobalCfg.instance = false
+    GlobalCfg.node = false
     if (GlobalCfg.pathOutput != "")
       g.dumpPathes
-    GlobalCfg.instance = true
+    GlobalCfg.node = true
     g.dumpDotForward;
   }
 
@@ -89,6 +90,7 @@ class Simulator(b: Bigraph) {
 
     // 模型使用规则进行匹配
     var matches: Set[Match] = b.findMatches;
+    
     println("matches size: " + matches.size)
     println("here---")
     matches.foreach(f => { f.reactNodes.foreach(println) })
@@ -116,14 +118,14 @@ class Simulator(b: Bigraph) {
         })
         if (conflict) {
           matches -= it
-        } else if (!it.reactionRule.random) {
-          var key = (GlobalCfg.SysClk + it.reactionRule.sysClkIncr).toString + "_" + scala.util.Random.nextInt(100000)
+        } else if (!it.rule.random) {
+          var key = (GlobalCfg.SysClk + it.rule.sysClkIncr).toString + "_" + scala.util.Random.nextInt(100000)
           while (simRRMap.contains(key)) {
-            key = (GlobalCfg.SysClk + it.reactionRule.sysClkIncr).toString + "_" + scala.util.Random.nextInt(100000)
+            key = (GlobalCfg.SysClk + it.rule.sysClkIncr).toString + "_" + scala.util.Random.nextInt(100000)
           }
           simRRMap += key -> it
           reactNodes ++ it.reactNodes
-          println("not random match but must act: " + it.reactionRule.name)
+          println("not random match but must act: " + it.rule.name)
           matches -= it
         }
       });
@@ -143,14 +145,14 @@ class Simulator(b: Bigraph) {
         curMatch.reactNodes.foreach(print)
         println
 
-        if (isFirst || !curMatch.reactionRule.random) {
+        if (isFirst || !curMatch.rule.random) {
           simRRMap += key -> curMatch
           reactNodes ++ curMatch.reactNodes
-          println("random match: " + curMatch.reactionRule.name)
+          println("random match: " + curMatch.rule.name)
         } else if (scala.util.Random.nextInt(2) == 1) {
           simRRMap += key -> curMatch
           reactNodes ++ curMatch.reactNodes
-          println("random match: " + curMatch.reactionRule.name)
+          println("random match: " + curMatch.rule.name)
         }
         matches -= curMatch
       }
@@ -160,18 +162,26 @@ class Simulator(b: Bigraph) {
     var curBigraph = v.bigraph
     var curRR: ReactionRule = null
     simRRMap.foreach(tm => {
-      if (!GlobalCfg.checkData || tm._2.reactionRule.check) {
+      if (!GlobalCfg.checkData || tm._2.rule.check) {
         var nb: Bigraph = curBigraph.applyMatch(tm._2);
-        tm._2.reactionRule.update
+        /**
+         * update a reaction rule data model
+         */
+        tm._2.rule.update
+        /**
+         * update agent data with clock
+         */
+        DataModel.updateDataCalcsWithClk(tm._2.rule.sysClkIncr.toString)
+
         if (nb.root == null)
           nb.root = new Nil();
-        //var nv: Vertex = new Vertex(nb, v, tm._2.reactionRule);
+        //var nv: Vertex = new Vertex(nb, v, tm._2.rule);
         //nv.CLK = tm._1.split("_")(0).toDouble
         GlobalCfg.SysClk = tm._1.split("_")(0).toInt
         //println("System Clock:" + GlobalCfg.SysClk)
-        // println("middle result match RR " + tm._2.reactionRule.name + " : " + nb.root.toString)
+        // println("middle result match RR " + tm._2.rule.name + " : " + nb.root.toString)
         curBigraph = nb
-        curRR = tm._2.reactionRule
+        curRR = tm._2.rule
       }
     })
 

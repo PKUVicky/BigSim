@@ -25,11 +25,11 @@ object Match {
   }
 }
 
-class Match(var reactionRule: ReactionRule) {
+class Match(reactionRule: ReactionRule) {
   var names = Map[Name, Name]()
   var parameters = Map[Int, Term]()
   var mapping = Map[Term, Term]()
-  var ctrlMap = Map[Control, Control]()
+  var nodeMap = Map[Node, Node]()
 
   var reactNodes: TreeSet[String] = TreeSet()
   var rule = reactionRule
@@ -158,13 +158,10 @@ class Match(var reactionRule: ReactionRule) {
       m.mapping(ma._1) = ma._2
     })
 
-    ctrlMap.foreach(cm => {
-      m.ctrlMap(cm._1) = cm._2
+    nodeMap.foreach(cm => {
+      m.nodeMap(cm._1) = cm._2
     })
     
-    println("clone match ctrlMap")
-    m.ctrlMap.foreach(f=>{println(f._1 + "->"+f._2)})
-
     /*
     for ((key, value) <- names) {
       m.names(key) = value
@@ -205,8 +202,8 @@ class Match(var reactionRule: ReactionRule) {
       this.captureName(key, value)
     }
 
-    for ((key, value) <- other.ctrlMap) {
-      this.ctrlMap(key) = value;
+    for ((key, value) <- other.nodeMap) {
+      this.nodeMap(key) = value;
     }
 
   }
