@@ -1,9 +1,11 @@
 package org.bigraph.bigsim
 
 import java.io.File
+
 import org.bigraph.bigsim.datamodel.DataModel
-import org.bigraph.bigsim.simulator.Simulator
+import org.bigraph.bigsim.simulator._
 import org.bigraph.bigsim.strategy.HMM
+
 
 object BigSim extends App {
   def usage = System.err.println("""    
@@ -154,11 +156,13 @@ Usage: bigsim [options] <filename>
       if (GlobalCfg.checkHMM)
         HMM.parseHMM("MobileCloud/hmm/" + filename + ".hmm")
 
-      val m = new MC(b)
+      //val m = new MC(b)
       //m.check;
 
-      //val sim = new FullSimulator(b)
+      val sim = new FullSimulator(b)
       //sim.simulate
+      
+      
       for (i <- 1 to GlobalCfg.simLoop) {
         GlobalCfg.SysClk = 0
         println("<--------------------------- Sim " + i + " ------------------------------------>")

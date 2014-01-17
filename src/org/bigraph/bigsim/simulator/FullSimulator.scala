@@ -1,4 +1,4 @@
-package org.bigraph.bigsim
+package org.bigraph.bigsim.simulator
 
 /**
  * @author liangwei
@@ -11,6 +11,7 @@ import scala.collection.mutable.Set
 import scala.collection.immutable.TreeMap
 import scala.util.Random
 import java.io._
+import org.bigraph.bigsim._;
 
 object FullSimulator {
   
