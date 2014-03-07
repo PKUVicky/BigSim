@@ -3,6 +3,9 @@ package org.bigraph.bigsim
 import org.bigraph.bigsim.datamodel.DataModel
 import org.bigraph.bigsim.datamodel.DataSpliter
 import org.bigraph.bigsim.strategy.HMM
+import cern.jet.random.Poisson
+import cern.jet.random.engine.RandomEngine
+import org.bigraph.bigsim.utils._
 
 /**
  * @author zhaoxin
@@ -13,26 +16,33 @@ import org.bigraph.bigsim.strategy.HMM
  */
 
 class ReactionRule(n: String, red: Term, react: Term, exp: String) {
+  /** Basic element of RR */
   var name: String = n
-  var causation: Set[ReactionRule] = null
   var redex: Term = red
-  var data: Set[Prefix] = Set()
-  // if a reaction rule contains data model, we need to calculate it and split it
-  DataSpliter.preOrderData(redex, "root", this)
   var reactum: Term = react
+
+  /** If a reaction rule contains data model, calculate it and split it */
+  DataSpliter.preOrderData(redex, "root", this)
   DataSpliter.preOrderData(reactum, "root", this)
+
+  /** redexCtrl <--> reactumCtrl */
+  var nodeMap: Map[Node, Node] = calcNodeMap
+
+  var data: Set[Prefix] = Set()
+  var causation: Set[ReactionRule] = null
+
+  /** If this is a stochastic bigraph, a rate constant will be assigned. */
+  var rate: Double = 0
   var dataCalcs: Map[String, String] = Map()
   var conds: Set[String] = Set()
-  var sysClkIncr: Int = 0
   var random: Boolean = false
-  // redexCtrl -- reactumCtrl
-  var nodeMap: Map[Node, Node] = calcNodeMap
+  var sysClkIncr: Int = 0
+  /** Possion Distribution */
+  var pSysClikIncr: Int = getRRIncr
   var hmms: Set[String] = Set()
-
   initExprs
-  /**
-   * init data calculate exprs and conds in a RR
-   */
+
+  /** init data calculate exprs and conds in a RR */
   def initExprs {
     exp.split("\t").foreach(f => {
       if (f.startsWith(GlobalCfg.sysClkPrefStr)) {
@@ -49,13 +59,28 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
         if (f.substring(GlobalCfg.randomPrefStr.length).equals("true"))
           random = true
       } else if (f.startsWith(GlobalCfg.hmmPrefStr)) {
-        f.substring(GlobalCfg.hmmPrefStr.length).split(",").foreach(e => {
-          hmms += e
+        f.substring(GlobalCfg.hmmPrefStr.length).split(",").foreach(h => {
+          hmms += h
         })
+      } else if (f.startsWith(GlobalCfg.ratePrefStr)) {
+        rate = f.substring(GlobalCfg.ratePrefStr.length).toDouble
       }
     })
     // if (!dataCalcs.contains("time"))
     // dataCalcs += "time" -> "time+0"
+  }
+
+  /**
+   * Get the time by Possion distribution if the reaction rule is random
+   */
+  def getRRIncr: Int = {
+    if (random) {
+      val re: RandomEngine = RandomEngine.makeDefault
+      val po: Poisson = new Poisson(sysClkIncr, re)
+      pSysClikIncr = po.nextInt()
+      pSysClikIncr
+    } else
+      sysClkIncr
   }
 
   /**
@@ -83,6 +108,7 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
    * Update variables once a RR takes place
    */
   def update {
+    DataModel.data("SysClk").value = GlobalCfg.SysClk.toString
     dataCalcs.foreach(f => {
       DataModel.update(f._1, f._2)
     });
@@ -127,7 +153,7 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
    * Get HMM
    */
   def getHMM: String = {
-    hmms.map(h => { h + "=" + (HMM.hmms(h).getObsProbability*100).formatted("%.2f") +"%"}).toList.mkString(",")
+    hmms.map(h => { h + "=" + (HMM.hmms(h).getObsProbability * 100).formatted("%.2f") + "%" }).toList.mkString(",")
   }
 
   /**
@@ -181,7 +207,6 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
       var hasMatch: Boolean = false
       var maxMatch: Int = 0
       for (i <- 0 to redexNodes.length - 1 if !fullMatch) {
-
         if (redexNodes(i).getNodeStr.equals(rn.getNodeStr)) {
           /**
            * If it is the first time match, record it and the maxMatch name list.
@@ -208,6 +233,11 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
         res += (rn -> mNode)
         redexNodes -= mNode
       } else {
+        /**
+         *   if the node is a new node, assign the new node with new node name
+         */
+        //rn.name = rn.ctrl.name.substring(0, 1) + "_" + GlobalCfg.ranNameIndex.toString
+
         res += (rn -> rn)
       }
     })

@@ -1,9 +1,10 @@
 package org.bigraph.bigsim
 
 import java.io.File
-
 import scala.collection.mutable.Map
 import scala.collection.mutable.Set
+import org.bigraph.bigsim.simulator.MC
+import org.bigraph.bigsim.utils._
 
 object Node {
   private var id: Int = 0
@@ -15,7 +16,7 @@ object Node {
 
 class Node(n: String, act: Boolean, p: List[Name], c: Control) {
   val id: Int = Node.idIncrement
-  val name = n
+  var name = n
   var ports: List[Name] = p
   var active = act
   val ctrl = c
@@ -238,11 +239,11 @@ class Bigraph(roots: Int = 1) {
           relations = Data.relationDecision(relation)
         })
       }
-      
+
       /**
        * @author liangwei
        * add HMM
-       */    
+       */
       /**
        * @author liangwei
        * add RR conditions and realtions
@@ -254,6 +255,7 @@ class Bigraph(roots: Int = 1) {
         mp = Matcher.tryMatchTermReactionRule(root, x);
         res = res ++ mp;
       }
+
     });
 
     if (GlobalCfg.DEBUG) {

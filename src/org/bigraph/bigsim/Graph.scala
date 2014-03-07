@@ -9,6 +9,7 @@ import scala.collection.mutable.Stack
 import scala.xml.XML
 import org.bigraph.bigsim.strategy.ParseRules
 import org.bigraph.bigsim.datamodel.DataModel
+import org.bigraph.bigsim.utils._
 
 class Graph(init: Vertex) {
   val root: Vertex = init;
@@ -202,7 +203,7 @@ class Graph(init: Vertex) {
     } else if (GlobalCfg.patterns) {
       pathes ++= getPathesHasInteresPatterns
     } else {
-      // pathes ++= getAllPathes
+      //pathes ++= getAllPathes
       pathes ++= getAllPaths
     }
 
@@ -257,6 +258,7 @@ class Graph(init: Vertex) {
       var writer: Writer = new FileWriter(file);
       writer.write(out);
       writer.flush;
+      writer.close()
     }
 
     if (GlobalCfg.defPathMapFile != "") {
@@ -276,6 +278,8 @@ class Graph(init: Vertex) {
       writer.write(defPath);
       writer.flush;
     }
+    println(GlobalCfg.pathOutput)
+    println(out)
     out
   }
 
@@ -289,7 +293,7 @@ class Graph(init: Vertex) {
     out += "BigSim_Report -> N_" + formatHash(root.hash) + "[color = aliceblue label = \"" +
       DataModel.getWeightExpr + "=" +
       DataModel.getReport + "\n" +
-      DataModel.getValues + "\"];\n";
+      DataModel.getValues(",") + "\"];\n";
     out += " N_" + formatHash(root.hash) + "\n" + " [shape=circle, color=lightblue2, style=filled];\n";
     lut.values.map(x => {
       var rr: String = "root";
@@ -298,7 +302,7 @@ class Graph(init: Vertex) {
       if (x.terminal) {
         dc = "shape = doublecircle, color=lightblue2, style=filled, ";
       }
-      out += "N_" + formatHash(x.hash) + "\n" + "[ " + dc + "];\n";
+      out += "N_" + formatHash(x.hash) + "[ " + dc + "label=\"N_" + formatHash(x.hash) + "\n" + x.variables + "\"];\n";
 
       x.target.map(y => {
         rr = "?";
@@ -359,7 +363,7 @@ class Graph(init: Vertex) {
   }
 
   var firstTime: Boolean = true
-  //var pathFile: File = new File("result/pathString.txt");
+  //var pathFile: File = new File("Airport/paths/BusinessNormal.txt");
   //var writer: Writer = new FileWriter(pathFile);
 
   def addPaths(path: String, allPathString: Set[String], currentVertex: Vertex) {

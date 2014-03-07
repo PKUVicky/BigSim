@@ -13,6 +13,7 @@ package org.bigraph.bigsim
 import scala.util.parsing.combinator.syntactical.StandardTokenParsers
 import scala.util.parsing.combinator.JavaTokenParsers
 import org.bigraph.bigsim.datamodel.DataModel
+import org.bigraph.bigsim.utils._
 
 class Ident(val count: Int, val instance: String, val name: String) {
   def this(instance: String, name: String) = {

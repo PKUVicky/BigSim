@@ -2,6 +2,7 @@ package org.bigraph.bigsim
 
 import scala.collection.mutable.Map
 import scala.collection.mutable.Set
+import org.bigraph.bigsim.utils._
 /**
  * @author zhaoxin
  * version 0.1

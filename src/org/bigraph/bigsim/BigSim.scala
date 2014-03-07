@@ -1,11 +1,10 @@
 package org.bigraph.bigsim
 
 import java.io.File
-
 import org.bigraph.bigsim.datamodel.DataModel
 import org.bigraph.bigsim.simulator._
 import org.bigraph.bigsim.strategy.HMM
-
+import org.bigraph.bigsim.utils._
 
 object BigSim extends App {
   def usage = System.err.println("""    
@@ -31,11 +30,11 @@ Usage: bigsim [options] <filename>
 
   def parseOpts(args: List[String]): Unit = args match {
     case ("-sf" :: f :: t) => {
-      BigSimOpts.sortFileName = f
+      GlobalCfg.sortFileName = f
       parseOpts(t)
     }
     case ("-G" :: f :: t) => {
-      BigSimOpts.graphOutput = f
+      GlobalCfg.graphOutput = f
       parseOpts(t)
     }
     case ("-P" :: f :: t) => {
@@ -64,23 +63,23 @@ Usage: bigsim [options] <filename>
       System.exit(0)
     }
     case ("-m" :: x :: t) => {
-      BigSimOpts.maxSteps = x.toInt
+      GlobalCfg.maxSteps = x.toInt
       parseOpts(t)
     }
     case ("-p" :: t) => {
-      BigSimOpts.printDiscovered = true
+      GlobalCfg.printDiscovered = true
       parseOpts(t)
     }
     case ("-l" :: t) => {
-      BigSimOpts.localCheck = true
+      GlobalCfg.localCheck = true
       parseOpts(t)
     }
     case ("-r" :: x :: t) => {
-      BigSimOpts.reportFrequency = x.toInt
+      GlobalCfg.reportFrequency = x.toInt
       parseOpts(t)
     }
     case ("-S" :: t) => {
-      BigSimOpts.stochastic = true
+      GlobalCfg.stochastic = true
       parseOpts(t)
     }
     case ("-v" :: t) => {
@@ -88,11 +87,11 @@ Usage: bigsim [options] <filename>
       System.exit(0)
     }
     case ("-V" :: t) => {
-      BigSimOpts.verbose = true
+      GlobalCfg.verbose = true
       parseOpts(t)
     }
     case n :: Nil => {
-      BigSimOpts.filename = n
+      GlobalCfg.filename = n
     }
     case _ => {
       usage
@@ -127,23 +126,24 @@ Usage: bigsim [options] <filename>
        * init sorting file if exits
        */
       //BigSimOpts.sortFileName = "sortingFile/decoction.xml"
-      if (BigSimOpts.sortFileName != null)
-        Bigraph.sorting.init(BigSimOpts.sortFileName)
+      if (GlobalCfg.sortFileName != null)
+        Bigraph.sorting.init(GlobalCfg.sortFileName)
 
       var filename = "earthquake";
       filename = "checker";
+      //filename = "EconomNormal";
 
       // GlobalCfg.patterns = true
       //GlobalCfg.patternFile = "resources/Patterns.xml"
-      //GlobalCfg.pathOutput = "result/patternresult.txt"
+      GlobalCfg.pathOutput = "MobileCloud/paths/" + filename + ".txt";
 
-      BigSimOpts.filename = "MobileCloud/models/" + filename + ".bgm";
+      GlobalCfg.filename = "MobileCloud/models/" + filename + ".bgm";
 
       // graphviz图形化字符串
       GlobalCfg.graphOutput = "MobileCloud/results/" + filename + ".dot";
 
       // 解析BGM
-      val p = BGMParser.parse(new File(BigSimOpts.filename));
+      val p = BGMParser.parse(new File(GlobalCfg.filename));
       // println(p)
       val b: Bigraph = BGMTerm.toBigraph(p);
       //println(b);
@@ -153,25 +153,25 @@ Usage: bigsim [options] <filename>
        */
       if (GlobalCfg.checkData)
         DataModel.parseData("MobileCloud/data/" + filename + ".txt")
+      
       if (GlobalCfg.checkHMM)
-        HMM.parseHMM("MobileCloud/hmm/" + filename + ".hmm")
+        HMM.parseHMM("MobileCloud/hmm/" + filename + ".hmm")  
 
-      //val m = new MC(b)
+      val m = new MC(b)
       //m.check;
 
-      val sim = new FullSimulator(b)
-      //sim.simulate
-      
-      
+      val sim = new StochasticSimulator(b)
+      sim.simulate
+
       for (i <- 1 to GlobalCfg.simLoop) {
         GlobalCfg.SysClk = 0
         println("<--------------------------- Sim " + i + " ------------------------------------>")
-        var sim = new Simulator(b)
-        sim.simulate;
+        //var sim = new Simulator(b)
+        //sim.simulate;
         println("<---------------------------- End ------------------------------------->")
 
       }
-      val rc = new ReachChecker(io.Source.fromFile(new File(BigSimOpts.filename)).mkString)
+      val rc = new ReachChecker(io.Source.fromFile(new File(GlobalCfg.filename)).mkString)
       //println(rc.check)
 
       var end = System.currentTimeMillis();

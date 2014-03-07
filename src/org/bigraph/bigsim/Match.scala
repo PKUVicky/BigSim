@@ -3,6 +3,8 @@ package org.bigraph.bigsim
 import scala.collection.immutable.TreeSet
 import scala.collection.mutable.Map
 import scala.collection.mutable.Set
+import org.bigraph.bigsim.simulator.MC
+import org.bigraph.bigsim.utils._
 /**
  * @author zhaoxin
  * version 0.1

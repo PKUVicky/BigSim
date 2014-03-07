@@ -1,8 +1,17 @@
-package org.bigraph.bigsim
+package org.bigraph.bigsim.simulator
 
 import scala.collection.mutable.Map
 import scala.collection.mutable.Queue
 import scala.collection.mutable.Set
+import org.bigraph.bigsim.utils.GlobalCfg
+import org.bigraph.bigsim.Graph
+import org.bigraph.bigsim.Match
+import org.bigraph.bigsim.Nil
+import org.bigraph.bigsim.Query
+import org.bigraph.bigsim.ReactionRule
+import org.bigraph.bigsim.Vertex
+import org.bigraph.bigsim.Bigraph
+import org.bigraph.bigsim.utils.GlobalCfg
 
 object MC {
   var properties: Map[String, Query] = Map();
@@ -148,11 +157,11 @@ class MC(b: Bigraph) {
     if (v.visited) return true;
 
     // sorting 约束检查
-    if (BigSimOpts.sortFileName != null) {
+    if (GlobalCfg.sortFileName != null) {
       var sortingCheckRes = Bigraph.sorting.check(v);
       if (!sortingCheckRes) {
         println("*** Found violation of Sorting: " + Bigraph.sorting.violationInfo);
-        if (!BigSimOpts.localCheck) println(g.backTrace(v));
+        if (!GlobalCfg.localCheck) println(g.backTrace(v));
         else println("[Backtrace unavailable in local checking mode]");
         return false;
       }

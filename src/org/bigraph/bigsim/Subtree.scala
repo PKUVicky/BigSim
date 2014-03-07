@@ -2,6 +2,7 @@ package org.bigraph.bigsim
 
 import scala.collection.mutable.Set
 import java.util.Random
+import org.bigraph.bigsim.utils._
 
 /**
  * @author zhaoxin

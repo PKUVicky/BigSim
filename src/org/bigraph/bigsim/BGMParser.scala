@@ -3,6 +3,7 @@ package org.bigraph.bigsim
 import java.io.File
 import scala.util.parsing.combinator.RegexParsers
 import org.bigraph.bigsim.datamodel.DataModel
+import org.bigraph.bigsim.simulator.MC
 
 abstract class BGMTerm {
 }

@@ -1,4 +1,4 @@
-package org.bigraph.bigsim
+package org.bigraph.bigsim.strategy
 import scala.xml._
 import scala.collection.mutable.Map
 import scala.collection.mutable.Set

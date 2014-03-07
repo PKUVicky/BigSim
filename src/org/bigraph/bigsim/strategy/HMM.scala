@@ -97,7 +97,7 @@ class HMM(n: String, p: Array[Double], t: Array[Array[Double]], c: Array[Array[D
       result += calcForward(i, obs.length - 1, obs)
       //println("middle result:" + result)
     }
-    println("result:" + result)
+    //println("result:" + result)
     result
   }
 

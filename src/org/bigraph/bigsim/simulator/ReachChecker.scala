@@ -1,4 +1,4 @@
-package org.bigraph.bigsim
+package org.bigraph.bigsim.simulator
 
 /**
  * @author liangwei
@@ -9,6 +9,17 @@ import scala.collection.mutable.Queue
 import scala.collection.mutable.Map
 import scala.collection.mutable.Set
 import scala.collection.immutable.TreeMap
+import org.bigraph.bigsim.BGMParser
+import org.bigraph.bigsim.BGMTerm
+import org.bigraph.bigsim.Bigraph
+import org.bigraph.bigsim.utils.GlobalCfg
+import org.bigraph.bigsim.Graph
+import org.bigraph.bigsim.Match
+import org.bigraph.bigsim.Nil
+import org.bigraph.bigsim.Query
+import org.bigraph.bigsim.ReactionRule
+import org.bigraph.bigsim.Vertex
+import org.bigraph.bigsim.utils.GlobalCfg
 
 object ReachChecker {
   var properties: Map[String, Query] = Map();

@@ -1,6 +1,7 @@
 package org.bigraph.bigsim
 
 import scala.collection.mutable.Set
+import org.bigraph.bigsim.datamodel.DataModel
 
 /**
  * @author zhaoxin
@@ -18,9 +19,12 @@ class Vertex(b: Bigraph, v: Vertex, rr: ReactionRule) {
   var terminal: Boolean = false
   var parent: Vertex = v
   var pathVisited: Boolean = false
+  
   var CLK: Int = 0
+  var globalClock: Double = 0
   var reactionRule: ReactionRule = rr
   var reactionRules: Set[ReactionRule] = Set()
+  var variables : String = DataModel.getValues("\n")
   var bigraph: Bigraph = b
   var hash: Int = {
     if (bigraph.root != null)

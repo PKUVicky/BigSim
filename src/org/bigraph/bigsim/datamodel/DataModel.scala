@@ -3,7 +3,7 @@ package org.bigraph.bigsim.datamodel
 import org.bigraph.bigsim._
 import java.io.File
 import scala.io.Source
-import org.bigraph.bigsim.ReactionRule
+import org.bigraph.bigsim.utils.GlobalCfg
 
 class Data(n: String, dt: String, v: String, u: String) {
   val name = n
@@ -71,12 +71,12 @@ object DataModel {
     data -= "ClkIncr"
   }
 
-  def getValues: String = {
-    var res: String = ""
+  def getValues(sep: String): String = {
+    var res: List[String] = List()
     data.map(d => {
-      res += d._1 + "=" + d._2.value + ","
+      res = res.:+(d._1 + "=" + d._2.value)
     })
-    res
+    res.mkString(sep)
   }
 
   def getReport: Double = {
@@ -87,6 +87,7 @@ object DataModel {
   }
 
   def parseData(path: String) {
+    data += "SysClk" -> new Data("SysClk", "Double", GlobalCfg.SysClk.toString, "tick")
     for (line <- Source.fromFile(path).getLines) {
       if (!line.startsWith("#")) {
         val items = line.split("\t");
@@ -239,9 +240,9 @@ object DataSpliter {
 
 object testDataModel {
   def main(args: Array[String]) {
-    DataModel.parseData("MobileCloud/data/hotel.txt")
+    DataModel.parseData("MobileCloud/data/checker.txt")
     DataModel.data.foreach(f => println(f._2.name + " " + f._2.ratio + " " + f._2.percentage))
-    DataModel.addWeightExpr("(fee+energy*15+(0.5*5))")
+    DataModel.addWeightExpr("(fee+energy*15+(0.7*5))")
     println(DataModel.getReport)
 
   }

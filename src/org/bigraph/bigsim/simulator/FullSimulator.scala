@@ -12,6 +12,7 @@ import scala.collection.immutable.TreeMap
 import scala.util.Random
 import java.io._
 import org.bigraph.bigsim._;
+import org.bigraph.bigsim.utils.GlobalCfg
 
 object FullSimulator {
   
