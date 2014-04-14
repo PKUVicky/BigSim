@@ -43,7 +43,7 @@
 # Rules
 %rule r_0 mobile | zone.$1 | $2 -> zone.($1 | mobile) | $2 {SysClk:1	Cond:networkType=='3G'||networkType=='WiFi'	Expr:m1.power=m1.power-15	HMM:signal	Rate:0.02};
 
-%rule r_1 zone.(network.$2 | mobile | $1) -> zone.(network.($2 | mobile) | $1) {SysClk:1	Cond:networkType=='3G'||networkType=='WiFi'	Expr:m1.power=m1.power-15	HMM:signal	Rate:0.02};
+%rule r_1 zone.(network.$2 | mobile | $1) -> zone.(network.($2 | mobile) | $1) {SysClk:1	Cond:networkType=='3G'||networkType=='WiFi'	Expr:m1.power=m1.power-15	HMM:Signal	Rate:0.02};
 
 
 
