@@ -15,10 +15,6 @@ object GlobalCfg {
       sys.exit(1)
   }
 
-  val ALL: Int = -1;
-  val STAR: Int = -2;
-  val PLUS: Int = -3;
-
   /**
    * For condition configurations
    */
@@ -29,6 +25,7 @@ object GlobalCfg {
   val wExprPrefStr: String = prop.getProperty("wExprPrefStr")
   val hmmPrefStr: String = prop.getProperty("hmmPrefStr")
   val ratePrefStr: String = prop.getProperty("ratePrefStr")
+  val reverseStr: String = prop.getProperty("reverseStr")
   val minProbability: Double = prop.getProperty("minProbability").toDouble
 
   var DEBUG: Boolean = prop.getProperty("DEBUG").toBoolean
@@ -55,7 +52,7 @@ object GlobalCfg {
   // whether sim data
   var checkData: Boolean = true
   // whether check HMM
-  var checkHMM: Boolean = true
+  var checkHMM: Boolean = false
 
   var allDefs: Boolean = false
   var allUses: Boolean = false

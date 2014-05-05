@@ -1,32 +1,42 @@
 package org.bigraph.bigsim
 
 import java.io.File
-import org.bigraph.bigsim.datamodel.DataModel
-import org.bigraph.bigsim.simulator._
-import org.bigraph.bigsim.strategy.HMM
-import org.bigraph.bigsim.utils._
+
+import org.bigraph.bigsim.data.Data
+import org.bigraph.bigsim.model.Bigraph
+import org.bigraph.bigsim.parser.BGMParser
+import org.bigraph.bigsim.parser.BGMTerm
+import org.bigraph.bigsim.parser.HMM
+import org.bigraph.bigsim.simulator.Simulator
+import org.bigraph.bigsim.utils.GlobalCfg
 
 object BigSim extends App {
   def usage = System.err.println("""    
-Usage: bigsim [options] <filename>
-
+Usage: BigSim [options] <filename> 
+(Default configuration is set in config.properties)
   Options:
-    -G file     Output the reaction graph to a dot file.
-    -h --help   Display this help and exit.
-    -l          Local check mode - do not build the reaction graph.
-    -m x        Specify x maximum steps of graph unfolding (default: 1000)
-    -p          Print new states as they are discovered.
-    -r x        Output statistics and graphs every x steps (default: 500)
-    -S          Enable stochastic simulation
-    -v          Print version information and exit.
-    -V          Print verbose output while running.
-    -sf file    Specify the sorting file.
-    -P file		specify the path output file
-    -D st path dpath  	Specify the data flow analysis strategy and output path,and defs mapping pathes 
-    -PF file path   	Specify the patterns file and the output path 	
+    -h --help				Display this help and exit.
+    -s c						Specify c maximum steps of graph unfolding
+    -S l						Specify l loops of simulation
+    -m t						Specify t is the max simulation time
+    -M mode				Specify simulation mode: MC, SSA(stochastic), TS(time-slicing), DE(dicrete-event)
+    -B mode				Specify BRS mode: TR-BRS, GR-BRS
+    -T							Simulation with time
+    -D						Calculate environment data
+    -C						Check conditions of reaction rules
+    -v							Print version information and exit.
+    -V						Print verbose output while running.
+    -P file					Specify the path output file
+    -R file					Output the simulation report to a dot file.
                """)
 
-  def version = println("BigSim v0.1\n2013")
+  def version = println("BigSim v0.1\n2014")
+
+  //    -D st path dpath	Specify the data flow analysis strategy and output path,and defs mapping pathes 
+  //    -sf file					Specify the sorting file.
+  //    -r x						Output statistics and graphs every x steps (default: 500)
+  //     -PF file path			Specify the patterns file and the output path 	
+  //     -p							Print new states as they are discovered.
 
   def parseOpts(args: List[String]): Unit = args match {
     case ("-sf" :: f :: t) => {
@@ -99,18 +109,6 @@ Usage: bigsim [options] <filename>
     }
   }
 
-  /**
-   * registerPredicates
-   * five predicates: empty, size, matches, terminal, equal
-   */
-  def registerPredicates: Unit = {
-    Predicate.registerPredicate("empty", new PredEmpty());
-    Predicate.registerPredicate("size", new PredSize());
-    Predicate.registerPredicate("matches", new PredMatches());
-    Predicate.registerPredicate("terminal", new PredTerminal());
-    Predicate.registerPredicate("equal", new PredEqual());
-  }
-
   override def main(args: Array[String]) = {
     var start = System.currentTimeMillis();
 
@@ -120,8 +118,6 @@ Usage: bigsim [options] <filename>
     } else {
       parseOpts(args.toList)
 
-      registerPredicates;
-
       /**
        * init sorting file if exits
        */
@@ -130,48 +126,42 @@ Usage: bigsim [options] <filename>
         Bigraph.sorting.init(GlobalCfg.sortFileName)
 
       var filename = "earthquake";
+      filename = "chemistry";
       filename = "checker";
-      //filename = "EconomNormal";
+      var folderName = "OldAirport";
+      folderName = "Examples/MobileCloud";
 
       // GlobalCfg.patterns = true
       //GlobalCfg.patternFile = "resources/Patterns.xml"
-      GlobalCfg.pathOutput = "MobileCloud/paths/" + filename + ".txt";
-
-      GlobalCfg.filename = "MobileCloud/models/" + filename + ".bgm";
+      GlobalCfg.pathOutput = folderName + "/paths/" + filename + ".txt";
+      GlobalCfg.filename = folderName + "/models/" + filename + ".bgm";
 
       // graphviz图形化字符串
-      GlobalCfg.graphOutput = "MobileCloud/results/" + filename + ".dot";
+      GlobalCfg.graphOutput = folderName + "/results/" + filename + ".dot";
 
       // 解析BGM
       val p = BGMParser.parse(new File(GlobalCfg.filename));
-      // println(p)
       val b: Bigraph = BGMTerm.toBigraph(p);
-      //println(b);
 
       /**
        * init Data if needed
        */
       if (GlobalCfg.checkData)
-        DataModel.parseData("MobileCloud/data/" + filename + ".txt")
-      
+        Data.parseData(folderName + "/data/" + filename + ".txt")
+
       if (GlobalCfg.checkHMM)
-        HMM.parseHMM("MobileCloud/hmm/" + filename + ".hmm")  
+        HMM.parseHMM(folderName + "/hmm/" + filename + ".hmm")
 
-      val m = new MC(b)
-      //m.check;
-
-      val sim = new StochasticSimulator(b)
-      sim.simulate
-
+     Simulator.simulate("DiscreteEventSimulator", b)        
+     
       for (i <- 1 to GlobalCfg.simLoop) {
         GlobalCfg.SysClk = 0
         println("<--------------------------- Sim " + i + " ------------------------------------>")
-        //var sim = new Simulator(b)
+        //var sim = new DiscreteEventSimulator(b)
         //sim.simulate;
         println("<---------------------------- End ------------------------------------->")
-
       }
-      val rc = new ReachChecker(io.Source.fromFile(new File(GlobalCfg.filename)).mkString)
+      // val rc = new ReachChecker(io.Source.fromFile(new File(GlobalCfg.filename)).mkString)
       //println(rc.check)
 
       var end = System.currentTimeMillis();

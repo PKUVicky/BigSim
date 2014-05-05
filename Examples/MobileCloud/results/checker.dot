@@ -1,0 +1,15 @@
+digraph reaction_graph {
+   rankdir=LR;
+   Node [shape = circle];
+   BigSim_Report [shape = parallelogram color = aliceblue style=filled label="BigSim
+Report"];
+BigSim_Report -> N_531201561[color = aliceblue label = "networkType=WiFi,m1.power=65,SysClk=0,speed=20"];
+ N_531201561
+ [shape=circle, color=lightblue2, style=filled];
+N__1965826289[ label="N__1965826289"];
+ N__1965826289 -> N__1965826289[ label = "r_2
+System Clock: 0"];
+N_531201561[ shape = doublecircle, color=lightblue2, style=filled, label="N_531201561"];
+ N_531201561 -> N__1965826289[ label = "r_2
+System Clock: 0"];
+}
