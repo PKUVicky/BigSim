@@ -71,8 +71,10 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
         })
       } else if (f.startsWith(GlobalCfg.ratePrefStr)) {
         rate = f.substring(GlobalCfg.ratePrefStr.length).toDouble
-      } else if (f.startsWith(GlobalCfg.reverseStr)) {
-        reverse = f.substring(GlobalCfg.reverseStr.length).toBoolean
+      } else if (f.startsWith(GlobalCfg.reversePrefStr)) {
+        reverse = f.substring(GlobalCfg.reversePrefStr.length).toBoolean
+      } else if (f.startsWith(GlobalCfg.reactPrefStr)) {
+        f.substring(GlobalCfg.reactPrefStr.length).split(",").foreach(reactNodes.add(_))
       }
     })
   }
@@ -173,7 +175,7 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
    * for data flow
    */
   //暂时先考虑，规则只有一个def的情况。cuse以及puse虽然用set，但是暂时考虑单个情况
-  var cuses:Set[Term] = Set()
+  var cuses: Set[Term] = Set()
   var puses: Set[Term] = Set()
   var defTerm: Set[Term] = Set()
   var cuseRules: Set[String] = Set()
@@ -322,7 +324,6 @@ object testRR {
     var reactum = TermParser.apply(reactumS);
     println(redex.termType)
     println(reactum.termType)
-    //var r = new ReactionRule("r_28", redex, reactum, "time:5 cond:power +=5%;fee+=3");
 
     redexS = "zone[idle,idle].network[idle,idle,idle,idle].(mobile[idle,idle,idle,idle,hasCAH1:edge,idle].(contextAware[hasCAH1:edge,idle,idle,powerIs1:edge,idle,idle,idle].power[powerIs1:edge] | application[idle,idle,idle,idle]) | mobile[idle,idle,idle,idle,hasCAH2:edge,idle].(contextAware[hasCAH2:edge,idle,idle,powerIs2:edge,idle,idle,idle].power[powerIs2:edge] | application[idle,idle,idle,idle]) | mobile[idle,idle,idle,idle,hasCAH3:edge,idle].(contextAware[hasCAH3:edge,idle,idle,powerIs3:edge,idle,idle,idle].power[powerIs3:edge] | application[idle,idle,idle,idle])) | $0";
     reactumS = "zone[idle,idle].network[idle,idle,idle,idle].(mobile[idle,idle,idle,idle,hasCAH1:edge,idle].(contextAware[hasCAH1:edge,idle,idle,powerIs1:edge,pointIs1:edge,lumIs1:edge,pressureIs1:edge].(power[powerIs1:edge] | pointXY[pointIs1:edge] | luminous[lumIs1:edge] | pressure[pressureIs1:edge]) | application[idle,idle,idle,idle].job1:job[idle]) | mobile[idle,idle,idle,idle,hasCAH2:edge,idle].(contextAware[hasCAH2:edge,idle,idle,powerIs2:edge,pointIs2:edge,lumIs2:edge,pressureIs2:edge].(power[powerIs2:edge] | pointXY[pointIs2:edge] | luminous[lumIs2:edge] | pressure[pressureIs2:edge]) | application[idle,idle,idle,idle].job2:job[idle]) | mobile[idle,idle,idle,idle,hasCAH3:edge,idle].(contextAware[hasCAH3:edge,idle,idle,powerIs3:edge,pointIs3:edge,lumIs3:edge,pressureIs3:edge].(power[powerIs3:edge] | pointXY[pointIs3:edge] | luminous[lumIs3:edge] | pressure[pressureIs3:edge]) | application[idle,idle,idle,idle].job3:job[idle])) | $0";

@@ -5,6 +5,7 @@ import scala.collection.mutable.Set
 import org.bigraph.bigsim.utils._
 import org.bigraph.bigsim.model._
 import org.bigraph.bigsim.simulator.Simulator
+
 /**
  * @author zhaoxin
  * version 0.1
@@ -49,7 +50,7 @@ class Match(reactionRule: ReactionRule) {
   Simulator.matchMarkDelete(this)
 
   def getReactNodes: String = {
-    reactNodes.toString
+    reactNodes.mkString(",")
   }
 
   def addParam(id: Int, c: Term): Unit = {
@@ -116,6 +117,17 @@ class Match(reactionRule: ReactionRule) {
     }
   }
 
+  def conflict(reactNodes: List[String]): Boolean = {
+    var conflict = false
+    reactNodes.map(rn => {
+      if (reactNodes.contains(rn)) {
+        println("confilict node:" + rn)
+        conflict = true
+      }
+    })
+    return conflict
+  }
+
   def failure = {
     hasFailed = true
     hasSucceeded = false
@@ -163,7 +175,7 @@ class Match(reactionRule: ReactionRule) {
     nodeMap.foreach(cm => {
       m.nodeMap(cm._1) = cm._2
     })
-    
+
     /*
     for ((key, value) <- names) {
       m.names(key) = value

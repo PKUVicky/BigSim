@@ -25,7 +25,8 @@ object GlobalCfg {
   val wExprPrefStr: String = prop.getProperty("wExprPrefStr")
   val hmmPrefStr: String = prop.getProperty("hmmPrefStr")
   val ratePrefStr: String = prop.getProperty("ratePrefStr")
-  val reverseStr: String = prop.getProperty("reverseStr")
+  val reversePrefStr: String = prop.getProperty("reversePrefStr")
+  val reactPrefStr: String = prop.getProperty("reactPrefStr")
   val minProbability: Double = prop.getProperty("minProbability").toDouble
 
   var DEBUG: Boolean = prop.getProperty("DEBUG").toBoolean

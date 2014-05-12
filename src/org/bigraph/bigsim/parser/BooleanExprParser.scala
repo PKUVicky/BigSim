@@ -113,9 +113,14 @@ object BooleanExprParser extends JavaTokenParsers {
   lazy val numericLit: Parser[Double] = """\d+(\.\d*)?""".r ^^ { _.toDouble }
   lazy val stringLit: Parser[Double] = """\w*""".r ^^ { _.hashCode.toDouble }
   lazy val variable: Parser[Double] = """(\d*)?+[a-zA-Z]+(\d*)?+(\.[a-zA-Z]*)?""".r ^^ { Data.getValue(_) }
-  lazy val factor: Parser[Double] = numericLit | variable | "(" ~> expr <~ ")"
-  lazy val term: Parser[Double] = factor ~ rep("*" ~ factor | "/" ~ factor) ^^
-    { case number ~ list => (number /: list) { case (x, "*" ~ y) => x * y; case (x, "/" ~ y) => x / y } }
+  lazy val factor: Parser[Double] = "abs(" ~> expr <~ ")" ^^ { Math.abs(_) } | numericLit | variable | "(" ~> expr <~ ")"
+  lazy val term: Parser[Double] = factor ~ rep("*" ~ factor | "/" ~ factor | "%" ~ factor) ^^ {
+    case number ~ list => (number /: list) {
+      case (x, "*" ~ y) => x * y
+      case (x, "/" ~ y) => x / y
+      case (x, "%" ~ y) => x % y
+    }
+  }
   lazy val expr: Parser[Double] = term ~ rep("+" ~ term | "-" ~ term) ^^ {
     case number ~ list => list.foldLeft(number) { case (x, "+" ~ y) => x + y; case (x, "-" ~ y) => x - y }
   }
@@ -143,7 +148,7 @@ object testBooleanExprParser {
   def main(args: Array[String]) {
     println("Hello Scala MetaCalcParser!")
 
-    Data.parseData("MobileCloud/data/checker.txt")
+    Data.parseData("Examples/MobileCloud/data/checker.txt")
 
     var q: Query = BooleanExprParser.parse("m1.power>2 ");
     println(q + ", q.check: " + q.check());
@@ -201,7 +206,7 @@ object testBooleanExprParser {
     println(q + ", q.check: " + q.check());
     q = BooleanExprParser.parse("5 > 3 && 3 > 1 || 1 > 2 && 6 > 7 ");
     println(q + ", q.check: " + q.check());
-    q = BooleanExprParser.parse("5 > 3 && 3 > 1 || 1 < 2 && 6 < 7 ");
+    q = BooleanExprParser.parse("5%3==0");
     println(q + ", q.check: " + q.check());
 
   }

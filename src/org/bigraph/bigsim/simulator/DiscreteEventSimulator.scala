@@ -69,7 +69,7 @@ class DiscreteEventSimulator(b: Bigraph) extends Simulator {
   def report(): String = {
     GlobalCfg.node = false
     if (GlobalCfg.pathOutput != "")
-      g.dumpPathes
+      g.dumpPaths
     GlobalCfg.node = true
     g.dumpDotForward
   }
@@ -188,7 +188,7 @@ class DiscreteEventSimulator(b: Bigraph) extends Simulator {
       v.addTarget(nv, curRR);
       forwardPath += nv
       if (GlobalCfg.printMode) {
-        // printf("%s:%s\n", "N_" + Math.abs(nv.hash), nv.bigraph.root.toString);
+        printf("%s:%s\n", "N_" + Math.abs(nv.hash), nv.bigraph.root.toString);
         println(nv.variables)
       }
     }

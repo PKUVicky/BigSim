@@ -17,9 +17,10 @@ import org.bigraph.bigsim.model._
 import org.bigraph.bigsim.BRS.Match
 import org.bigraph.bigsim.BRS.Graph
 import org.bigraph.bigsim.BRS.Vertex
+import org.bigraph.bigsim.data.Data
 
 object TimeSlicingSimulator {
-  
+
   var matchDiscard: Set[Match] = Set();
 
   def matchMarkDelete(m: Match): Unit = {
@@ -32,7 +33,7 @@ object TimeSlicingSimulator {
   }
 }
 
-class TimeSlicingSimulator(b: Bigraph) extends Simulator{
+class TimeSlicingSimulator(b: Bigraph) extends Simulator {
   var v: Vertex = new Vertex(b, null, null);
   var g: Graph = new Graph(v);
   var states: Queue[Tuple2[Int, Vertex]] = Queue();
@@ -47,7 +48,7 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator{
     states += ((0, v))
 
     if (b == null || b.root == null) {
-      println("mc::check(): null");
+      println("time slicing simulator::simulate(): null");
       return ;
     } else {
       // keep simulate until the end
@@ -62,7 +63,7 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator{
   def report(step: Int): String = {
     GlobalCfg.node = false
     if (GlobalCfg.pathOutput != "")
-      g.dumpPathes
+      g.dumpPaths
     GlobalCfg.node = true
     g.dumpDotForward;
   }
@@ -70,41 +71,87 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator{
   def step(): Boolean = {
 
     /**
+     * 0: update
      * If sim queue contains reactions happen at this time,
-     * try match and reaction.
+     * try match and apply match.
      */
-    println(GlobalCfg.SysClk)
+    update()
+
+    /**
+     * 1: add match
+     */
+    if (!addMatch()) {
+      return false
+    }
+
+    /**
+     * 2: update if current match doesn't need reaction time
+     * If sim queue contains reactions happen at this time,
+     * try match and apply match.
+     */
+    update()
+
+    TimeSlicingSimulator.matchGC;
+    // update the system clk
+    GlobalCfg.SysClk = GlobalCfg.SysClk + GlobalCfg.SysClkIncr
+    Data.update("SysClk", GlobalCfg.SysClk.toString)
+    true;
+  }
+
+  /**
+   * update
+   * update matches once the system clock meets
+   */
+  def update() {
+
+    println("System Clock now:" + GlobalCfg.SysClk)
     if (simQueue.contains(GlobalCfg.SysClk)
       && !simQueue.get(GlobalCfg.SysClk).isEmpty) {
-      // match it!!!!!
-      var reactList: Queue[Match] = simQueue.getOrElse(GlobalCfg.SysClk, null)
-      // match and find match and try match!!!
+      // apply these matches
+      var reactList: Queue[Match] = simQueue.getOrElse(GlobalCfg.SysClk, Queue())
+      // match and find match and apply match!!!
       var v: Vertex = states.last._2
       var curBigraph = v.bigraph
       var curRRs: Set[ReactionRule] = Set()
 
-      if (reactList != null) {
-        reactList.map(tm => {
-          if (!GlobalCfg.checkData || tm.rule.check) {
-            var matches: Set[Match] = curBigraph.findMatchesOfRR(tm.rule)
-            if (matches != null) {
-              matches.map(m => {
-                //if (m.getReactNodes.equals(tm.getReactNodes)) {
-                if (true) {
-                  var nb: Bigraph = curBigraph.applyMatch(m)
-                  if (nb.root == null)
-                    nb.root = new Nil();
-                  println("System Clock:" + GlobalCfg.SysClk)
-                  println("middle result match RR " + tm.rule.name + " : " + nb.root.toString)
-                  curBigraph = nb
-                  curRRs += tm.rule
-                  // break
+      reactList.map(tm => {
+        var matches: Set[Match] = curBigraph.findMatchesOfRR(tm.rule)
+        if (matches != null) {
+          var matched: Boolean = false
+          matches.map(m => {
+            if (!matched && m.getReactNodes.equals(tm.getReactNodes)) {
+              if (!GlobalCfg.checkData || m.rule.check) {
+                var nb: Bigraph = curBigraph.applyMatch(m)
+
+                /**
+                 * update a reaction rule data model
+                 */
+                m.rule.update
+                /**
+                 * update agent data with clock
+                 */
+                Data.updateDataCalcsWithClk(m.rule.pSysClikIncr.toString)
+
+                curRRs += m.rule
+                // update the reactNodes
+                reactNodes -- m.reactNodes
+
+                matched = true
+                if (nb.root == null) {
+                  nb.root = new Nil();
                 }
-              })
+                println("System Clock:" + GlobalCfg.SysClk)
+                println("middle result match RR " + tm.rule.name + " : " + nb.root.toString)
+                if (GlobalCfg.printMode) {
+                  printf("%s:%s\n", "N_" + Math.abs(nb.hashCode()), nb.root.toString);
+                  println(v.variables)
+                }
+                curBigraph = nb
+              }
             }
-          }
-        })
-      }
+          })
+        }
+      })
 
       if (curBigraph != null && curRRs != null) {
         var nv = new Vertex(curBigraph, v, curRRs, true)
@@ -112,7 +159,8 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator{
         v.addTargets(curRRs, nv);
         states += (GlobalCfg.SysClk -> nv)
         if (GlobalCfg.printMode) {
-          printf("%s:%s\n", "N_" + Math.abs(nv.hash), nv.bigraph.root.toString);
+          //printf("%s:%s\n", "N_" + Math.abs(nv.hash), nv.bigraph.root.toString);
+          //println(v.variables)
         }
       }
 
@@ -120,17 +168,16 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator{
       simQueue.-(GlobalCfg.SysClk)
     }
 
-    /**
-     *  Get the current state
-     */
+  }
+
+  def addMatch(): Boolean = {
     var v: Vertex = states.last._2
     steps += 1;
-    var step: Int = steps;
     var b: Bigraph = v.bigraph;
     var matches: Set[Match] = b.findMatches;
 
     if (steps >= GlobalCfg.maxSteps) {
-      println("mc::step Interrupted!  Reached maximum steps: " + GlobalCfg.maxSteps);
+      println("sim::step Interrupted!  Reached maximum steps: " + GlobalCfg.maxSteps);
       report(steps);
       return false;
     }
@@ -148,39 +195,24 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator{
 
     /**
      * if there is no match, but the sim queue is not emputy
+     *
+     * if (matches.isEmpty && !simQueue.isEmpty) {
+     * println("Current Agent Can not match rules, jump to time:" + simQueue.firstKey)
+     * GlobalCfg.SysClk = simQueue.firstKey
+     * return true
+     * }
      */
-    if (matches.isEmpty && !simQueue.isEmpty) {
-      println("Current Agent Can not match rules, jump to time:" + simQueue.firstKey)
-      GlobalCfg.SysClk = simQueue.firstKey
-      return true
-    }
 
     println("matches size: " + matches.size)
-    // checked(v.hash) = true;
 
     /**
-     * If a match is conflicted with reactNodes,
-     * remove it from the matches
-     */
-    matches.map(it => {
-      var conflict = false
-      it.reactNodes.map(rn => {
-        if (reactNodes.contains(rn)) {
-          println(rn)
-          conflict = true
-        }
-      })
-      if (conflict)
-        matches -= it
-    });
-    println("no conflict matches size: " + matches.size)
-
-    /**
-     * If a reaction rule is not random,
+     * If a reaction rule is not random and not conflict,
      * it must happen when it is matched.
      */
     matches.map(m => {
-      if (!m.rule.random) {
+      println("reactNodes:"+reactNodes)
+      val conflict = m.conflict(reactNodes.toList)
+      if (!conflict && !m.rule.random) {
         var key = GlobalCfg.SysClk + m.rule.sysClkIncr
         var queue: Queue[Match] = null
         if (simQueue.contains(key)) {
@@ -190,67 +222,14 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator{
           queue = Queue(m)
         }
         simQueue += key -> queue
-        reactNodes ++ m.reactNodes
+        reactNodes ++= m.reactNodes
         println("random match: " + m.rule.name)
+        matches -= m
+      } else if (conflict) {
+        matches -= m
       }
-      matches -= m
     })
-
-    /**
-     * Decide whether at this time, there is a random reaction.
-     * 0: not react this time
-     * 1: react this time
-     * if not react, system clock will move on
-     */
-    if (Random.nextInt(2) == 0) {
-      println("No react at Clock: " + GlobalCfg.SysClk)
-      GlobalCfg.SysClk += GlobalCfg.SysClkIncr
-      return true
-    } else {
-      var simRRMap: TreeMap[String, Match] = TreeMap();
-      var isFirst = true
-      while (!matches.isEmpty) {
-        /**
-         *  Find one rule meets the condition
-         */
-        if (!matches.isEmpty) {
-          var randIndex = Random.nextInt(matches.size)
-          var curMatch = matches.toList(randIndex)
-
-          var rr: ReactionRule = curMatch.rule;
-          var key = GlobalCfg.SysClk + rr.sysClkIncr
-
-          if (isFirst) {
-            var queue: Queue[Match] = null
-            if (simQueue.contains(key)) {
-              queue = simQueue(key)
-              queue += curMatch
-            } else {
-              queue = Queue(curMatch)
-            }
-            simQueue += key -> queue
-            reactNodes ++ curMatch.reactNodes
-            println("random match: " + curMatch.rule.name)
-          } else if (scala.util.Random.nextInt(2) == 1) {
-            var queue: Queue[Match] = null
-            if (simQueue.contains(key)) {
-              queue = simQueue(key)
-              queue += curMatch
-            } else {
-              queue = Queue(curMatch)
-            }
-            simQueue += key -> queue
-            reactNodes ++ curMatch.reactNodes
-            println("random match: " + curMatch.rule.name)
-          }
-          matches -= curMatch
-        }
-        isFirst = false
-      }
-      matches.clear();
-      TimeSlicingSimulator.matchGC;
-      true;
-    }
+    return true;
   }
 
   def formatHash(hash: Int): String = {

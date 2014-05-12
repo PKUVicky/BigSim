@@ -152,7 +152,7 @@ Usage: BigSim [options] <filename>
       if (GlobalCfg.checkHMM)
         HMM.parseHMM(folderName + "/hmm/" + filename + ".hmm")
 
-     Simulator.simulate("DiscreteEventSimulator", b)        
+     Simulator.simulate("TimeSlicingSimulator", b)        
      
       for (i <- 1 to GlobalCfg.simLoop) {
         GlobalCfg.SysClk = 0

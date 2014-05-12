@@ -2,9 +2,20 @@ package org.bigraph.bigsim.BRS
 
 import scala.collection.mutable.Map
 import scala.collection.mutable.Set
+import org.bigraph.bigsim.model.Control
+import org.bigraph.bigsim.model.Hole
 import org.bigraph.bigsim.parser.TermParser
 import org.bigraph.bigsim.utils.GlobalCfg
-import org.bigraph.bigsim.model._
+import org.bigraph.bigsim.model.Term
+import org.bigraph.bigsim.model.Num
+import org.bigraph.bigsim.model.Regions
+import org.bigraph.bigsim.model.Paraller
+import org.bigraph.bigsim.model.TermType
+import org.bigraph.bigsim.model.Prefix
+import org.bigraph.bigsim.model.Nil
+import org.bigraph.bigsim.model.ReactionRule
+import org.bigraph.bigsim.model.Name
+import org.bigraph.bigsim.model.Bigraph
 
 /**
  * @author zhaoxin
@@ -210,14 +221,9 @@ object Matcher {
       }
 
       //  if  the ctrl of redex is changed, add change info
-      var actives = true
-      if (r.node.ctrl.name.equals("Passenger")) {
-        actives = false
-      }
-      if (!actives) {
+      if (m.rule.reactNodes.contains(r.node.ctrl.name)) {
         m.reactNodes += t.node.name
       }
-
       return tryMatch(t.suffix, r.suffix, m)
     } else {
       return m.failure

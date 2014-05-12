@@ -56,7 +56,7 @@ class MC(b: Bigraph) {
   def report(step: Int): String = {
     GlobalCfg.node = false
     if (GlobalCfg.pathOutput != "")
-      g.dumpPathes
+      g.dumpPaths
     GlobalCfg.node = true
     g.dumpDotForward;
   }

@@ -32,6 +32,7 @@ object ArithExpressionParser extends RegexParsers {
   def main(args: Array[String]) {
     Data.parseData("Examples/MobileCloud/data/earthquake.txt")
     var exp = "abs(m1.power+energy*15+(0.5%500))";
+    exp = "10%3"
     println(apply(exp))
 
   }

@@ -49,13 +49,13 @@ class Graph(init: Vertex) {
   /**
    * get Pathes has interested pattern
    */
-  def getPathesHasInteresPatterns: Set[Stack[Vertex]] = {
+  def getPathsHasInterestPatterns: Set[Stack[Vertex]] = {
     var result: Set[Vertex] = Set()
-    var allPathes: Set[Stack[Vertex]] = getAllPathes
-    println("All pathes size is: " + allPathes.size)
-    var selectedPathes: Set[Stack[Vertex]] = Set() //这里用于存储筛选掉之后的所有path
+    var allPaths: Set[Stack[Vertex]] = getAllPaths
+    println("All pathes size is: " + allPaths.size)
+    var selectedPaths: Set[Stack[Vertex]] = Set() //这里用于存储筛选掉之后的所有path
 
-    allPathes.map(ite => {
+    allPaths.map(ite => {
       var pathStack: Stack[Vertex] = Stack()
       var size: Int = ite.size
 
@@ -85,21 +85,21 @@ class Graph(init: Vertex) {
         })
       }
       if (ite != null) {
-        selectedPathes += ite
+        selectedPaths += ite
       }
       pathStack.clear
     })
-    selectedPathes
+    selectedPaths
   }
   /*
 	 * 找一个数据结构，存储根据Vertexs中属性terminal为true的找出来每一条路径。
 	 * 中间，根绝策略筛选路径。
 	 * 筛选好的所有路径放入到一个set中去,返回的路径是以dot文件的形式，所以
 	 */
-  def findPathesByStrategy(rules: Set[ReactionRule]): Set[Stack[Vertex]] = {
+  def findPathsByStrategy(rules: Set[ReactionRule]): Set[Stack[Vertex]] = {
     //这里，到底提供那种strategy，可以再global里面定义
     var result: Set[Vertex] = Set()
-    var allPathes: Set[Stack[Vertex]] = getAllPathes
+    var allPathes: Set[Stack[Vertex]] = getAllPaths
     var selectedPathes: Set[Stack[Vertex]] = Set() //这里用于存储筛选掉之后的所有path
 
     var dcuMaps: Map[String, Set[String]] = ParseRules.getAllDCUs(rules)
@@ -169,7 +169,7 @@ class Graph(init: Vertex) {
    * 使用一个stack来存储一条路径。
    * 然后把所有路径放到一个set里面去。
    */
-  def getAllPathes: Set[Stack[Vertex]] = {
+  def getAllPaths: Set[Stack[Vertex]] = {
     var allPathSet: Set[Stack[Vertex]] = Set()
     println("Vertexs size is : " + lut.values.size)
 
@@ -196,23 +196,23 @@ class Graph(init: Vertex) {
     allPathSet
   }
 
-  def dumpPathes(): String = {
+  def dumpPaths(): String = {
     var allRulesNum: Double = root.bigraph.rules.size
     var defPathMap: Map[String, Set[Int]] = Map()
 
-    var pathes: Set[Stack[Vertex]] = Set()
+    var paths: Set[Stack[Vertex]] = Set()
     if (GlobalCfg.allUses || GlobalCfg.allDefs) {
-      pathes ++= findPathesByStrategy(root.bigraph.rules)
+      paths ++= findPathsByStrategy(root.bigraph.rules)
     } else if (GlobalCfg.patterns) {
-      pathes ++= getPathesHasInteresPatterns
+      paths ++= getPathsHasInterestPatterns
     } else {
       //pathes ++= getAllPathes
-      pathes ++= getAllPaths
+      paths ++= getAllPathss
     }
 
     var out: String = ""
     var pathNum: Int = -1
-    pathes.map(ite => {
+    paths.map(ite => {
       var ruleNameSet: Set[String] = Set()
       ite.map(itN => {
         if (itN.reactionRule != null) {
@@ -339,7 +339,7 @@ class Graph(init: Vertex) {
     else hash.toString;
   }
 
-  def getAllPaths: Set[Stack[Vertex]] = {
+  def getAllPathss: Set[Stack[Vertex]] = {
     var allPathSet: Set[Stack[Vertex]] = Set()
     var allPathString: Set[String] = Set()
     root.terminal = true
