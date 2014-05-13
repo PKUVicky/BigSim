@@ -117,9 +117,9 @@ class Match(reactionRule: ReactionRule) {
     }
   }
 
-  def conflict(reactNodes: List[String]): Boolean = {
+  def conflict(rns: List[String]): Boolean = {
     var conflict = false
-    reactNodes.map(rn => {
+    rns.map(rn => {
       if (reactNodes.contains(rn)) {
         println("confilict node:" + rn)
         conflict = true
@@ -154,10 +154,10 @@ class Match(reactionRule: ReactionRule) {
     m.hasSucceeded = hasSucceeded
     m.hasFailed = hasFailed
     m.root = root
-    m.reactNodes = reactNodes
+    // m.reactNodes = reactNodes
 
     reactNodes.foreach(rn => {
-      m.reactNodes += rn
+      m.reactNodes.add(rn)
     })
 
     names.foreach(n => {
@@ -219,6 +219,7 @@ class Match(reactionRule: ReactionRule) {
     for ((key, value) <- other.nodeMap) {
       this.nodeMap(key) = value;
     }
+    other.reactNodes.foreach(this.reactNodes.add(_))
 
   }
 

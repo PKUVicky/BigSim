@@ -104,7 +104,7 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
    */
   def update() {
 
-    println("System Clock now:" + GlobalCfg.SysClk)
+    //println("System Clock now:" + GlobalCfg.SysClk)
     if (simQueue.contains(GlobalCfg.SysClk)
       && !simQueue.get(GlobalCfg.SysClk).isEmpty) {
       // apply these matches
@@ -134,14 +134,15 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
 
                 curRRs += m.rule
                 // update the reactNodes
-                reactNodes -- m.reactNodes
+                //reactNodes -- m.reactNodes
+                reactNodes = reactNodes.filter(m.reactNodes.contains(_))
 
                 matched = true
                 if (nb.root == null) {
                   nb.root = new Nil();
                 }
-                println("System Clock:" + GlobalCfg.SysClk)
-                println("middle result match RR " + tm.rule.name + " : " + nb.root.toString)
+                //println("System Clock:" + GlobalCfg.SysClk)
+                //println("middle result match RR " + tm.rule.name + " : " + nb.root.toString)
                 if (GlobalCfg.printMode) {
                   printf("%s:%s\n", "N_" + Math.abs(nb.hashCode()), nb.root.toString);
                   println(v.variables)
@@ -210,7 +211,7 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
      * it must happen when it is matched.
      */
     matches.map(m => {
-      println("reactNodes:"+reactNodes)
+      println("reactNodes:" + reactNodes)
       val conflict = m.conflict(reactNodes.toList)
       if (!conflict && !m.rule.random) {
         var key = GlobalCfg.SysClk + m.rule.sysClkIncr
@@ -223,10 +224,10 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
         }
         simQueue += key -> queue
         reactNodes ++= m.reactNodes
-        println("random match: " + m.rule.name)
-        matches -= m
+        println("match: " + m.rule.name + "\treact nodes:" + m.reactNodes)
+        //matches -= m
       } else if (conflict) {
-        matches -= m
+        //matches -= m
       }
     })
     return true;
