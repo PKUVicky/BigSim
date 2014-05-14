@@ -104,7 +104,7 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
    */
   def update() {
 
-    //println("System Clock now:" + GlobalCfg.SysClk)
+    println("Update-----System Clock now:" + GlobalCfg.SysClk)
     if (simQueue.contains(GlobalCfg.SysClk)
       && !simQueue.get(GlobalCfg.SysClk).isEmpty) {
       // apply these matches
@@ -133,20 +133,17 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
                 Data.updateDataCalcsWithClk(m.rule.pSysClikIncr.toString)
 
                 curRRs += m.rule
-                // update the reactNodes
-                //reactNodes -- m.reactNodes
-                reactNodes = reactNodes.filter(m.reactNodes.contains(_))
+                println("-----react nodes before:" + reactNodes)
+                reactNodes = reactNodes.filter(!m.reactNodes.contains(_))
+                println("-----reaction nodes rm:" + m.reactNodes)
+                println("-----react nodes after:" + reactNodes)
 
                 matched = true
                 if (nb.root == null) {
                   nb.root = new Nil();
                 }
-                //println("System Clock:" + GlobalCfg.SysClk)
-                //println("middle result match RR " + tm.rule.name + " : " + nb.root.toString)
-                if (GlobalCfg.printMode) {
-                  printf("%s:%s\n", "N_" + Math.abs(nb.hashCode()), nb.root.toString);
-                  println(v.variables)
-                }
+                println("middle result match RR " + tm.rule.name + " : " + nb.root.toString)
+                println("middle result of variables: " + Data.getValues(","))
                 curBigraph = nb
               }
             }
@@ -160,8 +157,9 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
         v.addTargets(curRRs, nv);
         states += (GlobalCfg.SysClk -> nv)
         if (GlobalCfg.printMode) {
-          //printf("%s:%s\n", "N_" + Math.abs(nv.hash), nv.bigraph.root.toString);
-          //println(v.variables)
+          print("SysClk:" + GlobalCfg.SysClk + "\t")
+          printf("%s:%s\n", "N_" + Math.abs(nv.hash), nv.bigraph.root.toString);
+          println(nv.variables)
         }
       }
 
@@ -204,7 +202,7 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
      * }
      */
 
-    println("matches size: " + matches.size)
+    println("Add match-----matches size: " + matches.size)
 
     /**
      * If a reaction rule is not random and not conflict,
@@ -224,7 +222,7 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
         }
         simQueue += key -> queue
         reactNodes ++= m.reactNodes
-        println("match: " + m.rule.name + "\treact nodes:" + m.reactNodes)
+        println("add match: " + m.rule.name + "\treact nodes:" + m.reactNodes)
         //matches -= m
       } else if (conflict) {
         //matches -= m
