@@ -178,7 +178,7 @@ class DiscreteEventSimulator(b: Bigraph) extends Simulator {
 
     if (curBigraph != null && curRR != null) {
       var nv = new Vertex(curBigraph, v, curRR)
-      nv.CLK = GlobalCfg.SysClk
+      nv.sysClk = GlobalCfg.SysClk
       if (g.lut.contains(nv.hash)) {
         nv = g.lut(nv.hash);
         nv.addParents(v)

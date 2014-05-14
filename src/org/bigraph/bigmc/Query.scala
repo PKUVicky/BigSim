@@ -125,7 +125,7 @@ class QueryScope(nm: String, q: Query) extends Query {
       }
       case "succ" => {
         var result: Boolean = true;
-        for (entry <- v.targets.toList if (!qry.check(entry._2)))
+        for (entry <- v.targets.toList if (!qry.check(entry._1)))
           result = false;
         result;
       }

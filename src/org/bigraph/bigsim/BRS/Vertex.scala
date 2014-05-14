@@ -22,12 +22,11 @@ class Vertex(b: Bigraph, v: Vertex, rr: ReactionRule) {
   var terminal: Boolean = false
   var parent: Vertex = v
   var pathVisited: Boolean = false
-  
-  var CLK: Int = 0
-  var globalClock: Double = 0
+
+  var sysClk: Double = 0
   var reactionRule: ReactionRule = rr
   var reactionRules: Set[ReactionRule] = Set()
-  var variables : String = Data.getValues(",")
+  var variables: String = Data.getValues(",")
   var bigraph: Bigraph = b
   var hash: Int = {
     if (bigraph.root != null)
@@ -61,10 +60,10 @@ class Vertex(b: Bigraph, v: Vertex, rr: ReactionRule) {
   /**
    * Here we use the set pair format for multiple reactions
    */
-  var targets: Set[Tuple2[Set[ReactionRule], Vertex]] = Set();
+  var targets: Map[Vertex, Set[ReactionRule]] = Map();
 
   def addTargets(rrs: Set[ReactionRule], v: Vertex) {
-    targets += ((rrs, v))
+    targets += v -> rrs
   }
 }
 

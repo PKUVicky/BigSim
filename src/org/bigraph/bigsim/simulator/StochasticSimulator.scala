@@ -147,8 +147,7 @@ class StochasticSimulator(b: Bigraph) extends Simulator{
         if (newb.root == null)
           newb.root = new Nil();
         newv = new Vertex(newb, curv, ma.rule)
-        newv.CLK = time.toInt
-        newv.globalClock = time
+        newv.sysClk = time
         newv.parent = curv
         if (g.lut.contains(newv.hash)) {
           newv = g.lut(newv.hash);
@@ -234,7 +233,7 @@ class StochasticSimulator(b: Bigraph) extends Simulator{
           rr = y._2.name;
         if (y._1 != null) {
           if (GlobalCfg.checkTime)
-            rr = rr + "\nSystem Clock: " + y._1.globalClock
+            rr = rr + "\nSystem Clock: " + y._1.sysClk
           if (GlobalCfg.checkData && y._2.conds.size != 0)
             rr = rr + "\nCond:" + y._2.getConds
           if (GlobalCfg.checkHMM && y._2.hmms.size != 0)

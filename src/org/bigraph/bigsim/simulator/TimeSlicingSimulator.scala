@@ -34,16 +34,18 @@ object TimeSlicingSimulator {
 }
 
 class TimeSlicingSimulator(b: Bigraph) extends Simulator {
+
   var v: Vertex = new Vertex(b, null, null);
   var g: Graph = new Graph(v);
-  var states: Queue[Tuple2[Int, Vertex]] = Queue();
-  var simQueue: TreeMap[Int, Queue[Match]] = TreeMap();
+  var states: Queue[Tuple2[Double, Vertex]] = Queue();
+  var simQueue: TreeMap[Double, Queue[Match]] = TreeMap();
   var reactNodes: Set[String] = Set();
 
   var steps: Int = 0;
   var checked: Map[Long, Boolean] = Map();
 
   def simulate: Unit = {
+
     // add the initial agent to the simQueue
     states += ((0, v))
 
@@ -53,22 +55,30 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
     } else {
       // keep simulate until the end
       while (step()) {
-        //println("workStack size : " + workStack.size +" : agent : "+workStack.top.bigraph.root.toString)
       };
-      report(1)
+      report()
       TimeSlicingSimulator.matchGC;
     }
   }
 
-  def report(step: Int): String = {
+  def report(): String = {
     GlobalCfg.node = false
     if (GlobalCfg.pathOutput != "")
       g.dumpPaths
     GlobalCfg.node = true
-    g.dumpDotForward;
+    dumpDotForward;
   }
 
   def step(): Boolean = {
+
+    /**
+     * if meet max system clock, simulation stop.
+     */
+    if (GlobalCfg.SysClk > GlobalCfg.maxSysClk) {
+      println("sim::step Interrupted!  Reached maximum SysClk: " + GlobalCfg.maxSysClk);
+      report();
+      return false;
+    }
 
     /**
      * 0: update
@@ -104,9 +114,10 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
    */
   def update() {
 
-    println("Update-----System Clock now:" + GlobalCfg.SysClk)
     if (simQueue.contains(GlobalCfg.SysClk)
       && !simQueue.get(GlobalCfg.SysClk).isEmpty) {
+
+      println("Update-----System Clock now:" + GlobalCfg.SysClk)
       // apply these matches
       var reactList: Queue[Match] = simQueue.getOrElse(GlobalCfg.SysClk, Queue())
       // match and find match and apply match!!!
@@ -153,7 +164,15 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
 
       if (curBigraph != null && curRRs != null) {
         var nv = new Vertex(curBigraph, v, curRRs, true)
-        nv.CLK = GlobalCfg.SysClk
+        nv.sysClk = GlobalCfg.SysClk
+
+        if (g.lut.contains(nv.hash)) {
+          nv = g.lut(nv.hash);
+          nv.addParents(v)
+        } else {
+          g.add(nv);
+        }
+
         v.addTargets(curRRs, nv);
         states += (GlobalCfg.SysClk -> nv)
         if (GlobalCfg.printMode) {
@@ -164,7 +183,8 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
       }
 
       // finally, delete it!
-      simQueue.-(GlobalCfg.SysClk)
+      simQueue = simQueue.-(GlobalCfg.SysClk)
+
     }
 
   }
@@ -177,20 +197,23 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
 
     if (steps >= GlobalCfg.maxSteps) {
       println("sim::step Interrupted!  Reached maximum steps: " + GlobalCfg.maxSteps);
-      report(steps);
+      report();
       return false;
     }
 
     /**
      * if current model can not find matches and the sim queue is empty,
      * then the simulation is over.
+     * Abandon! not right
      */
+    /*
     if (matches.isEmpty && simQueue.isEmpty) {
       println("sim::step Complete!");
       report(steps);
       TimeSlicingSimulator.matchGC;
       return false;
-    }
+    } 
+    */
 
     /**
      * if there is no match, but the sim queue is not emputy
@@ -237,31 +260,35 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
   }
 
   def dumpDotForward: String = {
-    //if (GlobalCfg.graphOutput == "") return "";
     var out: String = "";
     out += "digraph reaction_graph {\n";
     out += "   rankdir=LR;\n";
     out += "   Node [shape = circle];\n";
-    out += " N_" + formatHash(g.root.hash) + "\n"; // + " [shape=doublecircle, color=lightblue2, style=filled, label=\"" +
-    //root.bigraph.root.toString + "\"];\n";
+    out += "   BigSim_Report [shape = parallelogram color = aliceblue style=filled label=\"BigSim\nReport\"];\n"
+    out += "BigSim_Report -> N_" + formatHash(g.root.hash) + "[color = aliceblue label = \"" +
+      Data.getWeightExpr + "=" +
+      Data.getReport + "\n" +
+      Data.getValues(",") + "\"];\n";
+    out += " N_" + formatHash(g.root.hash) + "\n" + " [shape=circle, color=lightblue2, style=filled];\n";
+
     g.lut.values.map(x => {
       var rr: String = "root";
       var dc: String = "";
 
       if (x.terminal) {
-        dc = "shape = doublecircle, color=darkolivegreen3, style=filled, ";
+        dc = "shape = doublecircle, color=lightblue2, style=filled, ";
       }
-      //out += "N_" + formatHash(x.hash) + "\n";//+ "[ " + dc + "label=\"" + x.bigraph.root.toString + "\"];\n";
-      x.target.map(y => {
-        rr = "?";
-        if (y._2 != null)
-          rr = y._2.name;
-
+      out += "N_" + formatHash(x.hash) + "[ " + dc + "label=\"N_" + formatHash(x.hash) + "\"];\n";
+      x.targets.map(y => {
+        rr = "?"
+        if (y._2 != null) {
+          rr = y._2.map(_.name).mkString(",")
+        }
         if (y._1 != null) {
-          if (GlobalCfg.checkTime)
-            rr = rr + "\n" + y._1.CLK
-          if (GlobalCfg.checkData)
-            rr = rr + "\n" + y._2.getExps + "\n" + y._2.getConds
+          if (GlobalCfg.checkData) {
+            rr = rr + "\n" + y._1.variables + "\n" +
+              y._2.map(_.getConds).mkString(",")
+          }
           out += " N_" + formatHash(x.hash) + " -> N_" + formatHash(y._1.hash) + "[ label = \"" + rr + "\"];\n"
         }
       });

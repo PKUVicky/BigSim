@@ -314,7 +314,7 @@ class Graph(init: Vertex) {
 
         if (y._1 != null) {
           if (GlobalCfg.checkTime)
-            rr = rr + "\nSystem Clock: " + y._1.CLK
+            rr = rr + "\nSystem Clock: " + y._1.sysClk
           if (GlobalCfg.checkData && y._2.conds.size != 0)
             rr = rr + "\nCond:" + y._2.getConds
           if (GlobalCfg.checkHMM && y._2.hmms.size != 0)

@@ -37,6 +37,13 @@ object GlobalCfg {
   var graphOutput: String = prop.getProperty("graphOutput")
   var ranNameIndex: Int = prop.getProperty("ranNameIndex").toInt
 
+  // system clock init
+  var SysClk: Double = prop.getProperty("initSysClk").toDouble
+  // system clock increaser
+  var SysClkIncr: Double = prop.getProperty("sysClkIncr").toDouble
+  // the max system clock
+  var maxSysClk: Double = prop.getProperty("maxSysClk").toDouble
+
   def getRanNameIndex: Int = {
     ranNameIndex += 1
     ranNameIndex
@@ -44,10 +51,7 @@ object GlobalCfg {
 
   // whether contain time simulation
   var checkTime: Boolean = true;
-  // system clock init is 0
-  var SysClk: Int = 0
-  // system clock increaser is 1
-  var SysClkIncr: Int = 1
+
   // how many times of simulation
   var simLoop: Int = 1;
   // whether sim data

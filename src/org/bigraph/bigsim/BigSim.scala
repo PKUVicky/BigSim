@@ -19,7 +19,7 @@ Usage: BigSim [options] <filename>
     -s c						Specify c maximum steps of graph unfolding
     -S l						Specify l loops of simulation
     -m t						Specify t is the max simulation time
-    -M mode				Specify simulation mode: MC, SSA(stochastic), TS(time-slicing), DE(dicrete-event)
+    -M mode				Specify simulation mode: Enum, SSA(stochastic), TS(time-slicing), DE(dicrete-event)
     -B mode				Specify BRS mode: TR-BRS, GR-BRS
     -T							Simulation with time
     -D						Calculate environment data
