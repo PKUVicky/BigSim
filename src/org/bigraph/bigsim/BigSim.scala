@@ -113,59 +113,56 @@ Usage: BigSim [options] <filename>
     var start = System.currentTimeMillis();
 
     if (args.length != 0) {
-      //usage
-      //System.exit(1)
-    } else {
-      //parseOpts(args.toList)
-
-      /**
-       * init sorting file if exits
-       */
-      //BigSimOpts.sortFileName = "sortingFile/decoction.xml"
-      if (GlobalCfg.sortFileName != null)
-        Bigraph.sorting.init(GlobalCfg.sortFileName)
-
-      var filename = "earthquake";
-      filename = "chemistry";
-      filename = "checker";
-      var folderName = "OldAirport";
-      folderName = "Examples/MobileCloud";
-
-      // GlobalCfg.patterns = true
-      //GlobalCfg.patternFile = "resources/Patterns.xml"
-      GlobalCfg.pathOutput = folderName + "/paths/" + filename + ".txt";
-      GlobalCfg.filename = folderName + "/models/" + filename + ".bgm";
-
-      // graphviz图形化字符串
-      GlobalCfg.graphOutput = folderName + "/results/" + filename + ".dot";
-
-      // 解析BGM
-      val p = BGMParser.parse(new File(GlobalCfg.filename));
-      val b: Bigraph = BGMTerm.toBigraph(p);
-
-      /**
-       * init Data if needed
-       */
-      if (GlobalCfg.checkData)
-        Data.parseData(folderName + "/data/" + filename + ".txt")
-
-      if (GlobalCfg.checkHMM)
-        HMM.parseHMM(folderName + "/hmm/" + filename + ".hmm")
-
-     Simulator.simulate("TimeSlicingSimulator", b)        
-     
-      for (i <- 1 to GlobalCfg.simLoop) {
-        GlobalCfg.SysClk = 0
-        println("<--------------------------- Sim " + i + " ------------------------------------>")
-        //var sim = new DiscreteEventSimulator(b)
-        //sim.simulate;
-        println("<---------------------------- End ------------------------------------->")
-      }
-      // val rc = new ReachChecker(io.Source.fromFile(new File(GlobalCfg.filename)).mkString)
-      //println(rc.check)
-
-      var end = System.currentTimeMillis();
-      println("start:" + start + ", end:" + end + ", used:" + (end - start));
+      parseOpts(args.toList)
     }
+
+    /**
+     * init sorting file if exits
+     */
+    //BigSimOpts.sortFileName = "sortingFile/decoction.xml"
+    if (GlobalCfg.sortFileName != null)
+      Bigraph.sorting.init(GlobalCfg.sortFileName)
+
+    var filename = "earthquake";
+    filename = "chemistry";
+    filename = "checker";
+    var folderName = "OldAirport";
+    folderName = "Examples/MobileCloud";
+
+    // GlobalCfg.patterns = true
+    //GlobalCfg.patternFile = "resources/Patterns.xml"
+    GlobalCfg.pathOutput = folderName + "/paths/" + filename + ".txt";
+    GlobalCfg.filename = folderName + "/models/" + filename + ".bgm";
+
+    // graphviz图形化字符串
+    GlobalCfg.graphOutput = folderName + "/results/" + filename + ".dot";
+
+    // 解析BGM
+    val p = BGMParser.parse(new File(GlobalCfg.filename));
+    val b: Bigraph = BGMTerm.toBigraph(p);
+
+    /**
+     * init Data if needed
+     */
+    if (GlobalCfg.checkData)
+      Data.parseData(folderName + "/data/" + filename + ".txt")
+
+    if (GlobalCfg.checkHMM)
+      HMM.parseHMM(folderName + "/hmm/" + filename + ".hmm")
+
+    Simulator.simulate("TimeSlicingSimulator", b)
+
+    for (i <- 1 to GlobalCfg.simLoop) {
+      GlobalCfg.SysClk = 0
+      println("<--------------------------- Sim " + i + " ------------------------------------>")
+      //var sim = new DiscreteEventSimulator(b)
+      //sim.simulate;
+      println("<---------------------------- End ------------------------------------->")
+    }
+    // val rc = new ReachChecker(io.Source.fromFile(new File(GlobalCfg.filename)).mkString)
+    //println(rc.check)
+
+    var end = System.currentTimeMillis();
+    println("start:" + start + ", end:" + end + ", used:" + (end - start));
   }
 }
