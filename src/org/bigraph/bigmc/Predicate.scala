@@ -81,8 +81,8 @@ class PredMatches extends Predicate {
     } else {
       val t: QueryTerm = params.head.asInstanceOf[QueryTerm];
       if (t == null) {
-        0;
-        exit(1);
+        sys.exit(1);
+         0;
       } else {
         val r: ReactionRule = new ReactionRule(t.data, null);
         val mt: Match = new Match(r);
@@ -90,7 +90,6 @@ class PredMatches extends Predicate {
         var sz: Int = m.size;
         mt.failure;
         m.map(x => x.failure);
-
         sz;
       }
     }
@@ -112,12 +111,12 @@ class PredEqual extends Predicate {
     // todo 
     if (params.size == 0 || params.size > 1) {
       Predicate.PredFailParam("equal", "term -> bool", "_  -> bool");
-      exit(1);
+      sys.exit(1)
     } else {
       var t: QueryTerm = params.head.asInstanceOf[QueryTerm];
       if (t == null) {
         Predicate.PredFailParam("equal", "term -> bool", "??? -> bool");
-        exit(1);
+        sys.exit(1)
       }
       // C++ 版本的比较方法是将Term转化成字符串比较，这里直接比较字符串
       var s1: String = v.bigraph.root.toString;

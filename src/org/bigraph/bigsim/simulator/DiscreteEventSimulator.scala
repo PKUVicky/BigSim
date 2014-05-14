@@ -55,7 +55,7 @@ class DiscreteEventSimulator(b: Bigraph) extends Simulator {
       }
 
       /** init the start state */
-      forwardPath += v;
+      forwardPath.enqueue(v);
       backwardPath.push(v);
 
       /** iterator the simulate step */
@@ -186,7 +186,7 @@ class DiscreteEventSimulator(b: Bigraph) extends Simulator {
         g.add(nv);
       }
       v.addTarget(nv, curRR);
-      forwardPath += nv
+      forwardPath.enqueue(nv)
       if (GlobalCfg.printMode) {
         printf("%s:%s\n", "N_" + Math.abs(nv.hash), nv.bigraph.root.toString);
         println(nv.variables)

@@ -246,7 +246,7 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
       }
       if (hasMatch) {
         res += (rn -> mNode)
-        redexNodes -= mNode
+        redexNodes.filter(_ != mNode)
       } else {
         /**
          *   if the node is a new node, assign the new node with new node name
@@ -302,7 +302,7 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
       nodes = getTermNodes(reg.leftTerm) ::: nodes;
       nodes = getTermNodes(reg.rightTerm) ::: nodes;
     }
-    nodes = nodes.sort((n1: Node, n2: Node) => { n1.name < n2.name });
+    nodes = nodes.sortWith((n1: Node, n2: Node) => { n1.name < n2.name });
     nodes;
   }
 

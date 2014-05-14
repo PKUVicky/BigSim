@@ -112,11 +112,11 @@ Usage: BigSim [options] <filename>
   override def main(args: Array[String]) = {
     var start = System.currentTimeMillis();
 
-    if (args.length == 0) {
-      usage
-      System.exit(1)
+    if (args.length != 0) {
+      //usage
+      //System.exit(1)
     } else {
-      parseOpts(args.toList)
+      //parseOpts(args.toList)
 
       /**
        * init sorting file if exits

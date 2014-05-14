@@ -80,7 +80,7 @@ class Term {
       case TermType.TNIL => {};
       case _ => {
         println("Matching encountered invalid term type " + t.termType);
-        exit(1);
+        sys.exit(1);
       }
     }
     t;
@@ -120,7 +120,7 @@ object Paraller {
   def constuctParaller(terms: Set[Term]): Paraller = {
     if (terms == null || terms.size < 2) {
       println("Error param terms to construct Paraller");
-      exit(1);
+      sys.exit(1);
     } else if (terms.size == 2) {
       new Paraller(terms.head, terms.tail.head);
     } else {
@@ -351,7 +351,7 @@ class Hole(idx: Int) extends Term {
     // todo
     if (m == null) {
       println("ERROR: hole::apply_match(): Invalid place graph contains a hole.");
-      exit(1);
+      sys.exit(1);
     }
     var t: Term = m.getParam(index);
 
@@ -475,12 +475,12 @@ object testTerm {
     println("visit List i:" + tl(2))
     println("visit List distinct:" + tl.distinct);
     println("visit List head:" + tl.head);
-    println("visit List tl.remove(x=> (x == tl.head)):" + tl.remove(x => (x == tl.head)));
+    println("visit List tl.remove(x=> (x == tl.head)):" + tl.filter(x => (x != tl.head)));
     println("visit List tl:" + tl)
-    tl = tl.-(3);
+    //tl = tl.-(3);
     println("visit List tl = tl.-(3):" + tl);
     println("visit List tl.tail:" + tl.tail)
-    tl = tl.sort((a: Int, b: Int) => a > b);
+    tl = tl.sortWith((a: Int, b: Int) => a > b);
     println("visit List tl.sort:" + tl.mkString("	"));
 
     var tl2: List[Int] = List(20, 30, 40)

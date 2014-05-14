@@ -44,7 +44,7 @@ object TermString {
     children.map(x => {
       childrenStr = childrenStr.:+(preOrderString(x));
     });
-    childrenStr = childrenStr.sort((a: String, b: String) => a < b);
+    childrenStr = childrenStr.sortWith((a: String, b: String) => a < b);
     "(" + childrenStr.mkString("|") + ")";
   }
 
@@ -56,7 +56,7 @@ object TermString {
     children.map(x => {
       childrenStr = childrenStr.:+(preOrderString(x));
     });
-    childrenStr = childrenStr.sort((a: String, b: String) => a < b);
+    childrenStr = childrenStr.sortWith((a: String, b: String) => a < b);
     "(" + childrenStr.mkString("||") + ")";
   }
 

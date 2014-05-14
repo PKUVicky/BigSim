@@ -56,7 +56,7 @@ class Match(reactionRule: ReactionRule) {
   def addParam(id: Int, c: Term): Unit = {
     if (c == null) {
       println("BUG: attempted to add_param for null term in hole " + id)
-      exit(1)
+      sys.exit(1)
     }
     parameters += (id -> c)
   }
@@ -72,7 +72,7 @@ class Match(reactionRule: ReactionRule) {
   def addMatch(src: Term, target: Term) = {
     if (src == null || target == null) {
       println("BUG: attempted to add null match")
-      exit(1);
+      sys.exit(1);
     }
     mapping += (target -> src)
   }
@@ -139,7 +139,7 @@ class Match(reactionRule: ReactionRule) {
   def success: Unit = {
     if (hasFailed) {
       println("BUG: match::success(): match has already failed!")
-      exit(1)
+      sys.exit(1)
     }
     hasSucceeded = true
     hasFailed = false

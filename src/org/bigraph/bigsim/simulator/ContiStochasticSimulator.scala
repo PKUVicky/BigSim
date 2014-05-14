@@ -118,7 +118,7 @@ class ContiStochasticSimulator(b: Bigraph) extends Simulator {
 
           val ms = curb.findMatchesOfRR(m.rule).filter(p => p.reactNodes == m.reactNodes)
           if (ms.size > 0) {
-            var newb: Bigraph = curb.applyMatch(ms.first)
+            var newb: Bigraph = curb.applyMatch(ms.head)
             // update
             simPath += newb.root
             simRules += m.rule.name

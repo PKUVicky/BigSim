@@ -39,7 +39,7 @@ class Node(n: String, act: Boolean, p: List[Name], c: Control) {
   if (ports.size > c.arity) {
     println("Error: control " + Bigraph.controlToString(c) + " has arity" + c.arity
       + " but " + ports.size + " ports have been linked!");
-    exit(1);
+    sys.exit(1);
   }
 
   def getNodeStr: String = {
@@ -287,7 +287,7 @@ class Bigraph(roots: Int = 1) {
     } else {
       if (m.rule.reactum.termType != TermType.TREGION) {
         println("bigraph::applyMatch Wide redexes must have wide reactums");
-        exit(1);
+        sys.exit(1);
       }
 
       var reactum: Regions = m.rule.reactum.asInstanceOf[Regions];
@@ -320,7 +320,7 @@ class Bigraph(roots: Int = 1) {
       // 对nil修正后，反应物子项数目应与子match数目一致
       if (rc.size != wm.submatches.size) {
         println("bigraph::applyMatch Wide rules must match in the number of regions in the redex and reactum");
-        exit(1);
+        sys.exit(1);
       }
 
       mq.map(x => {

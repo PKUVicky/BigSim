@@ -2,7 +2,7 @@ package org.bigraph.biggr.bigraph
 
 import scala.collection.mutable.Map
 import scala.collection.mutable.Set
-import pku.bigsim.model._
+import org.bigraph.bigsim.model._
 import scala.collection.mutable.ArrayBuffer
 
 

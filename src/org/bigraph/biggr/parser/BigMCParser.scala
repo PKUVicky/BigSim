@@ -19,7 +19,7 @@ case class BGMName(n: String, isouter: Boolean) extends BGMTerm
 case class BGMRule(n: String, redex: String, reactum: String, exp: String) extends BGMTerm
 case class BGMAgent(n: String) extends BGMTerm
 case class BGMProp(n: String, p: String) extends BGMTerm
-case class BGMNil extends BGMTerm
+case class BGMNil() extends BGMTerm
 
 object BGMTerm {
   def toBigraph(t: List[BGMTerm]): Model = {
