@@ -61,9 +61,11 @@ class Vertex(b: Bigraph, v: Vertex, rr: ReactionRule) {
    * Here we use the set pair format for multiple reactions
    */
   var targets: Map[Vertex, Set[ReactionRule]] = Map();
+  //var targets: Set[Tuple2[Vertex, Set[ReactionRule]]] = Set();
 
   def addTargets(rrs: Set[ReactionRule], v: Vertex) {
     targets += v -> rrs
+    //targets += ((v, rrs))
   }
 }
 

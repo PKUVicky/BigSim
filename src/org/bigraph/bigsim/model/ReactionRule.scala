@@ -47,7 +47,6 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
   initExprs
 
   /** Possion Distribution */
-  var pSysClikIncr: Int = getRRIncr
   var poTimeSpend: Double = getContiRRIncr
 
   /** init data calculate exprs and conds in a RR */
@@ -86,8 +85,7 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
     if (random) {
       val re: RandomEngine = RandomEngine.makeDefault
       val po: Poisson = new Poisson(sysClkIncr, re)
-      pSysClikIncr = po.nextInt()
-      pSysClikIncr
+      po.nextInt()
     } else
       sysClkIncr
   }

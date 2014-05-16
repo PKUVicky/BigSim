@@ -36,6 +36,7 @@ class Match(reactionRule: ReactionRule) {
 
   var reactNodes: Set[String] = Set()
   var rule = reactionRule
+  var RRIncr: Double = 0
   var root: Term = null
   var parent: Match = null
 

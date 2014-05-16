@@ -137,9 +137,9 @@ class DiscreteEventSimulator(b: Bigraph) extends Simulator {
         var curMatch = matches.toList(randIndex)
 
         var rr: ReactionRule = curMatch.rule;
-        var key = (GlobalCfg.SysClk + rr.pSysClikIncr).toString + "_" + scala.util.Random.nextInt(100000)
+        var key = (GlobalCfg.SysClk + rr.getRRIncr).toString + "_" + scala.util.Random.nextInt(100000)
         while (simRRMap.contains(key)) {
-          key = (GlobalCfg.SysClk + rr.pSysClikIncr).toString + "_" + scala.util.Random.nextInt(100000)
+          key = (GlobalCfg.SysClk + rr.getRRIncr).toString + "_" + scala.util.Random.nextInt(100000)
         }
 
         if (isFirst || !curMatch.rule.random) {
@@ -167,7 +167,7 @@ class DiscreteEventSimulator(b: Bigraph) extends Simulator {
         /**
          * update agent data with clock
          */
-        Data.updateDataCalcsWithClk(tm._2.rule.pSysClikIncr.toString)
+        Data.updateDataCalcsWithClk(tm._2.rule.getRRIncr.toString)
 
         if (nb.root == null)
           nb.root = new Nil();

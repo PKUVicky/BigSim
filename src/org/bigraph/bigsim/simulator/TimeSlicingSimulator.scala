@@ -141,7 +141,7 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
                 /**
                  * update agent data with clock
                  */
-                Data.updateDataCalcsWithClk(m.rule.pSysClikIncr.toString)
+                Data.updateDataCalcsWithClk(m.RRIncr.toString)
 
                 curRRs += m.rule
                 println("-----react nodes before:" + reactNodes)
@@ -184,9 +184,7 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
 
       // finally, delete it!
       simQueue = simQueue.-(GlobalCfg.SysClk)
-
     }
-
   }
 
   def addMatch(): Boolean = {
@@ -234,8 +232,11 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
     matches.map(m => {
       println("reactNodes:" + reactNodes)
       val conflict = m.conflict(reactNodes.toList)
-      if (!conflict && !m.rule.random) {
-        var key = GlobalCfg.SysClk + m.rule.sysClkIncr
+      if(!conflict) {
+      //if (!conflict && !m.rule.random) {
+        val RRIncr = m.rule.getRRIncr
+        var key = GlobalCfg.SysClk + RRIncr
+        m.RRIncr = RRIncr
         var queue: Queue[Match] = null
         if (simQueue.contains(key)) {
           queue = simQueue(key)

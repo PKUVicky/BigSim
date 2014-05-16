@@ -125,9 +125,9 @@ Usage: BigSim [options] <filename>
 
     var filename = "earthquake";
     filename = "chemistry";
-    filename = "checker";
+    filename = "EconomyDisable";
     var folderName = "OldAirport";
-    folderName = "Examples/MobileCloud";
+    folderName = "Examples/Airport_513";
 
     // GlobalCfg.patterns = true
     //GlobalCfg.patternFile = "resources/Patterns.xml"
