@@ -3,25 +3,41 @@ digraph reaction_graph {
    Node [shape = circle];
    BigSim_Report [shape = parallelogram color = aliceblue style=filled label="BigSim
 Report"];
-BigSim_Report -> N_613655936[color = aliceblue label = "wExpr==0.0
-p6.traffic=false,p7.traffic=false,p3.traffic=false,p18.traffic=false,p17.traffic=false,p8.traffic=false,p15.traffic=false,p2.traffic=false,p11.traffic=false,p19.traffic=false,p13.traffic=false,p4.traffic=false,p14.traffic=false,p12.traffic=false,p5.traffic=false,customer=21.0,p1.traffic=false,p16.traffic=false,SysClk=49.0,p10.traffic=false,p9.traffic=false,p20.traffic=false"];
- N_613655936
+BigSim_Report -> N_898446431[color = aliceblue label = "wExpr==0.0
+p1.light=2,p1.fee=10.0,ap.boardingTime=23,p1.flightNo=CZ3265,ap.flightNo=CZ3264,p1.traffic=false,SysClk=49.0,p1.hasCheckinLuggage=true,p1.hasDanger=false"];
+ N_898446431
  [shape=circle, color=lightblue2, style=filled];
-N_933364800[ label="N_933364800"];
- N_933364800 -> N__271651487[ label = "r_enter_airport
-p6.traffic=false,p7.traffic=false,p3.traffic=false,p18.traffic=false,p17.traffic=false,p8.traffic=false,p15.traffic=false,p2.traffic=false,p11.traffic=false,p19.traffic=false,p13.traffic=false,p4.traffic=false,p14.traffic=false,p12.traffic=false,p5.traffic=false,customer=21.0,p1.traffic=false,p16.traffic=false,SysClk=4.0,p10.traffic=false,p9.traffic=false,p20.traffic=false
+N_1521607242[ label="N_1521607242"];
+ N_1521607242 -> N_17597913[ label = "r_check_danger
+p1.light=2,p1.fee=10.0,ap.boardingTime=23,p1.flightNo=CZ3265,ap.flightNo=CZ3264,p1.traffic=false,SysClk=10.0,p1.hasCheckinLuggage=true,p1.hasDanger=false
+Passenger.hasDanger=='true'"];
+N__88505628[ label="N__88505628"];
+ N__88505628 -> N_1521607242[ label = "r_enter_security
+p1.light=2,p1.fee=10.0,ap.boardingTime=23,p1.flightNo=CZ3265,ap.flightNo=CZ3264,p1.traffic=false,SysClk=7.0,p1.hasCheckinLuggage=true,p1.hasDanger=true
 "];
-N_413251008[ label="N_413251008"];
- N_413251008 -> N_933364800[ label = "r_enter_airport
-p6.traffic=false,p7.traffic=false,p3.traffic=false,p18.traffic=false,p17.traffic=false,p8.traffic=false,p15.traffic=false,p2.traffic=false,p11.traffic=true,p19.traffic=false,p13.traffic=true,p4.traffic=false,p14.traffic=false,p12.traffic=false,p5.traffic=true,customer=15.0,p1.traffic=false,p16.traffic=true,SysClk=2.0,p10.traffic=true,p9.traffic=false,p20.traffic=true
+N__424968870[ label="N__424968870"];
+ N__424968870 -> N_2095035623[ label = "r_take_off
+p1.light=2,p1.fee=10.0,ap.boardingTime=23,p1.flightNo=CZ3265,ap.flightNo=CZ3264,p1.traffic=false,SysClk=23.0,p1.hasCheckinLuggage=true,p1.hasDanger=false
+ap.boardingTime==SysClk"];
+N_2095035623[ label="N_2095035623"];
+N_1345011341[ label="N_1345011341"];
+ N_1345011341 -> N__88505628[ label = "r_check_ticket_with_Luggage
+p1.light=2,p1.fee=10.0,ap.boardingTime=23,p1.flightNo=CZ3265,ap.flightNo=CZ3264,p1.traffic=false,SysClk=6.0,p1.hasCheckinLuggage=true,p1.hasDanger=true
+ap.boardingTime-SysClk>3,Passenger.hasCheckinLuggage=='true'"];
+N__375398622[ label="N__375398622"];
+ N__375398622 -> N_1345011341[ label = "r_enter_checkin
+p1.light=2,p1.fee=0,ap.boardingTime=23,p1.flightNo=CZ3265,ap.flightNo=CZ3264,p1.traffic=false,SysClk=1.0,p1.hasCheckinLuggage=true,p1.hasDanger=true
 "];
-N_613655936[ shape = doublecircle, color=lightblue2, style=filled, label="N_613655936"];
- N_613655936 -> N_977287232[ label = "r_enter_airport
-p6.traffic=false,p7.traffic=true,p3.traffic=true,p18.traffic=true,p17.traffic=true,p8.traffic=false,p15.traffic=true,p2.traffic=true,p11.traffic=true,p19.traffic=true,p13.traffic=true,p4.traffic=false,p14.traffic=true,p12.traffic=true,p5.traffic=true,customer=5.0,p1.traffic=false,p16.traffic=true,SysClk=0.0,p10.traffic=true,p9.traffic=true,p20.traffic=true
+N_898446431[ shape = doublecircle, color=lightblue2, style=filled, label="N_898446431"];
+ N_898446431 -> N__375398622[ label = "r_enter_airport
+p1.light=2,p1.fee=0,ap.boardingTime=23,p1.flightNo=CZ3265,ap.flightNo=CZ3264,p1.traffic=false,SysClk=1.0,p1.hasCheckinLuggage=true,p1.hasDanger=true
 "];
-N__271651487[ label="N__271651487"];
-N_977287232[ label="N_977287232"];
- N_977287232 -> N_413251008[ label = "r_enter_airport
-p6.traffic=false,p7.traffic=true,p3.traffic=true,p18.traffic=true,p17.traffic=true,p8.traffic=false,p15.traffic=false,p2.traffic=false,p11.traffic=true,p19.traffic=false,p13.traffic=true,p4.traffic=false,p14.traffic=true,p12.traffic=true,p5.traffic=true,customer=8.0,p1.traffic=false,p16.traffic=true,SysClk=1.0,p10.traffic=true,p9.traffic=true,p20.traffic=true
+N_2092273230[ label="N_2092273230"];
+ N_2092273230 -> N__424968870[ label = "r_enter_gatelounge
+p1.light=2,p1.fee=10.0,ap.boardingTime=23,p1.flightNo=CZ3265,ap.flightNo=CZ3264,p1.traffic=false,SysClk=13.0,p1.hasCheckinLuggage=true,p1.hasDanger=false
 "];
+N_17597913[ label="N_17597913"];
+ N_17597913 -> N_2092273230[ label = "r_enter_shoppingzone
+p1.light=2,p1.fee=10.0,ap.boardingTime=23,p1.flightNo=CZ3265,ap.flightNo=CZ3264,p1.traffic=false,SysClk=11.0,p1.hasCheckinLuggage=true,p1.hasDanger=false
+Passenger.hasDanger=='false',Passenger.traffic=='false'"];
 }

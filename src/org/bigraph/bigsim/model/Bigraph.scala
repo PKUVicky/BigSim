@@ -189,7 +189,7 @@ class Bigraph(roots: Int = 1) {
   def addRule(r: ReactionRule) = {
     rules.add(r);
   }
-
+  
   /**
    * Find matches of one bigraph with a given reaction rule
    */

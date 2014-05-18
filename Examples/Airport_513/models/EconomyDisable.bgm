@@ -7,31 +7,38 @@
 %active GateLounge : 0;
 %active ApronZone : 0;
 %active Passenger : 2;
-%active Ticket : 0;
+%active Ticket : 1;
 %active Danger : 0;
 %active Airplane : 0;
+%active BoardingPass : 1;
+%active ClaimTag : 0;
+%active CheckinLuggage : 0;
+
 
 
 # Rules
-%rule r_enter_airport Airport.$0 | Passenger[isDisable:edge,isEconomy:edge].$1 | $2 -> Airport.($0 | Passenger[isDisable:edge,isEconomy:edge].$1) | $2{SysClk:2	React:Passenger	Expr:Passenger.traffic='false',customer=customer+1	Rand:true};
+%rule r_enter_airport Airport.$0 | Passenger[isDisable:edge,isEconomy:edge].$1 | $2 -> Airport.($0 | Passenger[isDisable:edge,isEconomy:edge].$1) | $2{SysClk:2	React:Passenger	Rand:true};
 
-#%rule r_enter_checkin Airport.($0 | Passenger[isDisable:edge,isEconomy:edge].$1 | Checkin.$2) -> Airport.($0 | Checkin.($2 | Passenger[isDisable:edge,isEconomy:edge].$1)) {SysClk:2	React:Passenger	Rand:true};
+%rule r_enter_checkin Airport.($0 | Passenger[isDisable:edge,isEconomy:edge].$1 | Checkin.$2) -> Airport.($0 | Checkin.($2 | Passenger[isDisable:edge,isEconomy:edge].$1)) {SysClk:2	React:Passenger	Rand:true};
 
-%rule r_check_ticket Checkin.($0 | Passenger[isDisable:edge,isEconomy:edge].($1 | Ticket)) -> Checkin.($0 | Passenger[isDisable:edge,isEconomy:edge].($1| Ticket.checked)) {SysClk:2	React:Passenger	Rand:true};
+#should arrive ahead of 30mins before the boardingTime
+%rule r_check_ticket_without_Luggage Checkin.($0 | Passenger[isDisable:edge,isEconomy:edge].($1 | Ticket[idle])) -> Checkin.($0 | Passenger[isDisable:edge,isEconomy:edge].($1| Ticket[bp:edge] | BoardingPass[bp:edge])) {SysClk:2	React:Passenger	Cond:ap.boardingTime-SysClk>3,Passenger.hasCheckinLuggage=='false'	Rand:true};
 
-%rule r_enter_security Airport.($0 | Checkin.($1 | Passenger[isDisable:edge,isEconomy:edge].($2 | Ticket.checked)) | Security.$3) -> Airport.($0 | Checkin.$1 | Security.($3 | Passenger[isDisable:edge,isEconomy:edge].($2| Ticket.checked))) {SysClk:2	React:Passenger	Rand:true};
+#if passenger has checkin luggage
+%rule r_check_ticket_with_Luggage Checkin.($0 | Passenger[isDisable:edge,isEconomy:edge].($1| CheckinLuggage | Ticket[idle])) -> Checkin.($0 | Passenger[isDisable:edge,isEconomy:edge].($1| Ticket[bp:edge] | BoardingPass[bp:edge] | ClaimTag)) {SysClk:2	React:Passenger	Cond:ap.boardingTime-SysClk>3,Passenger.hasCheckinLuggage=='true'	Expr:Passenger.fee=Passenger.fee+10	Rand:true};
 
-%rule r_check_danger Security.($0 | Passenger[isDisable:edge,isEconomy:edge].($1 | Danger)) -> Security.($1|Passenger[isDisable:edge,isEconomy:edge].$1) {SysClk:3	React:Passenger	Rand:true};
+%rule r_enter_security Airport.($0 | Checkin.($1 | Passenger[isDisable:edge,isEconomy:edge].($2 | Ticket[bp:edge] | BoardingPass[bp:edge])) | Security.$3) -> Airport.($0 | Checkin.$1 | Security.($3 | Passenger[isDisable:edge,isEconomy:edge].($2| Ticket[bp:edge] | BoardingPass[bp:edge]))) {SysClk:2	React:Passenger	Rand:true};
 
-%rule r_enter_sz Airport.($0 | Security.($1 | Passenger[isDisable:edge,isEconomy:edge].(Ticket.checked)) | ShoppingZone.$2) -> Airport.($0 | Security.$1 | ShoppingZone.($2 | Passenger[isDisable:edge,isEconomy:edge].(Ticket.checked))) {SysClk:2	React:Passenger	Rand:true};
+%rule r_check_danger Security.($0 | Passenger[isDisable:edge,isEconomy:edge].($1 | Danger)) -> Security.($1|Passenger[isDisable:edge,isEconomy:edge].$1) {SysClk:3	React:Passenger	Cond:Passenger.hasDanger=='true'	Expr:Passenger.hasDanger='false'	Rand:true};
 
-%rule r_traffic_gl Airport.($0 | Security.($1 | Passenger[isDisable:edge,isEconomy:edge].(Ticket.checked)) | GateLounge.$2) -> Airport.($0 | Security.$1 | GateLounge.($2 | Passenger[isDisable:edge,isEconomy:edge].(Ticket.checked))) {SysClk:2	React:Passenger	Rand:true};
+%rule r_enter_shoppingzone Airport.($0 | Security.($1 | Passenger[isDisable:edge,isEconomy:edge].$2) | ShoppingZone.$3) -> Airport.($0 | Security.$1 | ShoppingZone.($3 | Passenger[isDisable:edge,isEconomy:edge].$2)) {SysClk:2	React:Passenger	Cond:Passenger.hasDanger=='false',Passenger.traffic=='false'	Rand:true};
 
-%rule r_enter_gl Airport.($0 | ShoppingZone.($1 | Passenger[isDisable:edge,isEconomy:edge].(Ticket.checked)) | GateLounge.$2) -> Airport.($0 | ShoppingZone.$1 | GateLounge.($2 | Passenger[isDisable:edge,isEconomy:edge].(Ticket.checked))) {SysClk:2	React:Passenger	Rand:true};
+%rule r_traffic_gatelounge Airport.($0 | Security.($1 | Passenger[isDisable:edge,isEconomy:edge].$2) | GateLounge.$3) -> Airport.($0 | Security.$1 | GateLounge.($3 | Passenger[isDisable:edge,isEconomy:edge].$2)) {SysClk:2	React:Passenger	Cond:Passenger.hasDanger=='false',Passenger.traffic=='true'	Rand:true};
 
-%rule r_onboard Airport.($0 | GateLounge.($1 | Passenger[isDisable:edge,isEconomy:edge].(Ticket.checked)) | Airplane.$2) -> Airport.($0 | GateLounge.$1 | Airplane.($2 | Passenger[isDisable:edge,isEconomy:edge].(Ticket.checked))) {SysClk:2	React:Passenger	Rand:true};
+%rule r_enter_gatelounge Airport.($0 | ShoppingZone.($1 | Passenger[isDisable:edge,isEconomy:edge].$2) | GateLounge.$3) -> Airport.($0 | ShoppingZone.$1 | GateLounge.($3 | Passenger[isDisable:edge,isEconomy:edge].$2)) {SysClk:2	React:Passenger	Rand:true};
 
-%agent p1:Passenger[isDisable:edge,isEconomy:edge].(t1:Ticket) | p2:Passenger[isDisable:edge,isEconomy:edge].(t2:Ticket) | p3:Passenger[isDisable:edge,isEconomy:edge].(t3:Ticket) | p4:Passenger[isDisable:edge,isEconomy:edge].(t4:Ticket) | p5:Passenger[isDisable:edge,isEconomy:edge].(t5:Ticket) | p6:Passenger[isDisable:edge,isEconomy:edge].(t6:Ticket) | p7:Passenger[isDisable:edge,isEconomy:edge].(t7:Ticket) | p8:Passenger[isDisable:edge,isEconomy:edge].(t8:Ticket) | p9:Passenger[isDisable:edge,isEconomy:edge].(t9:Ticket) | p10:Passenger[isDisable:edge,isEconomy:edge].(t10:Ticket) | p11:Passenger[isDisable:edge,isEconomy:edge].(t11:Ticket) | p12:Passenger[isDisable:edge,isEconomy:edge].(t12:Ticket) | p13:Passenger[isDisable:edge,isEconomy:edge].(t13:Ticket) | p14:Passenger[isDisable:edge,isEconomy:edge].(t14:Ticket) | p15:Passenger[isDisable:edge,isEconomy:edge].(t15:Ticket) | p16:Passenger[isDisable:edge,isEconomy:edge].(t16:Ticket) | p17:Passenger[isDisable:edge,isEconomy:edge].(t17:Ticket) | p18:Passenger[isDisable:edge,isEconomy:edge].(t18:Ticket) | p19:Passenger[isDisable:edge,isEconomy:edge].(t19:Ticket) | p20:Passenger[isDisable:edge,isEconomy:edge].(t20:Ticket)| a:Airport.(c:Checkin | s:Security | sz:ShoppingZone | gl:GateLounge | ap:Airplane);
+%rule r_onboard Airport.($0 | GateLounge.($1 | Passenger[isDisable:edge,isEconomy:edge].$2) | Airplane.$3) -> Airport.($0 | GateLounge.$1 | Airplane.($3 | Passenger[isDisable:edge,isEconomy:edge].$2)) {SysClk:0	React:Passenger	Cond:ap.boardingTime-SysClk<10&&ap.boardingTime-SysClk>5,Passenger.flightNo==ap.flightNo};
 
-# Go!
-%check;
+%rule r_take_off Airport.($0 | Airplane.$1) -> Airport.$0 | Airplane.$1 {SysClk:0	Cond:ap.boardingTime==SysClk};
+
+%agent p1:Passenger[isDisable:edge,isEconomy:edge].(t1:Ticket[idle] | c1:CheckinLuggage | d1:Danger) | a:Airport.(c:Checkin | s:Security | sz:ShoppingZone | gl:GateLounge | ap:Airplane);
