@@ -35,6 +35,8 @@ class Match(reactionRule: ReactionRule) {
   var nodeMap = Map[Node, Node]()
 
   var reactNodes: Set[String] = Set()
+  var reactNodesMap: Map[String, Set[String]] = Map()
+
   var rule = reactionRule
   var RRIncr: Double = 0
   var root: Term = null
@@ -161,6 +163,10 @@ class Match(reactionRule: ReactionRule) {
       m.reactNodes.add(rn)
     })
 
+    reactNodesMap.foreach(rnm => {
+      m.reactNodesMap.put(rnm._1, rnm._2)
+    })
+
     names.foreach(n => {
       m.names(n._1) = n._2
     })
@@ -221,6 +227,7 @@ class Match(reactionRule: ReactionRule) {
       this.nodeMap(key) = value;
     }
     other.reactNodes.foreach(this.reactNodes.add(_))
+    other.reactNodesMap.foreach(f => this.reactNodesMap.put(f._1, f._2))
 
   }
 

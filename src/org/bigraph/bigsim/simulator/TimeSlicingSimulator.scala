@@ -131,13 +131,13 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
           var matched: Boolean = false
           matches.map(m => {
             if (!matched && m.getReactNodes.equals(tm.getReactNodes)) {
-              if (!GlobalCfg.checkData || m.rule.check) {
+              if (!GlobalCfg.checkData || m.rule.check(m)) {
                 var nb: Bigraph = curBigraph.applyMatch(m)
 
                 /**
                  * update a reaction rule data model
                  */
-                m.rule.update
+                m.rule.update(m)
                 /**
                  * update agent data with clock
                  */

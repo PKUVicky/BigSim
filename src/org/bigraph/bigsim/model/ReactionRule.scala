@@ -7,9 +7,9 @@ import org.bigraph.bigsim.parser.HMM
 import org.bigraph.bigsim.parser.TermParser
 import org.bigraph.bigsim.utils.GlobalCfg
 import scala.collection.mutable.Set
-
 import cern.jet.random.Poisson
 import cern.jet.random.engine.RandomEngine
+import org.bigraph.bigsim.BRS.Match
 
 /**
  * @author zhaoxin
@@ -125,12 +125,80 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
   }
 
   /**
+   * Check if there is any condition not meet
+   *
+   * Control.variable can be mapped to node.variable based on
+   * reactNodes and match.
+   *
+   * Also Check HMM
+   * @return true/false
+   */
+  def check(m: Match): Boolean = {
+    if (GlobalCfg.checkData) {
+      conds.foreach(c => {
+        var cond = c
+        reactNodes.foreach(rn => {
+          if (cond.contains(rn)) {
+            var rns = m.reactNodesMap.getOrElse(rn, Set())
+            if (rns.size > 0) {
+              cond = cond.replaceAll(rn, rns.head)
+              println("c:" + c + "\tcond:" + cond)
+            }
+          }
+        })
+
+        val q = BooleanExprParser.parse(cond)
+        if (!q.check()) {
+          return false
+        }
+      })
+    }
+
+    if (GlobalCfg.checkHMM)
+      hmms.foreach(h => {
+        if (HMM.hmms(h).getObsProbability < GlobalCfg.minProbability)
+          return false
+      })
+    true
+  }
+
+  /**
    * Update variables once a RR takes place
    */
   def update {
     Data.data("SysClk").value = GlobalCfg.SysClk.toString
     dataCalcs.foreach(f => {
       Data.update(f._1, f._2)
+    });
+  }
+
+  /**
+   * Update variables once a RR takes place
+   */
+  def update(m: Match) {
+    Data.data("SysClk").value = GlobalCfg.SysClk.toString
+    dataCalcs.foreach(dc => {
+
+      var leftTerm = dc._1
+      var rightTerm = dc._2
+
+      reactNodes.foreach(rn => {
+        var rns = m.reactNodesMap.getOrElse(rn, Set())
+        if (leftTerm.contains(rn)) {
+          if (rns.size > 0) {
+            leftTerm = leftTerm.replaceAll(rn, rns.head)
+          }
+        }
+        if (rightTerm.contains(rn)) {
+          if (rns.size > 0) {
+            rightTerm = rightTerm.replaceAll(rn, rns.head)
+          }
+        }
+      })
+      
+      println("leftTerm:"+leftTerm+"\trightTerm:"+rightTerm)
+
+      Data.update(leftTerm, rightTerm)
     });
   }
 

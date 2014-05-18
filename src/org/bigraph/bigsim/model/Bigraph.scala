@@ -215,10 +215,14 @@ class Bigraph(roots: Int = 1) {
      * relations:  Greater, Lesser and so on
      * conditions: whether check expression or not
      */
-    if (relations && (!GlobalCfg.checkData || rr.check)) {
-      var mp: Set[Match] = Set();
-      mp = Matcher.tryMatchTermReactionRule(root, rr);
-      res = res ++ mp;
+
+    if (relations) {
+      var mp: Set[Match] = Matcher.tryMatchTermReactionRule(root, rr);
+      mp.foreach(m => {
+        if (rr.check(m)) {
+          res = res ++ mp;
+        }
+      })
     }
 
     if (GlobalCfg.DEBUG) {
@@ -259,11 +263,15 @@ class Bigraph(roots: Int = 1) {
        * relations:  Greater, Lesser and so on
        * conditions: whether check expression or not
        */
-      if (relations && (!GlobalCfg.checkData || x.check)) {
-        var mp: Set[Match] = Set();
-        mp = Matcher.tryMatchTermReactionRule(root, x);
-        res = res ++ mp;
+      if (relations) {
+        var mp: Set[Match] = Matcher.tryMatchTermReactionRule(root, x);
+        mp.foreach(m => {
+          if (x.check(m)) {
+            res = res ++ mp;
+          }
+        })
       }
+
     });
 
     if (GlobalCfg.DEBUG) {

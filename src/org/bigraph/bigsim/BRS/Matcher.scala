@@ -222,8 +222,12 @@ object Matcher {
 
       //  if  the ctrl of redex is changed, add change info
       if (m.rule.reactNodes.contains(r.node.ctrl.name)) {
-        m.reactNodes += t.node.name
+        m.reactNodes.add(t.node.name)
+        val rns = m.reactNodesMap.getOrElse(r.node.ctrl.name, Set())
+        rns.add(t.node.name)
+        m.reactNodesMap.put(r.node.ctrl.name, rns)
       }
+
       return tryMatch(t.suffix, r.suffix, m)
     } else {
       return m.failure

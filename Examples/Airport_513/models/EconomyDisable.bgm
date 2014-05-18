@@ -13,9 +13,9 @@
 
 
 # Rules
-%rule r_enter_airport Airport.$0 | Passenger[isDisable:edge,isEconomy:edge].$1 | $2 -> Airport.($0 | Passenger[isDisable:edge,isEconomy:edge].$1) | $2{SysClk:2	React:Passenger	Rand:true};
+%rule r_enter_airport Airport.$0 | Passenger[isDisable:edge,isEconomy:edge].$1 | $2 -> Airport.($0 | Passenger[isDisable:edge,isEconomy:edge].$1) | $2{SysClk:2	React:Passenger	Expr:Passenger.traffic='false',customer=customer+1	Rand:true};
 
-%rule r_enter_checkin Airport.($0 | Passenger[isDisable:edge,isEconomy:edge].$1 | Checkin.$2) -> Airport.($0 | Checkin.($2 | Passenger[isDisable:edge,isEconomy:edge].$1)) {SysClk:2	React:Passenger	Rand:true};
+#%rule r_enter_checkin Airport.($0 | Passenger[isDisable:edge,isEconomy:edge].$1 | Checkin.$2) -> Airport.($0 | Checkin.($2 | Passenger[isDisable:edge,isEconomy:edge].$1)) {SysClk:2	React:Passenger	Rand:true};
 
 %rule r_check_ticket Checkin.($0 | Passenger[isDisable:edge,isEconomy:edge].($1 | Ticket)) -> Checkin.($0 | Passenger[isDisable:edge,isEconomy:edge].($1| Ticket.checked)) {SysClk:2	React:Passenger	Rand:true};
 

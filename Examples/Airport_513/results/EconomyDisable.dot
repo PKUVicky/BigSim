@@ -4,112 +4,24 @@ digraph reaction_graph {
    BigSim_Report [shape = parallelogram color = aliceblue style=filled label="BigSim
 Report"];
 BigSim_Report -> N_613655936[color = aliceblue label = "wExpr==0.0
-SysClk=49.0"];
+p6.traffic=false,p7.traffic=false,p3.traffic=false,p18.traffic=false,p17.traffic=false,p8.traffic=false,p15.traffic=false,p2.traffic=false,p11.traffic=false,p19.traffic=false,p13.traffic=false,p4.traffic=false,p14.traffic=false,p12.traffic=false,p5.traffic=false,customer=21.0,p1.traffic=false,p16.traffic=false,SysClk=49.0,p10.traffic=false,p9.traffic=false,p20.traffic=false"];
  N_613655936
  [shape=circle, color=lightblue2, style=filled];
-N__1239843149[ label="N__1239843149"];
- N__1239843149 -> N__867792633[ label = "r_onboard,r_check_ticket,r_enter_gl,r_enter_sz,r_enter_security
-SysClk=10.0
+N_933364800[ label="N_933364800"];
+ N_933364800 -> N__271651487[ label = "r_enter_airport
+p6.traffic=false,p7.traffic=false,p3.traffic=false,p18.traffic=false,p17.traffic=false,p8.traffic=false,p15.traffic=false,p2.traffic=false,p11.traffic=false,p19.traffic=false,p13.traffic=false,p4.traffic=false,p14.traffic=false,p12.traffic=false,p5.traffic=false,customer=21.0,p1.traffic=false,p16.traffic=false,SysClk=4.0,p10.traffic=false,p9.traffic=false,p20.traffic=false
 "];
-N_1810720065[ label="N_1810720065"];
- N_1810720065 -> N__1374286271[ label = "r_onboard
-SysClk=17.0
-"];
-N__1569297614[ label="N__1569297614"];
- N__1569297614 -> N_1810720065[ label = "r_onboard,r_enter_gl,r_traffic_gl
-SysClk=16.0
-"];
-N__554267429[ label="N__554267429"];
- N__554267429 -> N__1005457924[ label = "r_enter_gl
-SysClk=15.0
-"];
-N__448303060[ label="N__448303060"];
- N__448303060 -> N__71861076[ label = "r_enter_airport
-SysClk=2.0
-"];
-N_978394944[ label="N_978394944"];
- N_978394944 -> N_1200039613[ label = "r_onboard
-SysClk=19.0
-"];
-N__733868416[ label="N__733868416"];
- N__733868416 -> N__448303060[ label = "r_enter_checkin
-SysClk=1.0
-"];
-N__697584403[ label="N__697584403"];
- N__697584403 -> N__932827483[ label = "r_enter_sz,r_traffic_gl,r_enter_checkin,r_enter_security
-SysClk=8.0
-"];
-N_1306093232[ label="N_1306093232"];
- N_1306093232 -> N_668905287[ label = "r_check_ticket,r_enter_airport,r_enter_checkin
-SysClk=4.0
-"];
-N__1005457924[ label="N__1005457924"];
- N__1005457924 -> N__1569297614[ label = "r_onboard,r_enter_gl,r_enter_sz,r_traffic_gl,r_enter_security
-SysClk=16.0
-"];
-N_668905287[ label="N_668905287"];
- N_668905287 -> N__1882913327[ label = "r_check_ticket,r_traffic_gl,r_enter_checkin
-SysClk=5.0
-"];
-N__1798640939[ label="N__1798640939"];
- N__1798640939 -> N_1705095669[ label = "r_traffic_gl,r_enter_security
-SysClk=12.0
-"];
-N_1488222808[ label="N_1488222808"];
- N_1488222808 -> N_242985944[ label = "r_onboard,r_enter_sz
-SysClk=14.0
-"];
-N__932827483[ label="N__932827483"];
- N__932827483 -> N__1239843149[ label = "r_check_ticket,r_enter_sz,r_traffic_gl,r_enter_checkin
-SysClk=9.0
-"];
-N_397453829[ label="N_397453829"];
- N_397453829 -> N_1306093232[ label = "r_enter_security
-SysClk=3.0
-"];
-N__867792633[ label="N__867792633"];
- N__867792633 -> N__1910415481[ label = "r_onboard,r_enter_gl,r_enter_security
-SysClk=10.0
+N_413251008[ label="N_413251008"];
+ N_413251008 -> N_933364800[ label = "r_enter_airport
+p6.traffic=false,p7.traffic=false,p3.traffic=false,p18.traffic=false,p17.traffic=false,p8.traffic=false,p15.traffic=false,p2.traffic=false,p11.traffic=true,p19.traffic=false,p13.traffic=true,p4.traffic=false,p14.traffic=false,p12.traffic=false,p5.traffic=true,customer=15.0,p1.traffic=false,p16.traffic=true,SysClk=2.0,p10.traffic=true,p9.traffic=false,p20.traffic=true
 "];
 N_613655936[ shape = doublecircle, color=lightblue2, style=filled, label="N_613655936"];
- N_613655936 -> N_1488194304[ label = "r_enter_airport
-SysClk=0.0
+ N_613655936 -> N_977287232[ label = "r_enter_airport
+p6.traffic=false,p7.traffic=true,p3.traffic=true,p18.traffic=true,p17.traffic=true,p8.traffic=false,p15.traffic=true,p2.traffic=true,p11.traffic=true,p19.traffic=true,p13.traffic=true,p4.traffic=false,p14.traffic=true,p12.traffic=true,p5.traffic=true,customer=5.0,p1.traffic=false,p16.traffic=true,SysClk=0.0,p10.traffic=true,p9.traffic=true,p20.traffic=true
 "];
-N_1488194304[ label="N_1488194304"];
- N_1488194304 -> N__733868416[ label = "r_enter_airport
-SysClk=1.0
-"];
-N__71861076[ label="N__71861076"];
- N__71861076 -> N_491420773[ label = "r_check_ticket
-SysClk=2.0
-"];
-N_242985944[ label="N_242985944"];
- N_242985944 -> N__554267429[ label = "r_onboard,r_enter_sz
-SysClk=15.0
-"];
-N__1910415481[ label="N__1910415481"];
- N__1910415481 -> N__1798640939[ label = "r_check_ticket,r_enter_gl,r_enter_sz,r_enter_security
-SysClk=11.0
-"];
-N_1200039613[ label="N_1200039613"];
-N_1313667212[ label="N_1313667212"];
- N_1313667212 -> N__697584403[ label = "r_onboard,r_check_ticket,r_enter_checkin,r_enter_security
-SysClk=7.0
-"];
-N_491420773[ label="N_491420773"];
- N_491420773 -> N_397453829[ label = "r_enter_checkin
-SysClk=3.0
-"];
-N__1374286271[ label="N__1374286271"];
- N__1374286271 -> N_978394944[ label = "r_onboard
-SysClk=18.0
-"];
-N__1882913327[ label="N__1882913327"];
- N__1882913327 -> N_1313667212[ label = "r_check_ticket,r_enter_airport,r_enter_security
-SysClk=6.0
-"];
-N_1705095669[ label="N_1705095669"];
- N_1705095669 -> N_1488222808[ label = "r_onboard,r_enter_gl,r_enter_sz,r_traffic_gl,r_enter_security
-SysClk=13.0
+N__271651487[ label="N__271651487"];
+N_977287232[ label="N_977287232"];
+ N_977287232 -> N_413251008[ label = "r_enter_airport
+p6.traffic=false,p7.traffic=true,p3.traffic=true,p18.traffic=true,p17.traffic=true,p8.traffic=false,p15.traffic=false,p2.traffic=false,p11.traffic=true,p19.traffic=false,p13.traffic=true,p4.traffic=false,p14.traffic=true,p12.traffic=true,p5.traffic=true,customer=8.0,p1.traffic=false,p16.traffic=true,SysClk=1.0,p10.traffic=true,p9.traffic=true,p20.traffic=true
 "];
 }
