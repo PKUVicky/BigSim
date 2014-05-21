@@ -150,19 +150,17 @@ Usage: BigSim [options] <filename>
     if (GlobalCfg.checkHMM)
       HMM.parseHMM(folderName + "/hmm/" + filename + ".hmm")
 
-    Simulator.simulate("TimeSlicingSimulator", b)
+    var middle = System.currentTimeMillis();
 
     for (i <- 1 to GlobalCfg.simLoop) {
       GlobalCfg.SysClk = 0
-      println("<--------------------------- Sim " + i + " ------------------------------------>")
-      //var sim = new DiscreteEventSimulator(b)
-      //sim.simulate;
-      println("<---------------------------- End ------------------------------------->")
+      Simulator.simulate("TimeSlicingSimulator", b)
     }
     // val rc = new ReachChecker(io.Source.fromFile(new File(GlobalCfg.filename)).mkString)
     //println(rc.check)
 
     var end = System.currentTimeMillis();
-    println("start:" + start + ", end:" + end + ", used:" + (end - start));
+    println("total: start:" + start + ", end:" + end + ", used:" + (end - start));
+    println("sim: start:" + middle + ",end:" + end + ", used:" + (end - middle));
   }
 }

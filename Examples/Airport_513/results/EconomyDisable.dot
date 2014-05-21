@@ -3,41 +3,54 @@ digraph reaction_graph {
    Node [shape = circle];
    BigSim_Report [shape = parallelogram color = aliceblue style=filled label="BigSim
 Report"];
-BigSim_Report -> N_898446431[color = aliceblue label = "wExpr==0.0
-p1.light=2,p1.fee=10.0,ap.boardingTime=23,p1.flightNo=CZ3265,ap.flightNo=CZ3264,p1.traffic=false,SysClk=49.0,p1.hasCheckinLuggage=true,p1.hasDanger=false"];
- N_898446431
+BigSim_Report -> N_247295242[color = aliceblue label = "wExpr==0.0
+"];
+ N_247295242
  [shape=circle, color=lightblue2, style=filled];
-N_1521607242[ label="N_1521607242"];
- N_1521607242 -> N_17597913[ label = "r_check_danger
-p1.light=2,p1.fee=10.0,ap.boardingTime=23,p1.flightNo=CZ3265,ap.flightNo=CZ3264,p1.traffic=false,SysClk=10.0,p1.hasCheckinLuggage=true,p1.hasDanger=false
+N__1551971126[ label="N__1551971126"];
+ N__1551971126 -> N_63103285[ label = "r_enter_security
+"];
+N_756648908[ label="N_756648908"];
+ N_756648908 -> N__1192492608[ label = "r_enter_gatelounge
+"];
+N__1067716182[ label="N__1067716182"];
+ N__1067716182 -> N_756648908[ label = "r_enter_shoppingzone,r_enter_gatelounge
+,Passenger.hasDanger=='false',Passenger.traffic=='false'"];
+N__1290458132[ label="N__1290458132"];
+ N__1290458132 -> N__866586763[ label = "r_check_danger,r_enter_shoppingzone
+Passenger.hasDanger=='true',Passenger.hasDanger=='false',Passenger.traffic=='false'"];
+N_763984001[ label="N_763984001"];
+N_244323087[ label="N_244323087"];
+ N_244323087 -> N__1551971126[ label = "r_check_danger
 Passenger.hasDanger=='true'"];
-N__88505628[ label="N__88505628"];
- N__88505628 -> N_1521607242[ label = "r_enter_security
-p1.light=2,p1.fee=10.0,ap.boardingTime=23,p1.flightNo=CZ3265,ap.flightNo=CZ3264,p1.traffic=false,SysClk=7.0,p1.hasCheckinLuggage=true,p1.hasDanger=true
+N_63103285[ label="N_63103285"];
+ N_63103285 -> N__1290458132[ label = "r_check_danger,r_enter_security
+,Passenger.hasDanger=='true'"];
+N_84812502[ label="N_84812502"];
+ N_84812502 -> N__1402678471[ label = "r_check_ticket_with_Luggage,r_enter_checkin
+,ap.boardingTime-SysClk>3,Passenger.hasCheckinLuggage=='true'"];
+N__1192492608[ label="N__1192492608"];
+ N__1192492608 -> N_1535785664[ label = "r_onboard
+Passenger.flightNo==ap.flightNo,ap.boardingTime-SysClk<10&&ap.boardingTime-SysClk>5"];
+N_247295242[ shape = doublecircle, color=lightblue2, style=filled, label="N_247295242"];
+ N_247295242 -> N_521857034[ label = "r_enter_airport
 "];
-N__424968870[ label="N__424968870"];
- N__424968870 -> N_2095035623[ label = "r_take_off
-p1.light=2,p1.fee=10.0,ap.boardingTime=23,p1.flightNo=CZ3265,ap.flightNo=CZ3264,p1.traffic=false,SysClk=23.0,p1.hasCheckinLuggage=true,p1.hasDanger=false
+N_1535785664[ label="N_1535785664"];
+ N_1535785664 -> N_763984001[ label = "r_take_off
 ap.boardingTime==SysClk"];
-N_2095035623[ label="N_2095035623"];
-N_1345011341[ label="N_1345011341"];
- N_1345011341 -> N__88505628[ label = "r_check_ticket_with_Luggage
-p1.light=2,p1.fee=10.0,ap.boardingTime=23,p1.flightNo=CZ3265,ap.flightNo=CZ3264,p1.traffic=false,SysClk=6.0,p1.hasCheckinLuggage=true,p1.hasDanger=true
-ap.boardingTime-SysClk>3,Passenger.hasCheckinLuggage=='true'"];
-N__375398622[ label="N__375398622"];
- N__375398622 -> N_1345011341[ label = "r_enter_checkin
-p1.light=2,p1.fee=0,ap.boardingTime=23,p1.flightNo=CZ3265,ap.flightNo=CZ3264,p1.traffic=false,SysClk=1.0,p1.hasCheckinLuggage=true,p1.hasDanger=true
+N_521857034[ label="N_521857034"];
+ N_521857034 -> N_84812502[ label = "r_enter_airport,r_enter_checkin
 "];
-N_898446431[ shape = doublecircle, color=lightblue2, style=filled, label="N_898446431"];
- N_898446431 -> N__375398622[ label = "r_enter_airport
-p1.light=2,p1.fee=0,ap.boardingTime=23,p1.flightNo=CZ3265,ap.flightNo=CZ3264,p1.traffic=false,SysClk=1.0,p1.hasCheckinLuggage=true,p1.hasDanger=true
+N_1803063744[ label="N_1803063744"];
+ N_1803063744 -> N_244323087[ label = "r_check_ticket_with_Luggage,r_enter_security
+,ap.boardingTime-SysClk>3,Passenger.hasCheckinLuggage=='true'"];
+N__1402678471[ label="N__1402678471"];
+ N__1402678471 -> N__1131231224[ label = "r_enter_airport
 "];
-N_2092273230[ label="N_2092273230"];
- N_2092273230 -> N__424968870[ label = "r_enter_gatelounge
-p1.light=2,p1.fee=10.0,ap.boardingTime=23,p1.flightNo=CZ3265,ap.flightNo=CZ3264,p1.traffic=false,SysClk=13.0,p1.hasCheckinLuggage=true,p1.hasDanger=false
-"];
-N_17597913[ label="N_17597913"];
- N_17597913 -> N_2092273230[ label = "r_enter_shoppingzone
-p1.light=2,p1.fee=10.0,ap.boardingTime=23,p1.flightNo=CZ3265,ap.flightNo=CZ3264,p1.traffic=false,SysClk=11.0,p1.hasCheckinLuggage=true,p1.hasDanger=false
-Passenger.hasDanger=='false',Passenger.traffic=='false'"];
+N__1131231224[ label="N__1131231224"];
+ N__1131231224 -> N_1803063744[ label = "r_check_ticket_with_Luggage,r_enter_checkin,r_enter_security
+,ap.boardingTime-SysClk>3,Passenger.hasCheckinLuggage=='true'"];
+N__866586763[ label="N__866586763"];
+ N__866586763 -> N__1067716182[ label = "r_check_danger,r_enter_shoppingzone,r_enter_gatelounge
+,Passenger.hasDanger=='true',Passenger.hasDanger=='false',Passenger.traffic=='false'"];
 }

@@ -75,7 +75,7 @@ object testTermParser2 {
       case TermType.THOLE => "Hole";
       case TermType.TNIL => "Nil";
       case TermType.TREGION => "Regions";
-      case TermType.TNIL => "Num";
+      case TermType.TNUM  => "Num";
       case _ => "Undefined TermType";
     }
   }

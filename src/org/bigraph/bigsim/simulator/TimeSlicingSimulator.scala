@@ -125,11 +125,52 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
       var curBigraph = v.bigraph
       var curRRs: Set[ReactionRule] = Set()
 
-      reactList.map(tm => {
+      while (reactList.size > 0) {
+        var tm = reactList.dequeue
         var matches: Set[Match] = curBigraph.findMatchesOfRR(tm.rule)
         if (matches != null) {
           var matched: Boolean = false
           matches.map(m => {
+            println(m.rule.name + "," + m.getReactNodes + "," + tm.getReactNodes +"matched:"+matched)
+            if (!matched && m.getReactNodes.equals(tm.getReactNodes)) {
+              println("arrive here: tm and m equals")
+              if (!GlobalCfg.checkData || m.rule.check(m)) {
+                var nb: Bigraph = curBigraph.applyMatch(m)
+
+                /**
+                 * update a reaction rule data model
+                 */
+                m.rule.update(m)
+                /**
+                 * update agent data with clock
+                 */
+                Data.updateDataCalcsWithClk(m.RRIncr.toString)
+
+                curRRs += m.rule
+                println("-----react nodes before:" + reactNodes)
+                reactNodes = reactNodes.filter(!m.reactNodes.contains(_))
+                println("-----reaction nodes rm:" + m.reactNodes)
+                println("-----react nodes after:" + reactNodes)
+
+                matched = true
+                if (nb.root == null) {
+                  nb.root = new Nil();
+                }
+                println("middle result match RR " + tm.rule.name + " : " + nb.root.toString)
+                println("middle result of variables: " + Data.getValues(","))
+                curBigraph = nb
+              }
+            }
+          })
+        }
+      }
+
+      /*   reactList.map(tm => {
+        var matches: Set[Match] = curBigraph.findMatchesOfRR(tm.rule)
+        if (matches != null) {
+          var matched: Boolean = false
+          matches.map(m => {
+            println(m.rule.name + "," + m.getReactNodes + "," + tm.getReactNodes)
             if (!matched && m.getReactNodes.equals(tm.getReactNodes)) {
               if (!GlobalCfg.checkData || m.rule.check(m)) {
                 var nb: Bigraph = curBigraph.applyMatch(m)
@@ -160,7 +201,7 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
             }
           })
         }
-      })
+      }) */
 
       if (curBigraph != null && curRRs != null) {
         var nv = new Vertex(curBigraph, v, curRRs, true)
@@ -178,7 +219,7 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
         if (GlobalCfg.printMode) {
           print("SysClk:" + GlobalCfg.SysClk + "\t")
           printf("%s:%s\n", "N_" + Math.abs(nv.hash), nv.bigraph.root.toString);
-          println(nv.variables)
+          //println(nv.variables)
         }
       }
 
@@ -223,30 +264,30 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
      * }
      */
 
-    println("Add match-----matches size: " + matches.size)
+    //println("Add match-----matches size: " + matches.size)
 
     /**
      * If a reaction rule is not random and not conflict,
      * it must happen when it is matched.
      */
     matches.map(m => {
-      println("reactNodes:" + reactNodes)
+      //println("reactNodes:" + reactNodes)
       val conflict = m.conflict(reactNodes.toList)
-      if(!conflict) {
-      //if (!conflict && !m.rule.random) {
+      if (!conflict) {
+        //if (!conflict && !m.rule.random) {
         val RRIncr = m.rule.getRRIncr
-        var key = GlobalCfg.SysClk + RRIncr
+        var reactTime = GlobalCfg.SysClk + RRIncr
         m.RRIncr = RRIncr
         var queue: Queue[Match] = null
-        if (simQueue.contains(key)) {
-          queue = simQueue(key)
+        if (simQueue.contains(reactTime)) {
+          queue = simQueue(reactTime)
           queue += m
         } else {
           queue = Queue(m)
         }
-        simQueue += key -> queue
+        simQueue += reactTime -> queue
         reactNodes ++= m.reactNodes
-        println("add match: " + m.rule.name + "\treact nodes:" + m.reactNodes)
+        println("add match: " + m.rule.name + "\treact nodes:" + m.reactNodes + "\treact time:" + reactTime)
         //matches -= m
       } else if (conflict) {
         //matches -= m
@@ -268,8 +309,8 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
     out += "   BigSim_Report [shape = parallelogram color = aliceblue style=filled label=\"BigSim\nReport\"];\n"
     out += "BigSim_Report -> N_" + formatHash(g.root.hash) + "[color = aliceblue label = \"" +
       Data.getWeightExpr + "=" +
-      Data.getReport + "\n" +
-      Data.getValues(",") + "\"];\n";
+      Data.getReport + "\n" + //Data.getValues(",") +
+       "\"];\n";
     out += " N_" + formatHash(g.root.hash) + "\n" + " [shape=circle, color=lightblue2, style=filled];\n";
 
     g.lut.values.map(x => {
@@ -287,7 +328,7 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
         }
         if (y._1 != null) {
           if (GlobalCfg.checkData) {
-            rr = rr + "\n" + y._1.variables + "\n" +
+            rr = rr + "\n" + //y._1.variables + "\n" +
               y._2.map(_.getConds).mkString(",")
           }
           out += " N_" + formatHash(x.hash) + " -> N_" + formatHash(y._1.hash) + "[ label = \"" + rr + "\"];\n"

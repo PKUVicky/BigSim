@@ -142,7 +142,6 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
             var rns = m.reactNodesMap.getOrElse(rn, Set())
             if (rns.size > 0) {
               cond = cond.replaceAll(rn, rns.head)
-              println("c:" + c + "\tcond:" + cond)
             }
           }
         })
@@ -196,8 +195,6 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
         }
       })
       
-      println("leftTerm:"+leftTerm+"\trightTerm:"+rightTerm)
-
       Data.update(leftTerm, rightTerm)
     });
   }

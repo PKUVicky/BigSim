@@ -124,7 +124,7 @@ class Match(reactionRule: ReactionRule) {
     var conflict = false
     rns.map(rn => {
       if (reactNodes.contains(rn)) {
-        println("confilict node:" + rn)
+       // println("confilict node:" + rn)
         conflict = true
       }
     })

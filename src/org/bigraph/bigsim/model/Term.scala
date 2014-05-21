@@ -269,7 +269,7 @@ class Regions(sid: Long, lt: Term, rt: Term) extends Term {
 
 // control[ports].term
 class Prefix(sid: Long, n: Node, suff: Term) extends Term {
-//class Prefix(count: Int, sid: Long, c: Control, ports: List[Name], suff: Term) extends Term {
+  //class Prefix(count: Int, sid: Long, c: Control, ports: List[Name], suff: Term) extends Term {
   val node: Node = n
   /**
    * use List in Scala to replace the vector in C++
@@ -314,8 +314,10 @@ class Prefix(sid: Long, n: Node, suff: Term) extends Term {
       }
 
       var modelNode = node;
+      /*
       if(node.id == 272)
         println
+        */
       if (m.rule.nodeMap.contains(node)) {
         var redexNode = m.rule.nodeMap(node);
         if (m.nodeMap.contains(redexNode))
