@@ -44,8 +44,11 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
   var steps: Int = 0;
   var checked: Map[Long, Boolean] = Map();
 
-  def simulate: Unit = {
+  var paths: List[String] = List();
+  var dot: String = "";
+  var variables: List[String] = List();
 
+  def simulate: Unit = {
     // add the initial agent to the simQueue
     states += ((0, v))
 
@@ -63,9 +66,22 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
 
   def report(): String = {
     GlobalCfg.node = false
-    if (GlobalCfg.pathOutput != "")
-      g.dumpPaths
+    if (GlobalCfg.pathOutput != "" && GlobalCfg.outputPath) {
+      var writer: Writer = new FileWriter(GlobalCfg.pathOutput, GlobalCfg.append);
+      writer.write(GlobalCfg.curLoop + "{\n");
+      writer.write(paths.mkString("\n"));
+      writer.write("\n}\n");
+      writer.close();
+    }
     GlobalCfg.node = true
+    if (GlobalCfg.dataOutput != "" && GlobalCfg.outputData) {
+      var writer: Writer = new FileWriter(GlobalCfg.dataOutput, GlobalCfg.append);
+      writer.write(GlobalCfg.curLoop + "{\n");
+      writer.write(variables.mkString("\n"));
+      writer.write("\n}\n");
+      writer.close();
+    }
+    GlobalCfg.append = true
     dumpDotForward;
   }
 
@@ -76,7 +92,6 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
      */
     if (GlobalCfg.SysClk > GlobalCfg.maxSysClk) {
       println("sim::step Interrupted!  Reached maximum SysClk: " + GlobalCfg.maxSysClk);
-      report();
       return false;
     }
 
@@ -125,6 +140,9 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
       var v: Vertex = states.last._2
       var curBigraph = v.bigraph
       var curRRs: Set[ReactionRule] = Set()
+      // record the cond
+      var rules: Map[String, List[String]] = Map()
+      var conds: List[String] = List()
 
       while (reactList.size > 0) {
         var tm = reactList.dequeue
@@ -149,6 +167,15 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
 
               curRRs += m.rule
 
+              if (rules.contains(m.rule.name)) {
+                rules.put(m.rule.name, rules.getOrElse(m.rule.name, List()).++(m.reactNodes.toList))
+              } else {
+                rules.put(m.rule.name, m.reactNodes.toList)
+              }
+              if (!m.rule.getConds.equals("")) {
+                conds = conds.:+(m.rule.getConds)
+              }
+
               if (GlobalCfg.DEBUG) {
                 println("-----react nodes before:" + reactNodes)
               }
@@ -171,47 +198,23 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
         }
       }
 
-      /*   reactList.map(tm => {
-        var matches: Set[Match] = curBigraph.findMatchesOfRR(tm.rule)
-        if (matches != null) {
-          var matched: Boolean = false
-          matches.map(m => {
-            println(m.rule.name + "," + m.getReactNodes + "," + tm.getReactNodes)
-            if (!matched && m.getReactNodes.equals(tm.getReactNodes)) {
-              if (!GlobalCfg.checkData || m.rule.check(m)) {
-                var nb: Bigraph = curBigraph.applyMatch(m)
-
-                /**
-                 * update a reaction rule data model
-                 */
-                m.rule.update(m)
-                /**
-                 * update agent data with clock
-                 */
-                Data.updateDataCalcsWithClk(m.RRIncr.toString)
-
-                curRRs += m.rule
-                println("-----react nodes before:" + reactNodes)
-                reactNodes = reactNodes.filter(!m.reactNodes.contains(_))
-                println("-----reaction nodes rm:" + m.reactNodes)
-                println("-----react nodes after:" + reactNodes)
-
-                matched = true
-                if (nb.root == null) {
-                  nb.root = new Nil();
-                }
-                println("middle result match RR " + tm.rule.name + " : " + nb.root.toString)
-                println("middle result of variables: " + Data.getValues(","))
-                curBigraph = nb
-              }
-            }
-          })
-        }
-      }) */
-
       if (curBigraph != null && curRRs != null) {
         var nv = new Vertex(curBigraph, v, curRRs, true)
         nv.sysClk = GlobalCfg.SysClk
+
+        if (GlobalCfg.outputGraph) {
+          dot += "N_" + formatHash(nv.hash) +
+            "[ " + "label=\"N_" + formatHash(nv.hash) + "\"];\n";
+          dot += " N_" + formatHash(v.hash) +
+            " -> N_" + formatHash(nv.hash) + "[ label = \"SysClk:" + GlobalCfg.SysClk +
+            "\n" + rules.mkString(",") + "\"];\n"
+        }
+        if (GlobalCfg.outputPath) {
+          paths = paths.:+(nv.bigraph.root.toString)
+        }
+        if (GlobalCfg.outputData) {
+          variables = variables.:+(nv.variables)
+        }
 
         if (g.lut.contains(nv.hash)) {
           nv = g.lut(nv.hash);
@@ -225,7 +228,7 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
         if (GlobalCfg.printMode) {
           print("SysClk:" + GlobalCfg.SysClk + "\t")
           printf("%s:%s\n", "N_" + Math.abs(nv.hash), nv.bigraph.root.toString);
-          println(nv.variables)
+          //println(nv.variables)
         }
       }
 
@@ -242,7 +245,6 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
 
     if (steps >= GlobalCfg.maxSteps) {
       println("sim::step Interrupted!  Reached maximum steps: " + GlobalCfg.maxSteps);
-      report();
       return false;
     }
 
@@ -325,36 +327,14 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
       Data.getReport + "\n" + //Data.getValues(",") +
       "\"];\n";
     out += " N_" + formatHash(g.root.hash) + "\n" + " [shape=circle, color=lightblue2, style=filled];\n";
-
-    g.lut.values.map(x => {
-      var rr: String = "root";
-      var dc: String = "";
-
-      if (x.terminal) {
-        dc = "shape = doublecircle, color=lightblue2, style=filled, ";
-      }
-      out += "N_" + formatHash(x.hash) + "[ " + dc + "label=\"N_" + formatHash(x.hash) + "\"];\n";
-      x.targets.map(y => {
-        rr = "?"
-        if (y._2 != null) {
-          rr = y._2.map(_.name).mkString(",")
-        }
-        if (y._1 != null) {
-          if (GlobalCfg.checkData) {
-            rr = rr + "\n" + //y._1.variables + "\n" +
-              y._2.map(_.getConds).mkString(",")
-          }
-          out += " N_" + formatHash(x.hash) + " -> N_" + formatHash(y._1.hash) + "[ label = \"" + rr + "\"];\n"
-        }
-      });
-
-    });
+    out += this.dot;
     out += "}\n";
-    if (GlobalCfg.graphOutput != "") {
+    if (GlobalCfg.graphOutput != "" && GlobalCfg.outputGraph) {
       var file: File = new File(GlobalCfg.graphOutput);
       var writer: Writer = new FileWriter(file);
       writer.write(out);
       writer.flush;
+      writer.close();
     }
     out;
   }

@@ -131,36 +131,39 @@ Usage: BigSim [options] <filename>
 
     // GlobalCfg.patterns = true
     //GlobalCfg.patternFile = "resources/Patterns.xml"
-    GlobalCfg.pathOutput = folderName + "/paths/" + filename + ".txt";
-    GlobalCfg.filename = folderName + "/models/" + filename + ".bgm";
 
-    // graphviz图形化字符串
+    GlobalCfg.pathOutput = folderName + "/paths/" + filename + ".path";
+    GlobalCfg.filename = folderName + "/models/" + filename + ".bgm";
+    GlobalCfg.dataOutput = folderName + "/paths/" + filename + ".data";
     GlobalCfg.graphOutput = folderName + "/results/" + filename + ".dot";
 
     // 解析BGM
     val p = BGMParser.parse(new File(GlobalCfg.filename));
-    val b: Bigraph = BGMTerm.toBigraph(p);
-
-    /**
-     * init Data if needed
-     */
-    if (GlobalCfg.checkData)
-      Data.parseData(folderName + "/data/" + filename + ".txt")
-
-    if (GlobalCfg.checkHMM)
-      HMM.parseHMM(folderName + "/hmm/" + filename + ".hmm")
-
     var middle = System.currentTimeMillis();
 
     for (i <- 1 to GlobalCfg.simLoop) {
       GlobalCfg.SysClk = 0
+      GlobalCfg.curLoop = i
+      val b: Bigraph = BGMTerm.toBigraph(p);
+      /**
+       * init Data if needed
+       */
+      if (GlobalCfg.checkData)
+        Data.parseData(folderName + "/data/" + filename + ".txt")
+
+      if (GlobalCfg.checkHMM)
+        HMM.parseHMM(folderName + "/hmm/" + filename + ".hmm")
+
       Simulator.simulate("TimeSlicingSimulator", b)
     }
     // val rc = new ReachChecker(io.Source.fromFile(new File(GlobalCfg.filename)).mkString)
     //println(rc.check)
 
     var end = System.currentTimeMillis();
-    println("total: start:" + start + ", end:" + end + ", used:" + (end - start));
-    println("sim: start:" + middle + ",end:" + end + ", used:" + (end - middle));
+    println("\n****************************************************************")
+    println("  Total:\tstart:" + start + ", end:" + end + ", used:" + (end - start) + " ms");
+    println("  Sim:\tstart:" + middle + ", end:" + end + ", used:" + (end - middle) + " ms");
+    println("****************************************************************")
+
   }
 }

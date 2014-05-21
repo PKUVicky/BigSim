@@ -34,8 +34,15 @@ object GlobalCfg {
   var maxSteps: Long = prop.getProperty("maxSteps").toLong
   var reportInterval: Long = prop.getProperty("reportInterval").toLong
   var printMode: Boolean = prop.getProperty("printMode").toBoolean
-  var graphOutput: String = prop.getProperty("graphOutput")
   var ranNameIndex: Int = prop.getProperty("ranNameIndex").toInt
+
+  // set output path and graph
+  var outputPath: Boolean = prop.getProperty("outputPath").toBoolean
+  var pathOutput: String = prop.getProperty("pathFile")
+  var outputGraph: Boolean = prop.getProperty("outputGraph").toBoolean
+  var graphOutput: String = prop.getProperty("graphOutput")
+  var outputData: Boolean = prop.getProperty("outputData").toBoolean
+  var dataOutput: String = prop.getProperty("dataOutput")
 
   // system clock init
   var SysClk: Double = prop.getProperty("initSysClk").toDouble
@@ -53,7 +60,9 @@ object GlobalCfg {
   var checkTime: Boolean = true;
 
   // how many times of simulation
-  var simLoop: Int = 1;
+  var simLoop: Int = 10;
+  var curLoop: Int = 0;
+  var append: Boolean = false
   // whether sim data
   var checkData: Boolean = true
   // whether check HMM
@@ -64,7 +73,6 @@ object GlobalCfg {
   var patterns: Boolean = false
 
   var patternFile: String = ""
-  var pathOutput: String = ""
   var defPathMapFile: String = ""
 
   var node: Boolean = true

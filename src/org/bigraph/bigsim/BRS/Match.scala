@@ -53,7 +53,11 @@ class Match(reactionRule: ReactionRule) {
   Simulator.matchMarkDelete(this)
 
   def getReactNodes: String = {
-    reactNodes.toList.sortWith((a: String, b: String) => a < b).mkString(",")
+    if (reactNodes.size > 0) {
+      reactNodes.toList.sortWith((a: String, b: String) => a < b).mkString(",")
+    } else {
+      ""
+    }
   }
 
   def addParam(id: Int, c: Term): Unit = {

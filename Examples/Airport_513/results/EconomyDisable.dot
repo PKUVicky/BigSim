@@ -3,90 +3,47 @@ digraph reaction_graph {
    Node [shape = circle];
    BigSim_Report [shape = parallelogram color = aliceblue style=filled label="BigSim
 Report"];
-BigSim_Report -> N__100099864[color = aliceblue label = "wExpr==0.0
+BigSim_Report -> N__1437157728[color = aliceblue label = "wExpr==0.0
 "];
- N__100099864
+ N__1437157728
  [shape=circle, color=lightblue2, style=filled];
-N__1457262067[ label="N__1457262067"];
- N__1457262067 -> N__1505742515[ label = "r_check_danger,r_enter_shoppingzone,r_enter_gatelounge
-,Passenger.hasDanger=='true',Passenger.hasDanger=='false',Passenger.traffic=='false'"];
-N_1490989062[ label="N_1490989062"];
- N_1490989062 -> N_1584186287[ label = "r_enter_shoppingzone,r_enter_gatelounge
-,Passenger.hasDanger=='false',Passenger.traffic=='false'"];
-N__1454767993[ label="N__1454767993"];
- N__1454767993 -> N_2002583350[ label = "r_check_danger
-Passenger.hasDanger=='true'"];
-N__26075649[ label="N__26075649"];
- N__26075649 -> N__2022259392[ label = "r_check_ticket_with_Luggage,r_check_danger,r_enter_shoppingzone,r_enter_security
-,Passenger.hasDanger=='true',ap.boardingTime-SysClk>3,Passenger.hasCheckinLuggage=='true',Passenger.hasDanger=='false',Passenger.traffic=='false'"];
-N_1530281029[ label="N_1530281029"];
- N_1530281029 -> N__2028702037[ label = "r_check_ticket_with_Luggage,r_enter_airport,r_enter_checkin,r_enter_security
-,ap.boardingTime-SysClk>3,Passenger.hasCheckinLuggage=='true'"];
-N__1983258141[ label="N__1983258141"];
- N__1983258141 -> N_523612094[ label = "r_take_off
-ap.boardingTime==SysClk"];
-N__364902828[ label="N__364902828"];
- N__364902828 -> N_1950649155[ label = "r_check_ticket_with_Luggage,r_enter_airport,r_enter_checkin,r_enter_security
-,ap.boardingTime-SysClk>3,Passenger.hasCheckinLuggage=='true'"];
-N_1484259473[ label="N_1484259473"];
- N_1484259473 -> N_1595010593[ label = "r_check_danger,r_enter_shoppingzone,r_enter_gatelounge
-,Passenger.hasDanger=='true',Passenger.hasDanger=='false',Passenger.traffic=='false'"];
-N_523612094[ label="N_523612094"];
-N_487608417[ label="N_487608417"];
- N_487608417 -> N__26075649[ label = "r_check_danger,r_enter_shoppingzone,r_enter_security
-,Passenger.hasDanger=='true',Passenger.hasDanger=='false',Passenger.traffic=='false'"];
-N__720274520[ label="N__720274520"];
- N__720274520 -> N_2015830760[ label = "r_enter_airport
-"];
-N__2022259392[ label="N__2022259392"];
- N__2022259392 -> N__1454767993[ label = "r_enter_gatelounge,r_enter_security
-"];
-N_1950649155[ label="N_1950649155"];
- N_1950649155 -> N__701181757[ label = "r_enter_checkin
-"];
-N__74904657[ label="N__74904657"];
- N__74904657 -> N_1484259473[ label = "r_check_danger,r_enter_shoppingzone,r_enter_gatelounge,r_enter_security
-,Passenger.hasDanger=='true',Passenger.hasDanger=='false',Passenger.traffic=='false'"];
-N__2028702037[ label="N__2028702037"];
- N__2028702037 -> N__364902828[ label = "r_check_ticket_with_Luggage,r_enter_checkin
-,ap.boardingTime-SysClk>3,Passenger.hasCheckinLuggage=='true'"];
-N_2002583350[ label="N_2002583350"];
- N_2002583350 -> N_1490989062[ label = "r_check_danger,r_enter_shoppingzone
-Passenger.hasDanger=='true',Passenger.hasDanger=='false',Passenger.traffic=='false'"];
-N__1518054216[ label="N__1518054216"];
- N__1518054216 -> N_957650072[ label = "r_enter_shoppingzone,r_enter_gatelounge
-,Passenger.hasDanger=='false',Passenger.traffic=='false'"];
-N__701181757[ label="N__701181757"];
- N__701181757 -> N_1042300382[ label = "r_check_ticket_with_Luggage,r_enter_checkin,r_enter_security
-,ap.boardingTime-SysClk>3,Passenger.hasCheckinLuggage=='true'"];
-N_1584186287[ label="N_1584186287"];
- N_1584186287 -> N__74904657[ label = "r_enter_gatelounge
-"];
-N__1201555135[ label="N__1201555135"];
- N__1201555135 -> N_1530281029[ label = "r_check_ticket_with_Luggage,r_enter_airport,r_enter_checkin
-,ap.boardingTime-SysClk>3,Passenger.hasCheckinLuggage=='true'"];
-N_77402300[ label="N_77402300"];
- N_77402300 -> N__1201555135[ label = "r_check_ticket_with_Luggage,r_enter_checkin
-,ap.boardingTime-SysClk>3,Passenger.hasCheckinLuggage=='true'"];
-N_2015830760[ label="N_2015830760"];
- N_2015830760 -> N_77402300[ label = "r_enter_airport,r_enter_checkin
-"];
-N_957650072[ label="N_957650072"];
- N_957650072 -> N_481018723[ label = "r_enter_gatelounge
-"];
-N_481018723[ label="N_481018723"];
- N_481018723 -> N__1983258141[ label = "r_onboard
-Passenger.flightNo==ap.flightNo,ap.boardingTime-SysClk<10&&ap.boardingTime-SysClk>5"];
-N_1042300382[ label="N_1042300382"];
- N_1042300382 -> N_487608417[ label = "r_check_ticket_with_Luggage,r_check_danger,r_enter_security
-,Passenger.hasDanger=='true',ap.boardingTime-SysClk>3,Passenger.hasCheckinLuggage=='true'"];
-N_1595010593[ label="N_1595010593"];
- N_1595010593 -> N__1457262067[ label = "r_check_danger,r_enter_shoppingzone,r_enter_gatelounge
-,Passenger.hasDanger=='true',Passenger.hasDanger=='false',Passenger.traffic=='false'"];
-N__1505742515[ label="N__1505742515"];
- N__1505742515 -> N__1518054216[ label = "r_check_danger,r_enter_shoppingzone,r_enter_gatelounge
-,Passenger.hasDanger=='true',Passenger.hasDanger=='false',Passenger.traffic=='false'"];
-N__100099864[ shape = doublecircle, color=lightblue2, style=filled, label="N__100099864"];
- N__100099864 -> N__720274520[ label = "r_enter_airport
-"];
+N__1034012159[ label="N__1034012159"];
+ N__1437157728 -> N__1034012159[ label = "SysClk:0.0
+r_enter_airport -> List(p10, p8, p3, p7, p11, p2, p12, p6, p16, p19, p20, p9, p1, p14, p5, p17, p18, p15, p13, p4)"];
+N__207203311[ label="N__207203311"];
+ N__1034012159 -> N__207203311[ label = "SysClk:2.0
+r_enter_checkin -> List(p11, p4, p8, p9, p1, p10, p3, p19, p13, p15, p18, p6, p5, p14, p20, p7, p16, p2, p17, p12)"];
+N_1707346908[ label="N_1707346908"];
+ N__207203311 -> N_1707346908[ label = "SysClk:3.0
+r_check_ticket_with_Luggage -> List(p18, p5, p7)"];
+N_1538440731[ label="N_1538440731"];
+ N_1707346908 -> N_1538440731[ label = "SysClk:7.0
+r_enter_security -> List(p7, p18, p5),r_check_ticket_with_Luggage -> List(p11, p10, p15, p13, p2, p12, p6, p16, p4, p19, p3, p17, p20, p8, p1, p14, p9)"];
+N_341572519[ label="N_341572519"];
+ N_1538440731 -> N_341572519[ label = "SysClk:8.0
+r_enter_security -> List(p1, p14, p2, p13, p10, p11, p12, p19, p3, p6, p16, p15, p9, p8, p4, p17, p20)"];
+N_1907785020[ label="N_1907785020"];
+ N_341572519 -> N_1907785020[ label = "SysClk:9.0
+r_check_danger -> List(p18, p7, p5)"];
+N__1972391176[ label="N__1972391176"];
+ N_1907785020 -> N__1972391176[ label = "SysClk:10.0
+r_enter_shoppingzone -> List(p5, p7, p18)"];
+N__1345954350[ label="N__1345954350"];
+ N__1972391176 -> N__1345954350[ label = "SysClk:12.0
+r_enter_gatelounge -> List(p7, p5, p18)"];
+N__1829094469[ label="N__1829094469"];
+ N__1345954350 -> N__1829094469[ label = "SysClk:13.0
+r_check_danger -> List(p15, p9, p14, p8, p17, p4, p6, p19, p11, p12, p16, p20, p10, p3, p1, p2, p13)"];
+N__532842053[ label="N__532842053"];
+ N__1829094469 -> N__532842053[ label = "SysClk:15.0
+r_enter_shoppingzone -> List(p2, p10, p20, p15, p12, p8, p6, p11, p9, p4, p17, p19, p13, p16, p1, p14, p3)"];
+N__1742037655[ label="N__1742037655"];
+ N__532842053 -> N__1742037655[ label = "SysClk:16.0
+r_enter_gatelounge -> List(p2, p9, p8, p10, p13, p4, p15, p16, p1, p19, p12, p6, p3, p17, p11, p14, p20)"];
+N_1987609705[ label="N_1987609705"];
+ N__1742037655 -> N_1987609705[ label = "SysClk:26.0
+r_onboard -> List(p16, p1, p11, p14, p3, p2, p13, p6, p18, p5, p10, p20, p7, p8, p19, p15, p9, p12, p4, p17)"];
+N_719424568[ label="N_719424568"];
+ N_1987609705 -> N_719424568[ label = "SysClk:35.0
+r_take_off -> List(ap)"];
 }
