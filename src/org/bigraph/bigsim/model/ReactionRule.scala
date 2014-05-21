@@ -134,6 +134,7 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
    * @return true/false
    */
   def check(m: Match): Boolean = {
+
     if (GlobalCfg.checkData) {
       conds.foreach(c => {
         var cond = c
@@ -147,6 +148,8 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
         })
 
         val q = BooleanExprParser.parse(cond)
+        if (GlobalCfg.DEBUG)
+          println("check:" + cond + "\tresult:" + q.check)
         if (!q.check()) {
           return false
         }
@@ -194,7 +197,7 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
           }
         }
       })
-      
+
       Data.update(leftTerm, rightTerm)
     });
   }

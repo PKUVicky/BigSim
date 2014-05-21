@@ -189,7 +189,7 @@ class Bigraph(roots: Int = 1) {
   def addRule(r: ReactionRule) = {
     rules.add(r);
   }
-  
+
   /**
    * Find matches of one bigraph with a given reaction rule
    */
@@ -220,7 +220,7 @@ class Bigraph(roots: Int = 1) {
       var mp: Set[Match] = Matcher.tryMatchTermReactionRule(root, rr);
       mp.foreach(m => {
         if (rr.check(m)) {
-          res = res ++ mp;
+          res.add(m)
         }
       })
     }
@@ -267,7 +267,7 @@ class Bigraph(roots: Int = 1) {
         var mp: Set[Match] = Matcher.tryMatchTermReactionRule(root, x);
         mp.foreach(m => {
           if (x.check(m)) {
-            res = res ++ mp;
+            res.add(m);
           }
         })
       }

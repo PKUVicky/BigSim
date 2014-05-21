@@ -53,7 +53,7 @@ class Match(reactionRule: ReactionRule) {
   Simulator.matchMarkDelete(this)
 
   def getReactNodes: String = {
-    reactNodes.mkString(",")
+    reactNodes.toList.sortWith((a: String, b: String) => a < b).mkString(",")
   }
 
   def addParam(id: Int, c: Term): Unit = {
@@ -124,7 +124,8 @@ class Match(reactionRule: ReactionRule) {
     var conflict = false
     rns.map(rn => {
       if (reactNodes.contains(rn)) {
-       // println("confilict node:" + rn)
+        if (GlobalCfg.DEBUG)
+          println("match " + rule.name + "\tconfilict node:" + rn)
         conflict = true
       }
     })
