@@ -36,7 +36,7 @@ class DiscreteEventSimulator(b: Bigraph) extends Simulator {
 
   var forwardPath: Queue[Vertex] = Queue();
   var backwardPath: Stack[Vertex] = Stack();
-  
+
   var forwardReactNodes: Set[String] = Set();
   var backwardReactNodes: Set[String] = Set();
 
@@ -196,4 +196,7 @@ class DiscreteEventSimulator(b: Bigraph) extends Simulator {
     DiscreteEventSimulator.matchGC;
     true;
   }
+
+  def dumpDotForward(dot: String): String = ""
+
 }

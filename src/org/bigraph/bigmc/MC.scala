@@ -141,7 +141,7 @@ class MC(b: Bigraph) {
       println(report(step));
     }
     if (GlobalCfg.printMode) {
-      printf("%s:%s\n", "N_"+ Math.abs(v.hash), v.bigraph.root.toString);
+      printf("%s:%s\n", "N_" + Math.abs(v.hash), v.bigraph.root.toString);
     }
     if (!checkProperties(v)) { //模型性质检测
       println("mc::step Counter-example found.")
@@ -155,7 +155,7 @@ class MC(b: Bigraph) {
     if (v.visited) return true;
 
     // sorting 约束检查
-    if (GlobalCfg.sortFileName != null) {
+    if (GlobalCfg.checkSorting) {
       var sortingCheckRes = Bigraph.sorting.check(v);
       if (!sortingCheckRes) {
         println("*** Found violation of Sorting: " + Bigraph.sorting.violationInfo);

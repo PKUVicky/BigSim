@@ -203,7 +203,7 @@ class Graph(init: Vertex) {
     var paths: Set[Stack[Vertex]] = Set()
     if (GlobalCfg.allUses || GlobalCfg.allDefs) {
       paths ++= findPathsByStrategy(root.bigraph.rules)
-    } else if (GlobalCfg.patterns) {
+    } else if (GlobalCfg.checkInterestPattern) {
       paths ++= getPathsHasInterestPatterns
     } else {
       //pathes ++= getAllPathes
@@ -313,8 +313,7 @@ class Graph(init: Vertex) {
           rr = y._2.name;
 
         if (y._1 != null) {
-          if (GlobalCfg.checkTime)
-            rr = rr + "\nSystem Clock: " + y._1.sysClk
+          rr = rr + "\nSystem Clock: " + y._1.sysClk
           if (GlobalCfg.checkData && y._2.conds.size != 0)
             rr = rr + "\nCond:" + y._2.getConds
           if (GlobalCfg.checkHMM && y._2.hmms.size != 0)

@@ -18,6 +18,7 @@ import org.bigraph.bigsim.BRS.Match
 import org.bigraph.bigsim.BRS.Graph
 import org.bigraph.bigsim.BRS.Vertex
 import org.bigraph.bigsim.data.Data
+import org.bigraph.bigsim.utils.Graphviz
 
 object TimeSlicingSimulator {
 
@@ -44,9 +45,9 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
   var steps: Int = 0;
   var checked: Map[Long, Boolean] = Map();
 
-  var paths: List[String] = List();
-  var dot: String = "";
+  var path: List[String] = List();
   var variables: List[String] = List();
+  var pathColor: String = Graphviz.getColor
 
   def simulate: Unit = {
     // add the initial agent to the simQueue
@@ -64,12 +65,12 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
     }
   }
 
-  def report(): String = {
+  def report() {
     GlobalCfg.node = false
     if (GlobalCfg.pathOutput != "" && GlobalCfg.outputPath) {
       var writer: Writer = new FileWriter(GlobalCfg.pathOutput, GlobalCfg.append);
       writer.write(GlobalCfg.curLoop + "{\n");
-      writer.write(paths.mkString("\n"));
+      writer.write(path.mkString("\n"));
       writer.write("\n}\n");
       writer.close();
     }
@@ -82,7 +83,6 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
       writer.close();
     }
     GlobalCfg.append = true
-    dumpDotForward;
   }
 
   def step(): Boolean = {
@@ -206,11 +206,11 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
           dot += "N_" + formatHash(nv.hash) +
             "[ " + "label=\"N_" + formatHash(nv.hash) + "\"];\n";
           dot += " N_" + formatHash(v.hash) +
-            " -> N_" + formatHash(nv.hash) + "[ label = \"SysClk:" + GlobalCfg.SysClk +
+            " -> N_" + formatHash(nv.hash) + "[ color = " + pathColor + " label = \"SysClk:" + GlobalCfg.SysClk +
             "\n" + rules.mkString(",") + "\"];\n"
         }
         if (GlobalCfg.outputPath) {
-          paths = paths.:+(nv.bigraph.root.toString)
+          path = path.:+(nv.bigraph.root.toString)
         }
         if (GlobalCfg.outputData) {
           variables = variables.:+(nv.variables)
@@ -316,7 +316,7 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
     else hash.toString;
   }
 
-  def dumpDotForward: String = {
+  def dumpDotForward(dot: String): String = {
     var out: String = "";
     out += "digraph reaction_graph {\n";
     out += "   rankdir=LR;\n";
@@ -327,7 +327,7 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
       Data.getReport + "\n" + //Data.getValues(",") +
       "\"];\n";
     out += " N_" + formatHash(g.root.hash) + "\n" + " [shape=circle, color=lightblue2, style=filled];\n";
-    out += this.dot;
+    out += dot;
     out += "}\n";
     if (GlobalCfg.graphOutput != "" && GlobalCfg.outputGraph) {
       var file: File = new File(GlobalCfg.graphOutput);

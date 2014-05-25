@@ -1,0 +1,19 @@
+#Airplane
+ap.boardingTime	Double	35	mins
+ap.flightNo	String	CZ3265	unit
+#Passenger p1
+p1.traffic	String	true	boolean
+p1.flightNo	String	CZ3265	unit
+p1.fee	Double	0	yuan
+p1.light	Double	2	degree
+p1.hasCheckinLuggage	String	true	boolean
+p1.hasDanger	String	true	boolean
+p1.updateLight	String	false	boolean
+#Passenger p2
+p2.traffic	String	false	boolean
+p2.flightNo	String	CZ3265	unit
+p2.fee	Double	0	yuan
+p2.light	Double	4	degree
+p2.hasCheckinLuggage	String	true	boolean
+p2.hasDanger	String	true	boolean
+p2.updateLight	String	false	boolean

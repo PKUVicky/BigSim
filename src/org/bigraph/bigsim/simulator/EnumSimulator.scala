@@ -133,7 +133,7 @@ class EnumSimulator(b: Bigraph) extends Simulator {
   def checkProperties(v: Vertex): Boolean = {
     if (v.visited) return true;
     /** check sorting */
-    if (GlobalCfg.sortFileName != null) {
+    if (GlobalCfg.checkSorting) {
       var sortingCheckRes = Bigraph.sorting.check(v);
       if (!sortingCheckRes) {
         println("*** Found violation of Sorting: " + Bigraph.sorting.violationInfo);
@@ -147,5 +147,7 @@ class EnumSimulator(b: Bigraph) extends Simulator {
     v.visited = true;
     true;
   }
+  
+    def dumpDotForward(dot: String): String = ""
 
 }

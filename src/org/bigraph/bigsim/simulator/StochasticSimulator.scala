@@ -55,7 +55,7 @@ object StochasticSimulator {
   }
 }
 
-class StochasticSimulator(b: Bigraph) extends Simulator{
+class StochasticSimulator(b: Bigraph) extends Simulator {
   var v: Vertex = new Vertex(b, null, null);
   var g: Graph = new Graph(v);
   var states: Queue[Tuple2[Double, Vertex]] = Queue();
@@ -70,7 +70,7 @@ class StochasticSimulator(b: Bigraph) extends Simulator{
      */
     var simPath: Queue[Term] = Queue()
     var simRules: Set[String] = Set()
-    
+
     /**
      * 0. Initialization:
      * Initialize the simulation state
@@ -188,7 +188,7 @@ class StochasticSimulator(b: Bigraph) extends Simulator{
   }
 
   def dump(simPath: Queue[Term], simRules: Int) {
-    dumpDotForward;
+    dumpDotForward("")
     //GlobalCfg.node = false
     if (GlobalCfg.pathOutput != "") {
       var out: String = "{\n"
@@ -209,7 +209,7 @@ class StochasticSimulator(b: Bigraph) extends Simulator{
     else hash.toString;
   }
 
-  def dumpDotForward: String = {
+  def dumpDotForward(dot:String): String = {
     var out: String = "";
     out += "digraph reaction_graph {\n";
     out += "   rankdir=LR;\n";
@@ -232,8 +232,7 @@ class StochasticSimulator(b: Bigraph) extends Simulator{
         if (y._2 != null)
           rr = y._2.name;
         if (y._1 != null) {
-          if (GlobalCfg.checkTime)
-            rr = rr + "\nSystem Clock: " + y._1.sysClk
+          rr = rr + "\nSystem Clock: " + y._1.sysClk
           if (GlobalCfg.checkData && y._2.conds.size != 0)
             rr = rr + "\nCond:" + y._2.getConds
           if (GlobalCfg.checkHMM && y._2.hmms.size != 0)

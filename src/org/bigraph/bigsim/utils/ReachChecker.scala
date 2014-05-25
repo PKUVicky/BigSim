@@ -52,7 +52,6 @@ class ReachChecker(bgm: String) {
     /**
      * In reach check, no time and data needed
      */
-    GlobalCfg.checkTime = false
     GlobalCfg.checkData = false
     GlobalCfg.pathOutput = ""
 

@@ -29,6 +29,8 @@ object GlobalCfg {
   val reactPrefStr: String = prop.getProperty("reactPrefStr")
   val minProbability: Double = prop.getProperty("minProbability").toDouble
 
+  val SimulatorClass: String = prop.getProperty("SimulatorClass")
+
   var DEBUG: Boolean = prop.getProperty("DEBUG").toBoolean
   var checkLocal: Boolean = prop.getProperty("checkLocal").toBoolean
   var maxSteps: Long = prop.getProperty("maxSteps").toLong
@@ -36,13 +38,56 @@ object GlobalCfg {
   var printMode: Boolean = prop.getProperty("printMode").toBoolean
   var ranNameIndex: Int = prop.getProperty("ranNameIndex").toInt
 
-  // set output path and graph
+  /**
+   *  set inputs: models, data, hmm
+   */
+  var fileSeparator: String = prop.getProperty("fileSeparator")
+  var inputPath: String = prop.getProperty("inputPath")
+  var modelName: String = prop.getProperty("modelName")
+  var filename: String = inputPath + fileSeparator + "models" + fileSeparator + modelName + ".bgm"
+  // whether check data
+  var checkData: Boolean = prop.getProperty("checkData").toBoolean
+  var dataInput: String = {
+    if (checkData) inputPath + fileSeparator + "data" + fileSeparator + modelName + ".data"
+    else ""
+  }
+  // whether check HMM
+  var checkHMM: Boolean = prop.getProperty("checkHMM").toBoolean
+  var hmmInput: String = {
+    if (checkHMM) inputPath + fileSeparator + "hmms" + fileSeparator + modelName + ".hmm"
+    else ""
+  }
+  // whether check sorting
+  var checkSorting: Boolean = prop.getProperty("checkSorting").toBoolean
+  var sortingInput: String = {
+    if (checkSorting) inputPath + fileSeparator + "sortings" + fileSeparator + modelName + ".xml"
+    else ""
+  }
+  // whether check interest pattern
+  var checkInterestPattern: Boolean = prop.getProperty("checkInterestPattern").toBoolean
+  var interestPatternInput: String = {
+    if (checkInterestPattern) inputPath + fileSeparator + "patterns" + fileSeparator + modelName + ".xml"
+    else ""
+  }
+
+  /**
+   * set outputs: paths, results
+   */
   var outputPath: Boolean = prop.getProperty("outputPath").toBoolean
-  var pathOutput: String = prop.getProperty("pathFile")
+  var pathOutput: String = {
+    if (outputPath) inputPath + fileSeparator + "paths" + fileSeparator + modelName + ".path"
+    else ""
+  }
   var outputGraph: Boolean = prop.getProperty("outputGraph").toBoolean
-  var graphOutput: String = prop.getProperty("graphOutput")
-  var outputData: Boolean = prop.getProperty("outputData").toBoolean
-  var dataOutput: String = prop.getProperty("dataOutput")
+  var graphOutput: String = {
+    if (outputGraph) inputPath + fileSeparator + "results" + fileSeparator + modelName + ".dot"
+    else ""
+  }
+  var outputData: Boolean = checkData && prop.getProperty("outputData").toBoolean
+  var dataOutput: String = {
+    if (outputData) inputPath + fileSeparator + "paths" + fileSeparator + modelName + ".data"
+    else ""
+  }
 
   // system clock init
   var SysClk: Double = prop.getProperty("initSysClk").toDouble
@@ -56,31 +101,21 @@ object GlobalCfg {
     ranNameIndex
   }
 
-  // whether contain time simulation
-  var checkTime: Boolean = true;
-
   // how many times of simulation
-  var simLoop: Int = 10;
+  var simLoop: Int = prop.getProperty("simLoop").toInt
   var curLoop: Int = 0;
   var append: Boolean = false
-  // whether sim data
-  var checkData: Boolean = true
-  // whether check HMM
-  var checkHMM: Boolean = false
 
   var allDefs: Boolean = false
   var allUses: Boolean = false
-  var patterns: Boolean = false
 
   var patternFile: String = ""
   var defPathMapFile: String = ""
 
   var node: Boolean = true
-  var sortFileName: String = null;
   var verbose: Boolean = false
   var printDiscovered: Boolean = false
   var localCheck: Boolean = false
   var reportFrequency: Int = 500
-  var filename: String = ""
   var stochastic: Boolean = false
 }

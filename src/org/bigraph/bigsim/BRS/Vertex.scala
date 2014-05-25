@@ -49,9 +49,6 @@ class Vertex(b: Bigraph, v: Vertex, rr: ReactionRule) {
 
   var target: Map[Vertex, ReactionRule] = Map();
 
-  // var test: Set[Any] = Set()
-  //test += (v,rr)
-
   def addTarget(v: Vertex, rr: ReactionRule) {
     target += (v -> rr)
   }

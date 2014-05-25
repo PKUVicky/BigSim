@@ -40,14 +40,17 @@ Usage: BigSim [options] <filename>
 
   def parseOpts(args: List[String]): Unit = args match {
     case ("-sf" :: f :: t) => {
-      GlobalCfg.sortFileName = f
+      GlobalCfg.checkSorting = true
+      GlobalCfg.sortingInput = f
       parseOpts(t)
     }
     case ("-G" :: f :: t) => {
+      GlobalCfg.outputGraph = true
       GlobalCfg.graphOutput = f
       parseOpts(t)
     }
     case ("-P" :: f :: t) => {
+      GlobalCfg.outputPath = true
       GlobalCfg.pathOutput = f
       parseOpts(t)
     }
@@ -57,14 +60,15 @@ Usage: BigSim [options] <filename>
       } else if (st.equals("alluses")) {
         GlobalCfg.allUses = true
       }
+      GlobalCfg.outputPath = true
       GlobalCfg.pathOutput = path
       GlobalCfg.defPathMapFile = dpath
-
       parseOpts(t)
     }
     case ("-PF" :: file :: path :: t) => {
-      GlobalCfg.patterns = true
-      GlobalCfg.patternFile = file
+      GlobalCfg.checkInterestPattern = true
+      GlobalCfg.interestPatternInput = file
+      GlobalCfg.outputPath = true
       GlobalCfg.pathOutput = path
       parseOpts(t)
     }
@@ -116,53 +120,11 @@ Usage: BigSim [options] <filename>
       parseOpts(args.toList)
     }
 
-    /**
-     * init sorting file if exits
-     */
-    //BigSimOpts.sortFileName = "sortingFile/decoction.xml"
-    if (GlobalCfg.sortFileName != null)
-      Bigraph.sorting.init(GlobalCfg.sortFileName)
-
-    var filename = "earthquake";
-    filename = "chemistry";
-    filename = "EconomyDisable";
-    var folderName = "OldAirport";
-    folderName = "Examples/Airport_513";
-
-    // GlobalCfg.patterns = true
-    //GlobalCfg.patternFile = "resources/Patterns.xml"
-
-    GlobalCfg.pathOutput = folderName + "/paths/" + filename + ".path";
-    GlobalCfg.filename = folderName + "/models/" + filename + ".bgm";
-    GlobalCfg.dataOutput = folderName + "/paths/" + filename + ".data";
-    GlobalCfg.graphOutput = folderName + "/results/" + filename + ".dot";
-
-    // 解析BGM
-    val p = BGMParser.parse(new File(GlobalCfg.filename));
-    var middle = System.currentTimeMillis();
-
-    for (i <- 1 to GlobalCfg.simLoop) {
-      GlobalCfg.SysClk = 0
-      GlobalCfg.curLoop = i
-      val b: Bigraph = BGMTerm.toBigraph(p);
-      /**
-       * init Data if needed
-       */
-      if (GlobalCfg.checkData)
-        Data.parseData(folderName + "/data/" + filename + ".txt")
-
-      if (GlobalCfg.checkHMM)
-        HMM.parseHMM(folderName + "/hmm/" + filename + ".hmm")
-
-      Simulator.simulate("TimeSlicingSimulator", b)
-    }
-    // val rc = new ReachChecker(io.Source.fromFile(new File(GlobalCfg.filename)).mkString)
-    //println(rc.check)
+    Simulator.simulate();
 
     var end = System.currentTimeMillis();
     println("\n****************************************************************")
     println("  Total:\tstart:" + start + ", end:" + end + ", used:" + (end - start) + " ms");
-    println("  Sim:\tstart:" + middle + ", end:" + end + ", used:" + (end - middle) + " ms");
     println("****************************************************************")
 
   }
