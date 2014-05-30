@@ -10,6 +10,7 @@ import scala.collection.mutable.Set
 import cern.jet.random.Poisson
 import cern.jet.random.engine.RandomEngine
 import org.bigraph.bigsim.BRS.Match
+import scala.collection.mutable.Queue
 
 /**
  * @author zhaoxin
@@ -37,7 +38,7 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
 
   /** If this is a stochastic bigraph, a rate constant will be assigned. */
   var rate: Double = 0
-  var dataCalcs: Map[String, String] = Map()
+  var dataCalcs: Queue[Tuple2[String, String]] = Queue()
   var conds: Set[String] = Set()
   var random: Boolean = false
   var sysClkIncr: Int = 0
@@ -60,7 +61,7 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
         f.substring(GlobalCfg.exprPrefStr.length).split(",").foreach(e => {
           val kv = e.split("=")
           if (kv.length == 2)
-            dataCalcs += kv(0) -> kv(1)
+            dataCalcs.enqueue(new Tuple2(kv(0), kv(1)))
         })
       } else if (f.startsWith(GlobalCfg.randomPrefStr)) {
         random = f.substring(GlobalCfg.randomPrefStr.length).toBoolean
@@ -85,7 +86,12 @@ class ReactionRule(n: String, red: Term, react: Term, exp: String) {
     if (random) {
       val re: RandomEngine = RandomEngine.makeDefault
       val po: Poisson = new Poisson(sysClkIncr, re)
-      po.nextInt()
+      val incr = po.nextInt()
+      if (sysClkIncr != 0 && incr < GlobalCfg.SysClkIncr.toInt) {
+        GlobalCfg.SysClkIncr.toInt
+      } else {
+        incr / GlobalCfg.SysClkIncr.toInt * GlobalCfg.SysClkIncr.toInt
+      }
     } else
       sysClkIncr
   }

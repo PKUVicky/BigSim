@@ -27,9 +27,7 @@ abstract class Simulator {
 
 object Simulator {
 
-  var simulator: Simulator = null;
   var matchDiscard: Set[Match] = Set();
-
   def matchMarkDelete(m: Match): Unit = {
     assert(m != null);
     matchDiscard.add(m);
@@ -38,8 +36,16 @@ object Simulator {
   def matchGC: Unit = {
     matchDiscard.clear();
   }
+}
+
+class SimulatorFactory {
+
+  var simulator: Simulator = null;
 
   def simulate() {
+
+    var start = System.currentTimeMillis();
+    var middle: Long = 0;
 
     // parse the BGM input file
     val t: List[BGMTerm] = BGMParser.parse(new File(GlobalCfg.filename));
@@ -57,10 +63,17 @@ object Simulator {
       if (GlobalCfg.checkHMM) HMM.parseHMM(GlobalCfg.hmmInput)
       if (GlobalCfg.checkSorting) Bigraph.sorting.init(GlobalCfg.sortingInput)
 
-      Simulator.simulate(GlobalCfg.SimulatorClass, b)
+      middle = System.currentTimeMillis();
+
+      simulate(GlobalCfg.SimulatorClass, b)
       dot += simulator.dot
     }
     simulator.dumpDotForward(dot)
+   var end = System.currentTimeMillis();
+    println("\n****************************************************************")
+    println("  Total:\tmiddle:" + middle + ", end:" + end + ", used:" + (end - middle) + " ms");
+    println("  Total:\tstart:" + start + ", end:" + end + ", used:" + (end - start) + " ms");
+    println("****************************************************************")
   }
 
   def simulate(sn: String, b: Bigraph): Unit = {

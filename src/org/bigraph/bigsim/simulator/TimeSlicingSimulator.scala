@@ -132,8 +132,9 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
     if (simQueue.contains(GlobalCfg.SysClk)
       && !simQueue.get(GlobalCfg.SysClk).isEmpty) {
 
-      if (GlobalCfg.DEBUG)
+      if (GlobalCfg.verbose)
         println("Update-----System Clock now:" + GlobalCfg.SysClk)
+        
       // apply these matches
       var reactList: Queue[Match] = simQueue.getOrElse(GlobalCfg.SysClk, Queue())
       // match and find match and apply match!!!
@@ -150,10 +151,11 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
         if (matches != null) {
           var matched: Boolean = false
           matches.map(m => {
-            if (GlobalCfg.DEBUG) {
+            if (GlobalCfg.verbose) {
               println(m.rule.name + "," + m.getReactNodes + "," +
                 tm.getReactNodes + "matched:" + matched)
             }
+
             if (!matched && m.getReactNodes.equals(tm.getReactNodes)) {
               var nb: Bigraph = curBigraph.applyMatch(m)
               /**
@@ -176,19 +178,21 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
                 conds = conds.:+(m.rule.getConds)
               }
 
-              if (GlobalCfg.DEBUG) {
+              if (GlobalCfg.verbose) {
                 println("-----react nodes before:" + reactNodes)
               }
+
               reactNodes = reactNodes.filter(!m.reactNodes.contains(_))
-              if (GlobalCfg.DEBUG) {
+              if (GlobalCfg.verbose) {
                 println("-----reaction nodes rm:" + m.reactNodes)
                 println("-----react nodes after:" + reactNodes)
               }
+              
               matched = true
               if (nb.root == null) {
                 nb.root = new Nil();
               }
-              if (GlobalCfg.DEBUG) {
+              if (GlobalCfg.verbose) {
                 println("middle result match RR " + tm.rule.name + " : " + nb.root.toString)
                 println("middle result of variables: " + Data.getValues(","))
               }
@@ -279,11 +283,11 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
      * it must happen when it is matched.
      */
     matches.map(m => {
-      if (GlobalCfg.DEBUG) {
+      if (GlobalCfg.verbose) {
         println("All match:" + m.rule.name + "\tcond:" +
           m.rule.conds + "\treactNodes:" + m.reactNodes)
       }
-
+          
       val conflict = m.conflict(reactNodes.toList)
       if (!conflict) {
         //if (!conflict && !m.rule.random) {
@@ -299,7 +303,7 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
         }
         simQueue += reactTime -> queue
         reactNodes ++= m.reactNodes
-        if (GlobalCfg.DEBUG) {
+        if (GlobalCfg.verbose) {
           println("add match: " + m.rule.name + "\treact nodes:" +
             m.reactNodes + "\treact time:" + reactTime)
         }

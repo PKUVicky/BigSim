@@ -1,7 +1,6 @@
 package org.bigraph.bigsim
 
 import java.io.File
-
 import org.bigraph.bigsim.data.Data
 import org.bigraph.bigsim.model.Bigraph
 import org.bigraph.bigsim.parser.BGMParser
@@ -9,6 +8,7 @@ import org.bigraph.bigsim.parser.BGMTerm
 import org.bigraph.bigsim.parser.HMM
 import org.bigraph.bigsim.simulator.Simulator
 import org.bigraph.bigsim.utils.GlobalCfg
+import org.bigraph.bigsim.simulator.SimulatorFactory
 
 object BigSim extends App {
   def usage = System.err.println("""    
@@ -120,12 +120,13 @@ Usage: BigSim [options] <filename>
       parseOpts(args.toList)
     }
 
-    Simulator.simulate();
+    var simFactory = new SimulatorFactory();
+    simFactory.simulate();
 
     var end = System.currentTimeMillis();
-    println("\n****************************************************************")
-    println("  Total:\tstart:" + start + ", end:" + end + ", used:" + (end - start) + " ms");
-    println("****************************************************************")
+    // println("\n****************************************************************")
+    //println("  Total:\tstart:" + start + ", end:" + end + ", used:" + (end - start) + " ms");
+    //println("****************************************************************")
 
   }
 }
