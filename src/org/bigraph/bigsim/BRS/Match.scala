@@ -50,7 +50,7 @@ class Match(reactionRule: ReactionRule) {
     println("BUG: match::match(): new match created")
   }
 
-  Simulator.matchMarkDelete(this)
+  //Simulator.matchMarkDelete(this)
 
   def getReactNodes: String = {
     if (reactNodes.size > 0) {

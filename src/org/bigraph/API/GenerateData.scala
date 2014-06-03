@@ -7,8 +7,9 @@ object GenerateData {
     /*        println("""#Airplane
 ap.boardingTime	Double	35	mins
 ap.flightNo	String	CZ3265	unit""") */
+    var index = 200;
 
-    for (i <- 1 to 1) {
+    for (i <- index + 1 to index + 1) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -27,7 +28,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 2 to 2) {
+    for (i <- index + 2 to index + 2) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -46,7 +47,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 3 to 20) {
+    for (i <- index + 3 to index + 20) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -65,7 +66,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 21 to 21) {
+    for (i <- index + 21 to index + 21) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -84,7 +85,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 22 to 53) {
+    for (i <- index + 22 to index + 53) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -103,7 +104,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 54 to 54) {
+    for (i <- index + 54 to index + 54) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -122,7 +123,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 55 to 60) {
+    for (i <- index + 55 to index + 60) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -141,7 +142,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 61 to 76) {
+    for (i <- index + 61 to index + 76) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -160,7 +161,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 77 to 77) {
+    for (i <- index + 77 to index + 77) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -179,7 +180,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 78 to 78) {
+    for (i <- index + 78 to index + 78) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -198,7 +199,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 79 to 79) {
+    for (i <- index + 79 to index + 79) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -217,7 +218,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 80 to 80) {
+    for (i <- index + 80 to index + 80) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -236,7 +237,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 81 to 81) {
+    for (i <- index + 81 to index + 81) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -255,7 +256,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 82 to 82) {
+    for (i <- index + 82 to index + 82) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -274,7 +275,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 83 to 83) {
+    for (i <- index + 83 to index + 83) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -293,7 +294,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 84 to 84) {
+    for (i <- index + 84 to index + 84) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -312,7 +313,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 85 to 85) {
+    for (i <- index + 85 to index + 85) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -331,7 +332,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 86 to 86) {
+    for (i <- index + 86 to index + 86) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -350,7 +351,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 87 to 90) {
+    for (i <- index + 87 to index + 90) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -369,7 +370,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 91 to 95) {
+    for (i <- index + 91 to index + 95) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10
@@ -388,7 +389,7 @@ p""" + i + """.updateBillboard	String	false	boolean
 """)
     }
 
-    for (i <- 96 to 100) {
+    for (i <- index + 96 to index + 100) {
       var light = scala.util.Random.nextInt(11)
       if (light > 10)
         light = 10

@@ -36,6 +36,11 @@ object Simulator {
   def matchGC: Unit = {
     matchDiscard.clear();
   }
+
+  def simulate {
+    var simFactory = new SimulatorFactory();
+    simFactory.simulate();
+  }
 }
 
 class SimulatorFactory {
@@ -69,7 +74,7 @@ class SimulatorFactory {
       dot += simulator.dot
     }
     simulator.dumpDotForward(dot)
-   var end = System.currentTimeMillis();
+    var end = System.currentTimeMillis();
     println("\n****************************************************************")
     println("  Total:\tmiddle:" + middle + ", end:" + end + ", used:" + (end - middle) + " ms");
     println("  Total:\tstart:" + start + ", end:" + end + ", used:" + (end - start) + " ms");

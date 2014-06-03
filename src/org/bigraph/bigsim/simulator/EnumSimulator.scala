@@ -51,7 +51,7 @@ class EnumSimulator(b: Bigraph) extends Simulator {
 
   def report(step: Int): String = {
     GlobalCfg.node = false
-    if (GlobalCfg.pathOutput != "")
+    if (GlobalCfg.outputPath)
       g.dumpPaths
     GlobalCfg.node = true
     g.dumpDotForward;

@@ -120,8 +120,7 @@ Usage: BigSim [options] <filename>
       parseOpts(args.toList)
     }
 
-    var simFactory = new SimulatorFactory();
-    simFactory.simulate();
+    Simulator.simulate
 
     var end = System.currentTimeMillis();
     // println("\n****************************************************************")

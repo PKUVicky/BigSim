@@ -206,7 +206,7 @@ object testBooleanExprParser {
     println(q + ", q.check: " + q.check());
     q = BooleanExprParser.parse("5 > 3 && 3 > 1 || 1 > 2 && 6 > 7 ");
     println(q + ", q.check: " + q.check());
-    q = BooleanExprParser.parse("5%3==0");
+    q = BooleanExprParser.parse("5%abs(3-7)==0");
     println(q + ", q.check: " + q.check());
 
   }

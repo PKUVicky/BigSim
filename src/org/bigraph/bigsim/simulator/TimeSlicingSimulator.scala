@@ -59,6 +59,7 @@ class TimeSlicingSimulator(b: Bigraph) extends Simulator {
     } else {
       // keep simulate until the end
       while (step()) {
+        Simulator.matchGC
       };
       report()
       TimeSlicingSimulator.matchGC;
